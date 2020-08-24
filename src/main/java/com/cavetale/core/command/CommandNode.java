@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -32,6 +33,7 @@ public final class CommandNode {
     private String permission;
     private String arguments; // compiling help
     private String description; // compiling help
+    @Getter private boolean hidden;
 
     /**
      * Constructor for a child node. Internal use only.
@@ -220,6 +222,11 @@ public final class CommandNode {
         return this;
     }
 
+    public CommandNode hidden(boolean hide) {
+        this.hidden = hide;
+        return this;
+    }
+
     /**
      * Call this node as if it was entered in the command line, maybe
      * with additional arguments which will be handled here.
@@ -326,6 +333,7 @@ public final class CommandNode {
     public List<String> completeChildren(CommandContext context, String arg) {
         if (children.isEmpty()) return null;
         return children.stream()
+            .filter(child -> !child.hidden)
             .filter(child -> child.hasPermission(context))
             .filter(child -> child.labelStartsWith(arg))
             .flatMap(CommandNode::getLabelStream)
@@ -342,6 +350,7 @@ public final class CommandNode {
      * compute the correct help string for this node.
      */
     private int sendHelpUtil(CommandContext context, int indent) {
+        if (hidden) return 0;
         if (!hasPermission(context)) return 0;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < indent; i += 1) sb.append(' ');
