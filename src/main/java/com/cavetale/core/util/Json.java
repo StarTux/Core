@@ -56,8 +56,10 @@ public final class Json {
     }
 
     public static <T> T deserialize(String json, Class<T> type, Supplier<T> dfl) {
+        if (json == null) return dfl.get();
         try {
-            return GSON.fromJson(json, type);
+            T t = GSON.fromJson(json, type);
+            return t != null ? t : dfl.get();
         } catch (Exception e) {
             System.err.println("Input: " + json);
             e.printStackTrace();
