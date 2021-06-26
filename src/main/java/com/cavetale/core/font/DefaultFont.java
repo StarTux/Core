@@ -70,6 +70,18 @@ public enum DefaultFont implements Font {
         this(filename, ascent, height, character, GlyphPolicy.PUBLIC);
     }
 
+    public static Component guiOverlay(DefaultFont glyph, TextColor color) {
+        return Component.text()
+            .font(Key.key("cavetale:default"))
+            .color(color)
+            .content("" + BACKSPACE_10.character + glyph.character + BACKSPACE_171.character)
+            .build();
+    }
+
+    public static Component guiOverlay(DefaultFont glyph) {
+        return guiOverlay(glyph, NamedTextColor.WHITE);
+    }
+
     public static Component guiBlankOverlay(int guiSize, TextColor color) {
         DefaultFont glyph;
         switch (guiSize) {
