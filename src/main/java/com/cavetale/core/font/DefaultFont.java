@@ -1,6 +1,10 @@
 package com.cavetale.core.font;
 
 import lombok.Getter;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 
 /**
  * GUI codes start at 0xE001.
@@ -13,7 +17,12 @@ public enum DefaultFont implements Font {
     BACKSPACE_171("mytems:item/space", -32768, -171, '\uE002', GlyphPolicy.HIDDEN), // Inv right edge to title
     BACKSPACE_3("mytems:item/space", -32768, -3, '\uE003', GlyphPolicy.HIDDEN),
     GUI_RAID_REWARD("mytems:item/gui_raid_reward", 130, 256, '\uE101', GlyphPolicy.HIDDEN),
-    GUI_DIALOGUE_9("mytems:item/gui_dialogue_9", 130, 256, '\uE011', GlyphPolicy.HIDDEN),
+    GUI_BLANK_9("mytems:item/gui_blank_9", 130, 256, '\uE011', GlyphPolicy.HIDDEN),
+    GUI_BLANK_18("mytems:item/gui_blank_18", 130, 256, '\uE012', GlyphPolicy.HIDDEN),
+    GUI_BLANK_27("mytems:item/gui_blank_27", 130, 256, '\uE013', GlyphPolicy.HIDDEN),
+    GUI_BLANK_36("mytems:item/gui_blank_36", 130, 256, '\uE014', GlyphPolicy.HIDDEN),
+    GUI_BLANK_45("mytems:item/gui_blank_45", 130, 256, '\uE015', GlyphPolicy.HIDDEN),
+    GUI_BLANK_54("mytems:item/gui_blank_54", 130, 256, '\uE016', GlyphPolicy.HIDDEN),
     @Deprecated EASTER_EGG("mytems:item/easter_egg", 8, 8, '\uE102'),
     @Deprecated EASTER_BUNNY("mytems:item/easter_token", 8, 8, '\uE103'),
     @Deprecated KITTY_COIN("mytems:item/kitty_coin", 8, 8, '\uE104'),
@@ -59,5 +68,27 @@ public enum DefaultFont implements Font {
 
     DefaultFont(final String filename, final int ascent, final int height, final char character) {
         this(filename, ascent, height, character, GlyphPolicy.PUBLIC);
+    }
+
+    public static Component guiBlankOverlay(int guiSize, TextColor color) {
+        DefaultFont glyph;
+        switch (guiSize) {
+        case 9: glyph = DefaultFont.GUI_BLANK_9; break;
+        case 18: glyph = DefaultFont.GUI_BLANK_18; break;
+        case 27: glyph = DefaultFont.GUI_BLANK_27; break;
+        case 36: glyph = DefaultFont.GUI_BLANK_36; break;
+        case 45: glyph = DefaultFont.GUI_BLANK_45; break;
+        case 54: glyph = DefaultFont.GUI_BLANK_54; break;
+        default: throw new IllegalArgumentException("guiSize=" + guiSize);
+        }
+        return Component.text()
+            .font(Key.key("cavetale:default"))
+            .color(color)
+            .content("" + BACKSPACE_10.character + glyph.character + BACKSPACE_171.character)
+            .build();
+    }
+
+    public static Component guiBlankOverlay(int guiSize) {
+        return guiBlankOverlay(guiSize, NamedTextColor.WHITE);
     }
 }
