@@ -9,19 +9,15 @@ import lombok.Getter;
  */
 @Getter
 public enum DefaultFont implements Font {
-    // Inv title to left edge
-    BACKSPACE_10("mytems:item/space", -32768, -10, (char) 0xE001, GlyphPolicy.HIDDEN),
-    // Inv right edge to title
-    BACKSPACE_171("mytems:item/space", -32768, -171, (char) 0xE002, GlyphPolicy.HIDDEN),
-    GUI_RAID_REWARD("mytems:item/raid_reward", 130, 256, '\uE101', GlyphPolicy.HIDDEN),
-    @Deprecated
-    EASTER_EGG("mytems:item/easter_egg", 8, 8, '\uE102'),
-    @Deprecated
-    EASTER_BUNNY("mytems:item/easter_token", 8, 8, '\uE103'),
-    @Deprecated
-    KITTY_COIN("mytems:item/kitty_coin", 8, 8, '\uE104'),
-    @Deprecated
-    EARTH("mytems:item/earth", 8, 8, '\uE105'),
+    BACKSPACE_10("mytems:item/space", -32768, -10, '\uE001', GlyphPolicy.HIDDEN), // Inv title to left edge
+    BACKSPACE_171("mytems:item/space", -32768, -171, '\uE002', GlyphPolicy.HIDDEN), // Inv right edge to title
+    BACKSPACE_3("mytems:item/space", -32768, -3, '\uE003', GlyphPolicy.HIDDEN),
+    GUI_RAID_REWARD("mytems:item/gui_raid_reward", 130, 256, '\uE101', GlyphPolicy.HIDDEN),
+    GUI_DIALOGUE_9("mytems:item/gui_dialogue_9", 130, 256, '\uE011', GlyphPolicy.HIDDEN),
+    @Deprecated EASTER_EGG("mytems:item/easter_egg", 8, 8, '\uE102'),
+    @Deprecated EASTER_BUNNY("mytems:item/easter_token", 8, 8, '\uE103'),
+    @Deprecated KITTY_COIN("mytems:item/kitty_coin", 8, 8, '\uE104'),
+    @Deprecated EARTH("mytems:item/earth", 8, 8, '\uE105'),
     // Flags
     BRITAIN("mytems:item/britain", 8, 8, '\uE106'),
     SPAIN("mytems:item/spain", 8, 8, '\uE107'),
