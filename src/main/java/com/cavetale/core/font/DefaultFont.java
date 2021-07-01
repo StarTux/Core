@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 
 /**
@@ -57,6 +58,7 @@ public enum DefaultFont implements Font {
     public final int height;
     public final char character;
     public final GlyphPolicy policy;
+    public final Component component;
 
     DefaultFont(final String filename, final int ascent, final int height, final char character, final GlyphPolicy policy) {
         this.filename = filename;
@@ -64,6 +66,10 @@ public enum DefaultFont implements Font {
         this.height = height;
         this.character = character;
         this.policy = policy;
+        this.component = Component.text(character)
+            .style(Style.style()
+                   .font(Key.key("cavetale:default"))
+                   .color(TextColor.color(0xFFFFFF)));
     }
 
     DefaultFont(final String filename, final int ascent, final int height, final char character) {
@@ -102,5 +108,13 @@ public enum DefaultFont implements Font {
 
     public static Component guiBlankOverlay(int guiSize) {
         return guiBlankOverlay(guiSize, NamedTextColor.WHITE);
+    }
+
+    public static DefaultFont of(String key) {
+        try {
+            return DefaultFont.valueOf(key.toUpperCase());
+        } catch (IllegalArgumentException iae) {
+            return null;
+        }
     }
 }

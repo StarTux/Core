@@ -3,6 +3,10 @@ package com.cavetale.core.font;
 import java.util.EnumMap;
 import java.util.Map;
 import lombok.Getter;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 
 /**
@@ -766,6 +770,7 @@ public enum VanillaItems implements Font {
     public final int ascent;
     public final int height;
     public final char character;
+    public final Component component;
     private static final Map<Material, VanillaItems> MATERIAL_MAP = new EnumMap<>(Material.class);
 
     VanillaItems(final Material material, final String filename, final int ascent, final int height, final char character) {
@@ -774,6 +779,10 @@ public enum VanillaItems implements Font {
         this.ascent = ascent;
         this.height = height;
         this.character = character;
+        this.component = Component.text(character)
+            .style(Style.style()
+                   .font(Key.key("cavetale:default"))
+                   .color(TextColor.color(0xFFFFFF)));
     }
 
     static {
@@ -788,5 +797,13 @@ public enum VanillaItems implements Font {
 
     public static VanillaItems of(Material material) {
         return MATERIAL_MAP.get(material);
+    }
+
+    public static VanillaItems of(String key) {
+        try {
+            return VanillaItems.valueOf(key.toUpperCase());
+        } catch (IllegalArgumentException iae) {
+            return null;
+        }
     }
 }
