@@ -806,4 +806,9 @@ public enum VanillaItems implements Font {
             return null;
         }
     }
+
+    public static Component componentOf(Material material) {
+        VanillaItems glyph = VanillaItems.of(material);
+        return glyph != null ? glyph.component : Component.empty();
+    }
 }
