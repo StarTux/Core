@@ -47,11 +47,12 @@ public enum DefaultFont implements Font {
     SWITZERLAND("mytems:item/switzerland", 8, 8, '\uE116'),
     PRIDE_FLAG("mytems:item/pride_flag", 7, 8, '\uE119'),
     TRANS_PRIDE_FLAG("mytems:item/trans_pride_flag", 7, 8, '\uE11A'),
+    ENGLAND("mytems:item/england", 8, 8, '\uE11B'),
     // Ranks
     ADMIN("mytems:item/admin", 7, 8, '\uE10A'),
     MODERATOR("mytems:item/moderator", 7, 8, '\uE117'),
     TRUSTED("mytems:item/trusted", 7, 8, '\uE118');
-    // Next title unicode character: 0xE11B
+    // Next title unicode character: 0xE11C
 
     public final String filename;
     public final int ascent;
