@@ -33,7 +33,17 @@ public final class Emoji {
     private static TextReplacementConfig.Builder textReplacementConfigBuilder;
     public final String name;
     public final Component component;
+    public final Component tooltip;
     public final GlyphPolicy glyphPolicy;
+    public final Component componentWithTooltip;
+
+    private Emoji(final String name, final Component component, final Component tooltip, final GlyphPolicy glyphPolicy) {
+        this.name = name;
+        this.component = component;
+        this.tooltip = tooltip;
+        this.glyphPolicy = glyphPolicy;
+        this.componentWithTooltip = component.hoverEvent(HoverEvent.showText(tooltip));
+    }
 
     public static void init() {
         textReplacementConfigBuilder = TextReplacementConfig.builder().match("\\B:[0-9a-z_]+:\\B");
@@ -43,9 +53,9 @@ public final class Emoji {
                 .content(defaultFont.character + "")
                 .color(NamedTextColor.WHITE)
                 .font(Key.key("cavetale:default"))
-                .hoverEvent(HoverEvent.showText(Component.text(camelCase(defaultFont.name()), NamedTextColor.WHITE)))
                 .build();
-            addEmoji(name, component, defaultFont.policy);
+            Component tooltip = Component.text(camelCase(defaultFont.name()), NamedTextColor.WHITE);
+            addEmoji(name, component, tooltip, defaultFont.policy);
         }
         for (VanillaItems vanillaItems : VanillaItems.values()) {
             String itemName = vanillaItems.material.isItem()
@@ -56,30 +66,40 @@ public final class Emoji {
                 .content(vanillaItems.character + "")
                 .color(NamedTextColor.WHITE)
                 .font(Key.key("cavetale:default"))
-                .hoverEvent(HoverEvent.showText(Component.text(itemName, NamedTextColor.WHITE)))
                 .build();
-            addEmoji(name, component, vanillaItems.getPolicy());
+            Component tooltip = Component.text(itemName, NamedTextColor.WHITE);
+            addEmoji(name, component, tooltip, vanillaItems.getPolicy());
         }
     }
 
-    public static void addEmoji(String name, Component component, GlyphPolicy policy) {
+    public static void addEmoji(String name, Component component, Component tooltip, GlyphPolicy policy) {
         if (EMOJI_MAP.containsKey(Objects.requireNonNull(name, "name=null"))) {
             CorePlugin.getInstance().getLogger().warning("Emoji: Duplicate " + name);
         }
         EMOJI_MAP.put(name, new Emoji(name,
                                       Objects.requireNonNull(component, "component=null"),
+                                      Objects.requireNonNull(tooltip, "tooltip=null"),
                                       Objects.requireNonNull(policy, "policy=null")));
     }
 
-    public static Component replaceText(Component in, GlyphPolicy glyphPolicy) {
+    public static void addEmoji(String name, Component component, GlyphPolicy policy) {
+        addEmoji(name, component, Component.empty(), policy);
+    }
+
+    public static Component replaceText(Component in, GlyphPolicy glyphPolicy, boolean withTooltip) {
         TextReplacementConfig textReplacementConfig = textReplacementConfigBuilder
-            .replacement((MatchResult matchResult, TextComponent.Builder unused) -> Emoji.replacer(matchResult, glyphPolicy))
+            .replacement((MatchResult matchResult, TextComponent.Builder unused) ->
+                         Emoji.replacer(matchResult, glyphPolicy, withTooltip))
             .build();
         return in.replaceText(textReplacementConfig);
     }
 
+    public static Component replaceText(Component in, GlyphPolicy glyphPolicy) {
+        return replaceText(in, glyphPolicy, false);
+    }
+
     public static Component replaceText(Component in) {
-        return replaceText(in, GlyphPolicy.PUBLIC);
+        return replaceText(in, GlyphPolicy.PUBLIC, false);
     }
 
     public static List<String> tabComplete(String arg, GlyphPolicy glyphPolicy) {
@@ -112,12 +132,14 @@ public final class Emoji {
     /**
      * Emoji replacer. Used to create the textReplacementConfig in replaceText().
      */
-    private static ComponentLike replacer(MatchResult matchResult, GlyphPolicy glyphPolicy) {
+    private static ComponentLike replacer(MatchResult matchResult, GlyphPolicy glyphPolicy, boolean withTooltip) {
         String group = matchResult.group();
         String key = group.substring(1, group.length() - 1);
         Emoji emoji = EMOJI_MAP.get(key);
         return emoji != null && glyphPolicy.entails(emoji.glyphPolicy)
-            ? emoji.component
+            ? (withTooltip
+               ? emoji.componentWithTooltip
+               : emoji.component)
             : Component.text(group);
     }
 
