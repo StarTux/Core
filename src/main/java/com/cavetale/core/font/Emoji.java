@@ -46,7 +46,7 @@ public final class Emoji {
     }
 
     public static void init() {
-        textReplacementConfigBuilder = TextReplacementConfig.builder().match("\\B:[0-9a-z_]+:\\B");
+        textReplacementConfigBuilder = TextReplacementConfig.builder().match(":[0-9a-z_]+:");
         for (DefaultFont defaultFont : DefaultFont.values()) {
             String name = defaultFont.name().toLowerCase();
             Component component = Component.text()
@@ -100,6 +100,47 @@ public final class Emoji {
 
     public static Component replaceText(Component in) {
         return replaceText(in, GlyphPolicy.PUBLIC, false);
+    }
+
+    /**
+     * Replace emoji in a text string. Return null if none were found.
+     * An advantage of this method is that it doesn't use potentially
+     * slow regex pattern matching. Also, invalid emoji keys inside
+     * colons are left untouched.
+     * @return The component if at least one emoji was replaced, null
+     * otherwise.
+     */
+    public static Component maybeReplaceText(String in, GlyphPolicy glyphPolicy, boolean withTooltip) {
+        if (!in.contains(":")) return null;
+        List<Component> list = new ArrayList<>();
+        String head = "";
+        String tail = in;
+        do {
+            int index = tail.indexOf(":");
+            if (index < 0) break;
+            String tail2 = tail.substring(index + 1);
+            int index2 = tail2.indexOf(":");
+            if (index2 < 0) break;
+            String key = tail2.substring(0, index2);
+            Emoji emoji = EMOJI_MAP.get(key);
+            if (emoji == null || !glyphPolicy.entails(emoji.glyphPolicy)) {
+                head = head + ":" + key;
+                tail = tail2.substring(index2);
+                continue;
+            }
+            head = head + tail.substring(0, index);
+            if (!head.isEmpty()) {
+                list.add(Component.text(head));
+                head = "";
+            }
+            list.add(withTooltip ? emoji.componentWithTooltip : emoji.component);
+            tail = tail2.substring(index2 + 1);
+        } while (!tail.isEmpty());
+        if (list.isEmpty()) return null;
+        if (!head.isEmpty() || !tail.isEmpty()) {
+            list.add(Component.text(head + tail));
+        }
+        return Component.text().append(list).build();
     }
 
     public static List<String> tabComplete(String arg, GlyphPolicy glyphPolicy) {
