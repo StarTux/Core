@@ -2,6 +2,7 @@ package com.cavetale.core.event.block;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -34,5 +35,17 @@ public final class PlayerBreakBlockEvent extends BlockEvent implements Cancellab
     public PlayerBreakBlockEvent(final Player player, final Block block) {
         super(block);
         this.player = player;
+    }
+
+    /**
+     * Create and call the event.
+     * @param player the player
+     * @param block the block
+     * @return false if the event was cancelled, true otherwise.
+     */
+    public static boolean call(Player player, Block block) {
+        PlayerBreakBlockEvent event = new PlayerBreakBlockEvent(player, block);
+        Bukkit.getPluginManager().callEvent(event);
+        return !event.isCancelled();
     }
 }
