@@ -789,6 +789,77 @@ public enum VanillaItems implements Font {
         for (VanillaItems it : VanillaItems.values()) {
             MATERIAL_MAP.put(it.material, it);
         }
+        for (Material material : Material.values()) {
+            if (MATERIAL_MAP.containsKey(material)) continue;
+            String name = material.name();
+            if (name.startsWith("WAXED_")) {
+                name = name.substring(6); // modifying!
+                try {
+                    VanillaItems it = VanillaItems.valueOf(name);
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+            } else if (name.startsWith("PETRIFIED_")) {
+                name = name.substring(10); // modifying!
+                try {
+                    VanillaItems it = VanillaItems.valueOf(name);
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+            }
+            if (name.endsWith("_STAIRS")) {
+                String sub = name.substring(0, name.length() - 7);
+                try {
+                    VanillaItems it = VanillaItems.valueOf(sub);
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+            }
+            if (name.endsWith("_SLAB")) {
+                String sub = name.substring(0, name.length() - 5);
+                try {
+                    VanillaItems it = VanillaItems.valueOf(sub);
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+                try { // OAK_SLAB => OAK_PLANKS
+                    VanillaItems it = VanillaItems.valueOf(sub + "_PLANKS");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+                try { // PURPUR_SLAB => PURPUR_BLOCK
+                    VanillaItems it = VanillaItems.valueOf(sub + "_BLOCK");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+                try { // STONE_BRICK_SLAB => STONE_BRICKS
+                    VanillaItems it = VanillaItems.valueOf(sub + "S");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+            }
+            if (name.endsWith("_WOOD")) {
+                String sub = name.substring(0, name.length() - 5);
+                try {
+                    VanillaItems it = VanillaItems.valueOf(sub + "_LOG");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+            }
+            if (name.endsWith("_CARPET")) {
+                String sub = name.substring(0, name.length() - 7);
+                try { // MOSS_CARPET => MOSS_BLOCk
+                    VanillaItems it = VanillaItems.valueOf(sub + "_BLOCK");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+                try { // BLUE_CARPET => BLUE_WOOL
+                    VanillaItems it = VanillaItems.valueOf(sub + "_WOOL");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
+            }
+        }
     }
 
     public GlyphPolicy getPolicy() {
@@ -810,5 +881,16 @@ public enum VanillaItems implements Font {
     public static Component componentOf(Material material) {
         VanillaItems glyph = VanillaItems.of(material);
         return glyph != null ? glyph.component : Component.empty();
+    }
+
+
+    public static void main(String[] args) {
+        for (Material material : Material.values()) {
+            if (!material.isItem()) continue;
+            VanillaItems vanillaItems = VanillaItems.of(material);
+            if (vanillaItems == null) {
+                System.out.println(material);
+            }
+        }
     }
 }

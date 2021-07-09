@@ -12,6 +12,7 @@ import lombok.Value;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
+import net.kyori.adventure.text.PatternReplacementResult;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -46,7 +47,9 @@ public final class Emoji {
     }
 
     public static void init() {
-        textReplacementConfigBuilder = TextReplacementConfig.builder().match(":[0-9a-z_]+:");
+        textReplacementConfigBuilder = TextReplacementConfig.builder()
+            .match(":[0-9a-z_]+:")
+            .condition(Emoji::shouldReplace);
         for (DefaultFont defaultFont : DefaultFont.values()) {
             String name = defaultFont.name().toLowerCase();
             Component component = Component.text()
@@ -103,15 +106,13 @@ public final class Emoji {
     }
 
     /**
-     * Replace emoji in a text string. Return null if none were found.
-     * An advantage of this method is that it doesn't use potentially
-     * slow regex pattern matching. Also, invalid emoji keys inside
-     * colons are left untouched.
-     * @return The component if at least one emoji was replaced, null
-     * otherwise.
+     * Replace emoji in a text string.
+     * This method has the advantage is that it doesn't use
+     * potentially slow regex pattern matching.
+     * @return The component. Never null.
      */
-    public static Component maybeReplaceText(String in, GlyphPolicy glyphPolicy, boolean withTooltip) {
-        if (!in.contains(":")) return null;
+    public static ComponentLike replaceText(String in, GlyphPolicy glyphPolicy, boolean withTooltip) {
+        if (!in.contains(":")) return Component.text(in);
         List<Component> list = new ArrayList<>();
         String head = "";
         String tail = in;
@@ -136,11 +137,11 @@ public final class Emoji {
             list.add(withTooltip ? emoji.componentWithTooltip : emoji.component);
             tail = tail2.substring(index2 + 1);
         } while (!tail.isEmpty());
-        if (list.isEmpty()) return null;
+        if (list.isEmpty()) return Component.text(in);
         if (!head.isEmpty() || !tail.isEmpty()) {
             list.add(Component.text(head + tail));
         }
-        return Component.text().append(list).build();
+        return Component.text().append(list);
     }
 
     public static List<String> tabComplete(String arg, GlyphPolicy glyphPolicy) {
@@ -168,6 +169,17 @@ public final class Emoji {
 
     public static List<String> tabComplete(String arg) {
         return tabComplete(arg, GlyphPolicy.PUBLIC);
+    }
+
+    /**
+     * Implements TextReplacementConfig.Condition.
+     */
+    private static PatternReplacementResult shouldReplace(MatchResult matchResult, int matchCount, int replaced) {
+        String group = matchResult.group();
+        String key = group.substring(1, group.length() - 1);
+        return EMOJI_MAP.containsKey(key)
+            ? PatternReplacementResult.REPLACE
+            : PatternReplacementResult.CONTINUE; // skip
     }
 
     /**
