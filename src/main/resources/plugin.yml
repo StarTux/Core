@@ -10,3 +10,15 @@ website: https://github.com/StarTux/Core
 
 depend: []
 softdepend: []
+
+commands:
+  core:
+    description: Core command
+    permission: core.admin
+    usage: /core
+
+permissions:
+
+  core.admin:
+    description: Use /core
+    default: op

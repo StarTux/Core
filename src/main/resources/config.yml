@@ -1,0 +1,2 @@
+# Deny building to non-op
+DenyBuilding: false

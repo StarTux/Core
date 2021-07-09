@@ -16,6 +16,8 @@ import org.bukkit.event.block.BlockEvent;
 public final class PlayerCanBuildEvent extends BlockEvent implements Cancellable {
     private final Player player;
     @Setter private boolean cancelled;
+    @Setter private static boolean denyBuilding = false;
+
     /**
      * Required by Event.
      */
@@ -31,6 +33,7 @@ public final class PlayerCanBuildEvent extends BlockEvent implements Cancellable
     public PlayerCanBuildEvent(final Player player, final Block block) {
         super(block);
         this.player = player;
+        if (denyBuilding && !player.isOp()) cancelled = true;
     }
 
     /**
@@ -40,6 +43,7 @@ public final class PlayerCanBuildEvent extends BlockEvent implements Cancellable
      * @return false if the event was cancelled, true otherwise.
      */
     public static boolean call(Player player, Block block) {
+        if (denyBuilding && !player.isOp()) return false;
         PlayerCanBuildEvent event = new PlayerCanBuildEvent(player, block);
         Bukkit.getPluginManager().callEvent(event);
         return !event.isCancelled();
