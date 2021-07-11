@@ -779,10 +779,25 @@ public enum VanillaItems implements Font {
         this.ascent = ascent;
         this.height = height;
         this.character = character;
+        final TextColor color;
+        switch (material) {
+        case GRASS:
+        case OAK_LEAVES:
+        case SPRUCE_LEAVES:
+        case BIRCH_LEAVES:
+        case ACACIA_LEAVES:
+        case DARK_OAK_LEAVES:
+        case JUNGLE_LEAVES:
+            color = TextColor.color(0x00FF00);
+            break;
+        default:
+            color = TextColor.color(0xFFFFFF);
+            break;
+        }
         this.component = Component.text(character)
             .style(Style.style()
                    .font(Key.key("cavetale:default"))
-                   .color(TextColor.color(0xFFFFFF)));
+                   .color(color));
     }
 
     static {
