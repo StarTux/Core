@@ -114,6 +114,29 @@ public final class CommandNode {
         return this;
     }
 
+    public CommandNode completers(final CommandArgCompleter... newCompleters) {
+        if (newCompleters.length == 0) {
+            this.completer = CommandCompleter.EMPTY;
+            return this;
+        }
+        final boolean doRepeat = newCompleters[newCompleters.length - 1] == CommandArgCompleter.REPEAT;
+        final CommandArgCompleter[] array = doRepeat
+            ? Arrays.copyOfRange(newCompleters, 0, newCompleters.length - 1)
+            : newCompleters;
+        if (array.length == 0) throw new IllegalArgumentException("completers=[REPEAT]");
+        this.completer = (context, node, args) -> {
+            int argc = args.length;
+            if (argc < 1) return null;
+            if (argc > array.length) {
+                return doRepeat
+                    ? array[array.length - 1].complete(context, node, args[argc - 1])
+                    : Collections.emptyList();
+            }
+            return array[argc - 1].complete(context, node, args[argc - 1]);
+        };
+        return this;
+    }
+
     /**
      * Supply a list of possible completions. It will be filtered to
      * match the input.
@@ -151,7 +174,7 @@ public final class CommandNode {
      * Completions generated from child nodes will still take place.
      */
     public CommandNode denyTabCompletion() {
-        completer = (ctx, nod, args) -> Collections.emptyList();
+        completer = CommandCompleter.EMPTY;
         return this;
     }
 

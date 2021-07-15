@@ -1,5 +1,6 @@
 package com.cavetale.core.command;
 
+import java.util.Collections;
 import java.util.List;
 
 public interface CommandCompleter {
@@ -10,4 +11,18 @@ public interface CommandCompleter {
      * @param args the remaining command line arguments
      */
     List<String> complete(CommandContext context, CommandNode node, String[] args);
+
+    CommandCompleter NULL = new CommandCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String[] args) {
+                return null;
+            }
+        };
+
+    CommandCompleter EMPTY = new CommandCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String[] args) {
+                return Collections.emptyList();
+            }
+        };
 }
