@@ -43,7 +43,9 @@ public enum Unicode {
     ARROW_UP_LEFT('\u2196'),
     ARROW_UP_RIGHT('\u2197'),
     ARROW_DOWN_RIGHT('\u2198'),
-    ARROW_DOWN_LEFT('\u2199');
+    ARROW_DOWN_LEFT('\u2199'),
+    MALE('\u2642'),
+    FEMALE('\u2640');
 
     public final String key;
     public final char character;
