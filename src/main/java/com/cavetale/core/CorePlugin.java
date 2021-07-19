@@ -4,6 +4,7 @@ import com.cavetale.core.command.CommandNode;
 import com.cavetale.core.event.block.PlayerBreakBlockEvent;
 import com.cavetale.core.event.block.PlayerCanBuildEvent;
 import com.cavetale.core.font.Emoji;
+import com.cavetale.core.font.Unicode;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -32,6 +33,18 @@ public final class CorePlugin extends JavaPlugin {
             .denyTabCompletion()
             .description("Reload the config file")
             .senderCaller(this::reloadCommand);
+        coreCommand.addChild("unicode")
+            .denyTabCompletion()
+            .description("Unicode test")
+            .senderCaller((sender, a) -> {
+                    if (a.length != 0) return false;
+                    StringBuilder sb = new StringBuilder();
+                    for (Unicode unicode : Unicode.values()) {
+                        sb.append(unicode.character);
+                    }
+                    sender.sendMessage(sb.toString());
+                    return true;
+                });
     }
 
     @Override

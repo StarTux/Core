@@ -34,16 +34,16 @@ public final class Emoji {
     private static TextReplacementConfig.Builder textReplacementConfigBuilder;
     public final String name;
     public final Component component;
-    public final Component tooltip;
     public final GlyphPolicy glyphPolicy;
     public final Component componentWithTooltip;
 
     private Emoji(final String name, final Component component, final Component tooltip, final GlyphPolicy glyphPolicy) {
         this.name = name;
         this.component = component;
-        this.tooltip = tooltip;
         this.glyphPolicy = glyphPolicy;
-        this.componentWithTooltip = component.hoverEvent(HoverEvent.showText(tooltip));
+        this.componentWithTooltip = tooltip != null
+            ? component.hoverEvent(HoverEvent.showText(tooltip))
+            : component;
     }
 
     public static void init() {
@@ -73,6 +73,9 @@ public final class Emoji {
             Component tooltip = Component.text(itemName, NamedTextColor.WHITE);
             addEmoji(name, component, tooltip, vanillaItems.getPolicy());
         }
+        for (Unicode unicode : Unicode.values()) {
+            addEmoji("u" + unicode.key, Component.text(unicode.character), (Component) null, GlyphPolicy.PUBLIC);
+        }
     }
 
     public static void addEmoji(String name, Component component, Component tooltip, GlyphPolicy policy) {
@@ -81,7 +84,7 @@ public final class Emoji {
         }
         EMOJI_MAP.put(name, new Emoji(name,
                                       Objects.requireNonNull(component, "component=null"),
-                                      Objects.requireNonNull(tooltip, "tooltip=null"),
+                                      tooltip,
                                       Objects.requireNonNull(policy, "policy=null")));
     }
 
