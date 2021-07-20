@@ -36,14 +36,16 @@ public final class Emoji {
     public final Component component;
     public final GlyphPolicy glyphPolicy;
     public final Component componentWithTooltip;
+    public final Enum enume;
 
-    private Emoji(final String name, final Component component, final Component tooltip, final GlyphPolicy glyphPolicy) {
+    private Emoji(final String name, final Component component, final Component tooltip, final GlyphPolicy glyphPolicy, final Enum enume) {
         this.name = name;
         this.component = component;
         this.glyphPolicy = glyphPolicy;
-        this.componentWithTooltip = tooltip != null
+        this.componentWithTooltip = Objects.equals(tooltip, Component.empty())
             ? component.hoverEvent(HoverEvent.showText(tooltip))
             : component;
+        this.enume = enume;
     }
 
     public static void init() {
@@ -58,7 +60,7 @@ public final class Emoji {
                 .font(Key.key("cavetale:default"))
                 .build();
             Component tooltip = Component.text(camelCase(defaultFont.name()), NamedTextColor.WHITE);
-            addEmoji(name, component, tooltip, defaultFont.policy);
+            addEmoji(name, component, tooltip, defaultFont.policy, defaultFont);
         }
         for (VanillaItems vanillaItems : VanillaItems.values()) {
             String itemName = vanillaItems.material.isItem()
@@ -71,25 +73,26 @@ public final class Emoji {
                 .font(Key.key("cavetale:default"))
                 .build();
             Component tooltip = Component.text(itemName, NamedTextColor.WHITE);
-            addEmoji(name, component, tooltip, vanillaItems.getPolicy());
+            addEmoji(name, component, tooltip, vanillaItems.getPolicy(), vanillaItems);
         }
         for (Unicode unicode : Unicode.values()) {
-            addEmoji("u" + unicode.key, Component.text(unicode.character), (Component) null, GlyphPolicy.PUBLIC);
+            addEmoji("u" + unicode.key, Component.text(unicode.character), GlyphPolicy.PUBLIC, unicode);
         }
     }
 
-    public static void addEmoji(String name, Component component, Component tooltip, GlyphPolicy policy) {
+    public static void addEmoji(String name, Component component, Component tooltip, GlyphPolicy policy, Enum enume) {
         if (EMOJI_MAP.containsKey(Objects.requireNonNull(name, "name=null"))) {
             CorePlugin.getInstance().getLogger().warning("Emoji: Duplicate " + name);
         }
         EMOJI_MAP.put(name, new Emoji(name,
                                       Objects.requireNonNull(component, "component=null"),
-                                      tooltip,
-                                      Objects.requireNonNull(policy, "policy=null")));
+                                      Objects.requireNonNull(tooltip, "tooltip=null"),
+                                      Objects.requireNonNull(policy, "policy=null"),
+                                      enume));
     }
 
-    public static void addEmoji(String name, Component component, GlyphPolicy policy) {
-        addEmoji(name, component, Component.empty(), policy);
+    public static void addEmoji(String name, Component component, GlyphPolicy policy, Enum enume) {
+        addEmoji(name, component, Component.empty(), policy, enume);
     }
 
     public static Component replaceText(Component in, GlyphPolicy glyphPolicy, boolean withTooltip) {
@@ -228,5 +231,17 @@ public final class Emoji {
 
     public static int count() {
         return EMOJI_MAP.size();
+    }
+
+    public boolean isUnicode() {
+        return enume instanceof Unicode;
+    }
+
+    public boolean isVanillaItems() {
+        return enume instanceof VanillaItems;
+    }
+
+    public boolean isDefaultFont() {
+        return enume instanceof DefaultFont;
     }
 }
