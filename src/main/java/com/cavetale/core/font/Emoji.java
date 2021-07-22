@@ -1,6 +1,9 @@
 package com.cavetale.core.font;
 
 import com.cavetale.core.CorePlugin;
+import com.cavetale.core.command.CommandArgCompleter;
+import com.cavetale.core.command.CommandContext;
+import com.cavetale.core.command.CommandNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +40,20 @@ public final class Emoji {
     public final GlyphPolicy glyphPolicy;
     public final Component componentWithTooltip;
     public final Enum enume;
+
+    public static final CommandArgCompleter PUBLIC_COMPLETER = new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                return tabComplete(arg, GlyphPolicy.PUBLIC);
+            }
+        };
+
+    public static final CommandArgCompleter HIDDEN_COMPLETER = new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                return tabComplete(arg, GlyphPolicy.HIDDEN);
+            }
+        };
 
     private Emoji(final String name, final Component component, final Component tooltip, final GlyphPolicy glyphPolicy, final Enum enume) {
         this.name = name;
