@@ -24,7 +24,7 @@ public enum Unicode {
     PEACE('\u262E'),
     QUARTER_NOTE('\u2669'),
     EIGHTH_NOTE('\u266A'),
-    SUN('\u2660'),
+    SUN('\u2600'),
     PILCROW('\u00B6'),
     REVERSE_PILCROW('\u204B'),
     EURO('\u20AC'),
@@ -45,7 +45,8 @@ public enum Unicode {
     ARROW_DOWN_RIGHT('\u2198'),
     ARROW_DOWN_LEFT('\u2199'),
     MALE('\u2642'),
-    FEMALE('\u2640');
+    FEMALE('\u2640'),
+    PI('\u03C0');
 
     public final String key;
     public final char character;
