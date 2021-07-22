@@ -1,5 +1,6 @@
 package com.cavetale.core.command;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -44,6 +45,10 @@ public final class CommandContext {
     }
 
     public void message(String msg) {
+        sender.sendMessage(msg);
+    }
+
+    public void message(Component msg) {
         sender.sendMessage(msg);
     }
 

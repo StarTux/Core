@@ -9,11 +9,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -32,7 +32,7 @@ public final class CommandNode {
     private CommandHelp help;
     private String permission;
     private String arguments; // compiling help
-    private String description; // compiling help
+    private Component description; // compiling help
     @Getter private boolean hidden;
 
     /**
@@ -192,19 +192,11 @@ public final class CommandNode {
      * Supply the exact help as a list.
      * Permission checks and subcommand help is automated.
      */
-    public CommandNode helpList(List<String> newHelp) {
+    public CommandNode helpList(List<Component> newHelp) {
         this.help = (ctx, nod) -> {
             return newHelp;
         };
         return this;
-    }
-
-    /**
-     * Same as helpList() but with a varchar.
-     */
-    public CommandNode helpLines(String... lines) {
-        if (lines.length == 0) throw new IllegalArgumentException("Lines cannot bot empty");
-        return helpList(Arrays.asList(lines));
     }
 
     /**
@@ -213,6 +205,16 @@ public final class CommandNode {
      * helpLine() will render this obsolete.
      */
     public CommandNode description(String desc) {
+        this.description = Component.text(desc, NamedTextColor.WHITE);
+        return this;
+    }
+
+    /**
+     * Supply the description for this command which will be printed
+     * as part of the help. Calling helper(), helpList(), or
+     * helpLine() will render this obsolete.
+     */
+    public CommandNode description(Component desc) {
         this.description = desc;
         return this;
     }
@@ -274,7 +276,7 @@ public final class CommandNode {
             try {
                 res = call.call(context, this, args);
             } catch (CommandWarn warn) {
-                context.sender.sendMessage(ChatColor.RED + warn.getMessage());
+                context.sender.sendMessage(Component.text(warn.getMessage(), NamedTextColor.RED));
                 return true;
             }
             if (!res) res = sendHelp(context);
@@ -371,32 +373,27 @@ public final class CommandNode {
         for (int i = 0; i < indent; i += 1) sb.append(' ');
         String prefix = sb.toString();
         int count = 0;
-        String autoLine = getColorizedCommandLine()
-            + (arguments != null
-               ? " " + ChatColor.GRAY + ChatColor.ITALIC + arguments
-               : "")
-            + (description != null
-               ? ChatColor.DARK_GRAY + " - " + ChatColor.WHITE + description
-               : "");
-        List<String> lines;
+        List<Component> lines;
         if (help == null) {
-            lines = Arrays.asList(autoLine);
+            Component commandLine = getColorizedCommandLine().asComponent();
+            TextComponent.Builder line = Component.text()
+                .append(commandLine);
+            if (arguments != null) {
+                line.append(Component.space());
+                line.append(Component.text(arguments, NamedTextColor.GRAY));
+            }
+            if (description != null) {
+                line.append(Component.text(" - ", NamedTextColor.DARK_GRAY));
+                line.append(description);
+            }
+            line.clickEvent(ClickEvent.suggestCommand(getCommandLine()));
+            line.hoverEvent(HoverEvent.showText(commandLine));
+            lines = Arrays.asList(line.build());
         } else {
             lines = help.help(context, this);
         }
-        for (String line : lines) {
-            if (context.isPlayer()) {
-                ComponentBuilder cb = new ComponentBuilder()
-                    .append(prefix + line)
-                    .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, getCommandLine()))
-                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(line)));
-                context.player.sendMessage(cb.create());
-            } else {
-                context.sender.sendMessage(prefix + line);
-            }
-            count += 1;
-        }
-        return count;
+        context.message(Component.join(Component.newline(), lines));
+        return lines.size();
     }
 
     /**
@@ -459,8 +456,11 @@ public final class CommandNode {
         return parent.getCommandLine() + " " + key;
     }
 
-    public String getColorizedCommandLine() {
-        if (parent == null) return ChatColor.YELLOW + "/" + key;
-        return parent.getColorizedCommandLine() + ChatColor.GOLD + " " + key;
+    public TextComponent.Builder getColorizedCommandLine() {
+            return parent == null
+                ? Component.text().append(Component.text("/" + key, NamedTextColor.YELLOW))
+                : (parent.getColorizedCommandLine()
+                   .append(Component.space())
+                   .append(Component.text(key, NamedTextColor.GOLD)));
     }
 }
