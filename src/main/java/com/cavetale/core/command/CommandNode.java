@@ -298,13 +298,10 @@ public final class CommandNode {
         if (child != null && child.hasPermission(context)) {
             return child.complete(context, Arrays.copyOfRange(args, 1, args.length));
         }
-        List<String> listChildren = args.length == 1 ? completeChildren(context, args[0]) : Collections.emptyList();
-        List<String> listCustom = completeCustom(context, args);
-        if (listChildren == null && listCustom == null) return null;
-        List<String> list = new ArrayList<>();
-        if (listChildren != null) list.addAll(listChildren);
-        if (listCustom != null) list.addAll(listCustom);
-        return list;
+        if (completer != null) {
+            return completer.complete(context, this, args);
+        }
+        return args.length == 1 ? completeChildren(context, args[0]) : Collections.emptyList();
     }
 
     public List<String> complete(CommandSender sender, Command command, String label, String[] args) {
@@ -361,11 +358,6 @@ public final class CommandNode {
             .filter(child -> child.labelStartsWith(arg))
             .flatMap(CommandNode::getLabelStream)
             .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public List<String> completeCustom(CommandContext context, String[] args) {
-        if (completer == null) return null;
-        return completer.complete(context, this, args);
     }
 
     /**
