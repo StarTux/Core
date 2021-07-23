@@ -24,10 +24,6 @@ public enum DefaultFont implements Font {
     GUI_BLANK_36("mytems:item/gui_blank_36", 130, 256, '\uE014', GlyphPolicy.HIDDEN),
     GUI_BLANK_45("mytems:item/gui_blank_45", 130, 256, '\uE015', GlyphPolicy.HIDDEN),
     GUI_BLANK_54("mytems:item/gui_blank_54", 130, 256, '\uE016', GlyphPolicy.HIDDEN),
-    @Deprecated EASTER_EGG("mytems:item/easter_egg", 8, 8, '\uE102'),
-    @Deprecated EASTER_BUNNY("mytems:item/easter_token", 8, 8, '\uE103'),
-    @Deprecated KITTY_COIN("mytems:item/kitty_coin", 8, 8, '\uE104'),
-    @Deprecated EARTH("mytems:item/earth", 8, 8, '\uE105'),
     // Flags
     BRITAIN("mytems:item/britain", 8, 8, '\uE106'),
     SPAIN("mytems:item/spain", 8, 8, '\uE107'),
