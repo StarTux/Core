@@ -101,6 +101,8 @@ public enum Unicode {
     WHITE_CLUB_SUIT('\u2667'), // ♧
     QUARTER_NOTE('\u2669'), // ♩
     EIGHTH_NOTE('\u266A'), // ♪
+    BEAMED_EIGHTH_NOTES('\u266B'), // ♫
+    BEAMED_SIXTEENTH_NOTES('\u266C'), // ♬
     DICE_1('\u2680'), // ⚀
     DICE_2('\u2681'), // ⚁
     DICE_3('\u2682'), // ⚂
@@ -121,6 +123,10 @@ public enum Unicode {
     LATIN_CROSS('\u271D'), // ✝
     SHADOWED_LATIN_CROSS('\u271E'), // ✞
     OUTLINED_LATIN_CROSS('\u271F'), // ✟
+    BLACK_WHITE_FLORETTE('\u273E'), // ✾
+    BLACK_FLORETTE('\u273F'), // ✿
+    WHITE_FLORETTE('\u2740'), // ❀
+    OUTLINED_FLORETTE('\u2741'), // ❁
     HEART('\u2764'); // ❤
 
     public final String key;
