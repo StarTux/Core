@@ -45,6 +45,14 @@ public final class CorePlugin extends JavaPlugin {
                     sender.sendMessage(sb.toString());
                     return true;
                 });
+        coreCommand.addChild("emoji")
+            .denyTabCompletion()
+            .description("Emoji dump")
+            .senderCaller((sender, args) -> {
+                    if (args.length != 0) return false;
+                    Emoji.dump(sender);
+                    return true;
+                });
     }
 
     @Override

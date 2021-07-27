@@ -20,6 +20,7 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -260,5 +261,29 @@ public final class Emoji {
 
     public boolean isDefaultFont() {
         return enume instanceof DefaultFont;
+    }
+
+    public static List<Emoji> all() {
+        return new ArrayList<>(EMOJI_MAP.values());
+    }
+
+    public boolean isHidden() {
+        return glyphPolicy == GlyphPolicy.HIDDEN;
+    }
+
+    public boolean isPublic() {
+        return glyphPolicy == GlyphPolicy.PUBLIC;
+    }
+
+    public static void dump(CommandSender sender) {
+        List<Emoji> all = Emoji.all();
+        Collections.sort(all, (a, b) -> String.CASE_INSENSITIVE_ORDER.compare(a.name, b.name));
+        List<Component> allc = new ArrayList<>(all.size());
+        for (Emoji emoji : all) {
+            if (emoji.isHidden()) continue;
+            allc.add(emoji.componentWithTooltip);
+        }
+        Component message = Component.join(Component.empty(), allc);
+        sender.sendMessage(message);
     }
 }
