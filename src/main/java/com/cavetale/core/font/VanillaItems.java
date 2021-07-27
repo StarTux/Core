@@ -788,6 +788,7 @@ public enum VanillaItems implements Font {
         case ACACIA_LEAVES:
         case DARK_OAK_LEAVES:
         case JUNGLE_LEAVES:
+        case VINE:
             color = TextColor.color(0x00FF00);
             break;
         default:

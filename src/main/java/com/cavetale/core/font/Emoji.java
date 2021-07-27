@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.MatchResult;
 import lombok.Value;
-import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.PatternReplacementResult;
@@ -60,7 +59,7 @@ public final class Emoji {
         this.name = name;
         this.component = component;
         this.glyphPolicy = glyphPolicy;
-        this.componentWithTooltip = Objects.equals(tooltip, Component.empty())
+        this.componentWithTooltip = !Objects.equals(tooltip, Component.empty())
             ? component.hoverEvent(HoverEvent.showText(tooltip))
             : component;
         this.enume = enume;
@@ -72,26 +71,16 @@ public final class Emoji {
             .condition(Emoji::shouldReplace);
         for (DefaultFont defaultFont : DefaultFont.values()) {
             String name = defaultFont.name().toLowerCase();
-            Component component = Component.text()
-                .content(defaultFont.character + "")
-                .color(NamedTextColor.WHITE)
-                .font(Key.key("cavetale:default"))
-                .build();
             Component tooltip = Component.text(camelCase(defaultFont.name()), NamedTextColor.WHITE);
-            addEmoji(name, component, tooltip, defaultFont.policy, defaultFont);
+            addEmoji(name, defaultFont.component, tooltip, defaultFont.policy, defaultFont);
         }
         for (VanillaItems vanillaItems : VanillaItems.values()) {
             String itemName = vanillaItems.material.isItem()
                 ? new ItemStack(vanillaItems.material).getI18NDisplayName()
                 : camelCase(vanillaItems.name());
             String name = vanillaItems.name().toLowerCase();
-            Component component = Component.text()
-                .content(vanillaItems.character + "")
-                .color(NamedTextColor.WHITE)
-                .font(Key.key("cavetale:default"))
-                .build();
             Component tooltip = Component.text(itemName, NamedTextColor.WHITE);
-            addEmoji(name, component, tooltip, vanillaItems.getPolicy(), vanillaItems);
+            addEmoji(name, vanillaItems.component, tooltip, vanillaItems.getPolicy(), vanillaItems);
         }
         for (Unicode unicode : Unicode.values()) {
             addEmoji("u" + unicode.key, Component.text(unicode.character), GlyphPolicy.PUBLIC, unicode);
@@ -279,11 +268,11 @@ public final class Emoji {
         List<Emoji> all = Emoji.all();
         Collections.sort(all, (a, b) -> String.CASE_INSENSITIVE_ORDER.compare(a.name, b.name));
         List<Component> allc = new ArrayList<>(all.size());
+        TextComponent.Builder cb = Component.text();
         for (Emoji emoji : all) {
-            if (emoji.isHidden()) continue;
-            allc.add(emoji.componentWithTooltip);
+            cb.append(Component.space());
+            if (!emoji.isHidden()) cb.append(emoji.componentWithTooltip);
         }
-        Component message = Component.join(Component.empty(), allc);
-        sender.sendMessage(message);
+        sender.sendMessage(cb.build());
     }
 }
