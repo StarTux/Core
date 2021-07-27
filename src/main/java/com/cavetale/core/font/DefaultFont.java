@@ -47,8 +47,10 @@ public enum DefaultFont implements Font {
     // Ranks
     ADMIN("mytems:item/admin", 7, 8, '\uE10A'),
     MODERATOR("mytems:item/moderator", 7, 8, '\uE117'),
-    TRUSTED("mytems:item/trusted", 7, 8, '\uE118');
-    // Next title unicode character: 0xE11C
+    TRUSTED("mytems:item/trusted", 7, 8, '\uE118'),
+    BUILDER("mytems:item/builder", 7, 8, '\uE11C'),
+    GOAT("mytems:item/goat", 6, 8, '\uE11D');
+    // Next title unicode character: 0xE11E
 
     public final String filename;
     public final int ascent;
