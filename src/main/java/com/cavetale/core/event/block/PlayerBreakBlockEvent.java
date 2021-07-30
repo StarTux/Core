@@ -6,8 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.block.BlockEvent;
 
 /**
  * A plugin generated event to notifiy other plugins that a block was
@@ -17,8 +17,9 @@ import org.bukkit.event.block.BlockEvent;
  * plugins.
  */
 @Getter
-public final class PlayerBreakBlockEvent extends BlockEvent implements Cancellable {
+public final class PlayerBreakBlockEvent extends Event implements Cancellable {
     private final Player player;
+    private final Block block;
     @Setter private boolean cancelled;
     @Setter private static boolean denyBuilding = false;
 
@@ -35,8 +36,8 @@ public final class PlayerBreakBlockEvent extends BlockEvent implements Cancellab
     }
 
     public PlayerBreakBlockEvent(final Player player, final Block block) {
-        super(block);
         this.player = player;
+        this.block = block;
         if (denyBuilding && !player.isOp()) cancelled = true;
     }
 
