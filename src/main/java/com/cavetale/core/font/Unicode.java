@@ -29,9 +29,9 @@ public enum Unicode {
     SUPER_N('\u207F'), // ⁿ
     EURO_CENT('\u20A0'), // ₠
     EURO('\u20AC'), // €
-    ARROW_UP('\u2110'), // ℐ
     TRADEMARK('\u2122'), // ™
     ARROW_LEFT('\u2190'), // ←
+    ARROW_UP('\u2191'), // ↑
     ARROW_RIGHT('\u2192'), // →
     ARROW_DOWN('\u2193'), // ↓
     ARROW_LEFT_RIGHT('\u2194'), // ↔
