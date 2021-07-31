@@ -89,6 +89,9 @@ public enum Unicode {
     CLOUD('\u2601'), // ☁
     STAR('\u2605'), // ★
     EMPTY_STAR('\u2606'), // ☆
+    CHECKBOX('\u2610'), // ☐
+    CHECKED_CHECKBOX('\u2611'), // ☑
+    CROSSED_CHECKBOX('\u2612'), // ☒
     SHAMROCK('\u2618'), // ☘
     SKULL('\u2620'), // ☠
     RADIOACTIVE('\u2622'), // ☢
@@ -130,6 +133,8 @@ public enum Unicode {
     CHECKERS_BLACK('\u26C2'), // ⛂
     CHECKERS_BLACK_KING('\u26C3'), // ⛃
     CROSS_ON_SHIELD('\u26E8'), // ⛨
+    CHECKMARK2('\u2717'), // ✗
+    CHECKMARK('\u2718'), // ✘
     OUTLINED_GREEK_CROSS('\u2719'), // ✙
     HEAVY_GREEK_CROSS('\u271A'), // ✚
     LATIN_CROSS('\u271D'), // ✝
