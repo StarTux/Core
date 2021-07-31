@@ -15,6 +15,7 @@ public enum Unicode {
     TRIANGULAR_BULLET('\u2023'), // ‣
     HYPHEN_BULLET('\u2043'), // ⁃
     REVERSE_PILCROW('\u204B'), // ⁋
+    SUPER_0('\u2070'), // ⁰
     SUPER_4('\u2074'), // ⁴
     SUPER_5('\u2075'), // ⁵
     SUPER_6('\u2076'), // ⁶
@@ -27,6 +28,16 @@ public enum Unicode {
     SUPER_L_PAR('\u207D'), // ⁽
     SUPER_R_PAR('\u207E'), // ⁾
     SUPER_N('\u207F'), // ⁿ
+    SUB_0('\u2080'), // ₀
+    SUB_1('\u2081'), // ₁
+    SUB_2('\u2082'), // ₂
+    SUB_3('\u2083'), // ₃
+    SUB_4('\u2084'), // ₄
+    SUB_5('\u2085'), // ₅
+    SUB_6('\u2086'), // ₆
+    SUB_7('\u2087'), // ₇
+    SUB_8('\u2088'), // ₈
+    SUB_9('\u2089'), // ₉
     EURO_CENT('\u20A0'), // ₠
     EURO('\u20AC'), // €
     TRADEMARK('\u2122'), // ™
@@ -112,6 +123,7 @@ public enum Unicode {
     HAMMER_AND_PICK('\u2692'), // ⚒
     CROSSED_SWORDS('\u2694'), // ⚔
     SCALES('\u2696'), // ⚖
+    FLOWER('\u2698'), // ⚘
     ATOM('\u269B'), // ⚛
     CHECKERS_WHITE('\u26C0'), // ⛀
     CHECKERS_WHITE_KING('\u26C1'), // ⛁
