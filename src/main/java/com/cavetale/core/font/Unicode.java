@@ -133,8 +133,9 @@ public enum Unicode {
     CHECKERS_BLACK('\u26C2'), // ⛂
     CHECKERS_BLACK_KING('\u26C3'), // ⛃
     CROSS_ON_SHIELD('\u26E8'), // ⛨
-    CHECKMARK2('\u2717'), // ✗
-    CHECKMARK('\u2718'), // ✘
+    CHECKMARK('\u2714'), // ✔
+    CHECK_X2('\u2717'), // ✗
+    CHECK_X('\u2718'), // ✘
     OUTLINED_GREEK_CROSS('\u2719'), // ✙
     HEAVY_GREEK_CROSS('\u271A'), // ✚
     LATIN_CROSS('\u271D'), // ✝
