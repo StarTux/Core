@@ -10,7 +10,31 @@ public enum Unicode {
     ONE_HALF('\u00BD'), // ½
     THREE_QUARTERS('\u00BE'), // ¾
     MULTIPLICATION('\u00D7'), // ×
+    ALPHA('\u03B1'), // α
+    BETA('\u03B2'), // β
+    GAMMA('\u03B3'), // γ
+    DELTA('\u03B4'), // δ
+    EPSILON('\u03B5'), // ε
+    ZETA('\u03B6'), // ζ
+    ETA('\u03B7'), // η
+    THETA('\u03B8'), // θ
+    IOTA('\u03B9'), // ι
+    KAPPA('\u03BA'), // κ
+    LAMBDA('\u03BB'), // λ
+    MU('\u03BC'), // μ
+    NU('\u03BD'), // ν
+    XI('\u03BE'), // ξ
+    OMICRON('\u03BF'), // ο
     PI('\u03C0'), // π
+    RHO('\u03C1'), // ρ
+    FINAL_SIGMA('\u03C2'), // ς
+    SIGMA('\u03C3'), // σ
+    TAU('\u03C4'), // τ
+    UPSILON('\u03C5'), // υ
+    PHI('\u03C6'), // φ
+    CHI('\u03C7'), // χ
+    PSI('\u03C8'), // ψ
+    OMEGA('\u03C9'), // ω
     BULLET_POINT('\u2022'), // •
     TRIANGULAR_BULLET('\u2023'), // ‣
     HYPHEN_BULLET('\u2043'), // ⁃
@@ -70,6 +94,7 @@ public enum Unicode {
     SQUARE_ROOT('\u221A'), // √
     CUBE_ROOT('\u221B'), // ∛
     FOURTH_ROOT('\u221C'), // ∜
+    INFINITY('\u221E'), // ∞
     LOGICAL_AND('\u2227'), // ∧
     LOGICAL_OR('\u2228'), // ∨
     INTERSECTION('\u2229'), // ∩
