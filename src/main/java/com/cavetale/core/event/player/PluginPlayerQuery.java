@@ -59,7 +59,7 @@ public final class PluginPlayerQuery extends Event {
     }
 
     @NonNull public Name parseName() {
-        Name result = Name.of(queryName.toUpperCase());
+        Name result = Name.of(queryName);
         return result != null ? result : Name.UNKNOWN;
     }
 
@@ -97,6 +97,11 @@ public final class PluginPlayerQuery extends Event {
 
         public T call(Plugin thePlugin, Player thePlayer) {
             return PluginPlayerQuery.call(thePlugin, thePlayer, key, responseType);
+        }
+
+        public T call(Plugin thePlugin, Player thePlayer, T dfl) {
+            T result = call(thePlugin, thePlayer);
+            return result != null ? result : dfl;
         }
 
         public void respond(PluginPlayerQuery query, Plugin responder, T value) {
