@@ -35,6 +35,8 @@ public enum Unicode {
     CHI('\u03C7'), // χ
     PSI('\u03C8'), // ψ
     OMEGA('\u03C9'), // ω
+    ENDASH('\u2013'), // –
+    EMDASH('\u2014'), // —
     BULLET_POINT('\u2022'), // •
     TRIANGULAR_BULLET('\u2023'), // ‣
     HYPHEN_BULLET('\u2043'), // ⁃
