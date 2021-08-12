@@ -115,11 +115,21 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
     }
 
     public enum Name {
-        UNKNOWN,
         USE_WILD,
         SET_PRIMARY_HOME,
         SET_NAMED_HOME,
-        CREATE_CLAIM;
+        USE_PRIMARY_HOME,
+        USE_NAMED_HOME,
+        VISIT_HOME,
+        VISIT_PUBLIC_HOME,
+        CREATE_CLAIM,
+        USE_SPAWN,
+        OPEN_STASH,
+        FOCUS_CHAT_CHANNEL,
+        OPEN_CHAT_SETTINGS,
+        USE_CHAT_CHANNEL,
+        SWITCH_SERVER,
+        UNKNOWN;
 
         public final String key;
 
