@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @RequiredArgsConstructor
@@ -51,6 +53,10 @@ public final class Json {
         return GSON.toJson(obj);
     }
 
+    public static String prettyPrint(Object obj) {
+        return PRETTY.toJson(obj);
+    }
+
     public static <T> T deserialize(String json, Class<T> type) {
         return deserialize(json, type, () -> null);
     }
@@ -75,5 +81,25 @@ public final class Json {
     public void save(String path, Object obj, boolean pretty) {
         File file = new File(plugin.getDataFolder(), path);
         save(file, obj, pretty);
+    }
+
+    public static String serializeComponent(Component component) {
+        try {
+            return GsonComponentSerializer.gson().serialize(component);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Component deserializeComponent(String in) {
+        try {
+            return in != null
+                ? GsonComponentSerializer.gson().deserialize(in)
+                : Component.empty();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Component.empty();
+        }
     }
 }
