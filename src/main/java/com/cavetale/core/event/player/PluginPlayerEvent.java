@@ -140,6 +140,9 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         USE_NAMED_HOME,
         VISIT_HOME,
         VISIT_PUBLIC_HOME,
+        VIEW_PUBLIC_HOMES,
+        LIST_WARPS,
+        USE_WARP,
         CREATE_CLAIM,
         USE_SPAWN,
         OPEN_STASH,
@@ -147,6 +150,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         OPEN_CHAT_SETTINGS,
         USE_CHAT_CHANNEL,
         SWITCH_SERVER,
+        USE_MINE,
         UNKNOWN;
 
         public final String key;
@@ -182,6 +186,14 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
 
         public void set(PluginPlayerEvent event, E value) {
             event.detail(this, value);
+        }
+
+        public E get(PluginPlayerEvent event, E defaultValue) {
+            return event.getDetail(this, defaultValue);
+        }
+
+        public boolean is(PluginPlayerEvent event, E value) {
+            return event.isDetail(this, value);
         }
     }
 }
