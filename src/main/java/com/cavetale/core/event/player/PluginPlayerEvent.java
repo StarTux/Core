@@ -2,10 +2,15 @@ package com.cavetale.core.event.player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -71,12 +76,16 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         ultimate(plugin, player, eventName).call();
     }
 
-    public PluginPlayerEvent detail(@NonNull String key, @NonNull Object value) {
-        details.put(key, value);
+    public PluginPlayerEvent detail(@NonNull String key, Object value) {
+        if (value == null) {
+            details.remove(key);
+        } else {
+            details.put(key, value);
+        }
         return this;
     }
 
-    public PluginPlayerEvent detail(@NonNull Detail detail, @NonNull Object value) {
+    public <E> PluginPlayerEvent detail(@NonNull Detail<E> detail, E value) {
         return detail(detail.key, value);
     }
 
@@ -85,9 +94,18 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         return clazz.isInstance(object) ? clazz.cast(object) : defaultValue;
     }
 
-    public <E> E getDetail(@NonNull Detail detail, Class<E> clazz, E defaultValue) {
-        return getDetail(detail.key, clazz, defaultValue);
+    public <E> E getDetail(@NonNull Detail<E> detail, E defaultValue) {
+        return getDetail(detail.key, detail.valueType, defaultValue);
     }
+
+    public boolean isDetail(@NonNull String key, @NonNull Object value) {
+        return Objects.equals(details.get(key), value);
+    }
+
+    public <E> boolean isDetail(@NonNull Detail<E> detail, @NonNull E value) {
+        return Objects.equals(details.get(detail.key), value);
+    }
+
 
     public boolean call() {
         Bukkit.getPluginManager().callEvent(this);
@@ -150,13 +168,20 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         }
     }
 
-    public enum Detail {
-        HOME_NAME;
+    @RequiredArgsConstructor
+    public static final class Detail<E> {
+        public static final Detail<Block> BLOCK = new Detail<>("block", Block.class);
+        public static final Detail<Location> LOCATION = new Detail<>("location", Location.class);
+        public static final Detail<Entity> ENTITY = new Detail<>("entity", Entity.class);
+        public static final Detail<String> NAME = new Detail<>("name", String.class);
+        public static final Detail<Integer> INDEX = new Detail<>("index", Integer.class);
+        public static final Detail<UUID> OWNER = new Detail<>("owner", UUID.class);
 
         public final String key;
+        public final Class<E> valueType;
 
-        Detail() {
-            this.key = name().toLowerCase();
+        public void set(PluginPlayerEvent event, E value) {
+            event.detail(this, value);
         }
     }
 }
