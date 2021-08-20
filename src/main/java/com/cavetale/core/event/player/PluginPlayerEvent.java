@@ -149,8 +149,10 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         FOCUS_CHAT_CHANNEL,
         OPEN_CHAT_SETTINGS,
         USE_CHAT_CHANNEL,
+        LIST_CHAT_CHANNELS,
         SWITCH_SERVER,
         USE_MINE,
+        DUNGEON_LOOT,
         UNKNOWN;
 
         public final String key;
