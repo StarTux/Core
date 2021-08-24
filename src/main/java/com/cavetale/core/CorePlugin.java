@@ -1,8 +1,10 @@
 package com.cavetale.core;
 
 import com.cavetale.core.command.CommandNode;
+import com.cavetale.core.event.block.PlayerBlockAbilityQuery;
 import com.cavetale.core.event.block.PlayerBreakBlockEvent;
 import com.cavetale.core.event.block.PlayerCanBuildEvent;
+import com.cavetale.core.event.entity.PlayerEntityAbilityQuery;
 import com.cavetale.core.font.Emoji;
 import com.cavetale.core.font.Unicode;
 import java.util.List;
@@ -88,6 +90,8 @@ public final class CorePlugin extends JavaPlugin {
         boolean denyBuilding = getConfig().getBoolean("DenyBuilding");
         PlayerCanBuildEvent.setDenyBuilding(denyBuilding);
         PlayerBreakBlockEvent.setDenyBuilding(denyBuilding);
+        PlayerBlockAbilityQuery.setDenyBuilding(denyBuilding);
+        PlayerEntityAbilityQuery.setDenyBuilding(denyBuilding);
         if (denyBuilding) {
             getLogger().info("Deny building enabled!");
         }

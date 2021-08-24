@@ -11,7 +11,9 @@ import org.bukkit.event.HandlerList;
 
 /**
  * Check for build permissions before doing anything.
+ * @deprecated Use PlayerBlockAbilityQuery instead!
  */
+@Deprecated
 @Getter
 public final class PlayerCanBuildEvent extends Event implements Cancellable {
     private final Player player;
