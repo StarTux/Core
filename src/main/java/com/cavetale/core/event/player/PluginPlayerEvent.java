@@ -153,6 +153,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         SWITCH_SERVER,
         USE_MINE,
         DUNGEON_LOOT,
+        OPEN_MENU,
         UNKNOWN;
 
         public final String key;
