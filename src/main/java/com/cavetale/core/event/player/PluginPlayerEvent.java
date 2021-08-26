@@ -9,12 +9,14 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -178,10 +180,12 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
     @RequiredArgsConstructor
     public static final class Detail<E> {
         public static final Detail<Block> BLOCK = new Detail<>("block", Block.class);
-        public static final Detail<Location> LOCATION = new Detail<>("location", Location.class);
         public static final Detail<Entity> ENTITY = new Detail<>("entity", Entity.class);
-        public static final Detail<String> NAME = new Detail<>("name", String.class);
         public static final Detail<Integer> INDEX = new Detail<>("index", Integer.class);
+        public static final Detail<ItemStack> ITEM = new Detail<>("item", ItemStack.class);
+        public static final Detail<Location> LOCATION = new Detail<>("location", Location.class);
+        public static final Detail<Material> MATERIAL = new Detail<>("material", Material.class);
+        public static final Detail<String> NAME = new Detail<>("name", String.class);
         public static final Detail<UUID> OWNER = new Detail<>("owner", UUID.class);
 
         public final String key;
