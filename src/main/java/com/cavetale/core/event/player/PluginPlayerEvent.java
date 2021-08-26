@@ -156,6 +156,10 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         USE_MINE,
         DUNGEON_LOOT,
         OPEN_MENU,
+        OPEN_MASS_STORAGE,
+        SELL_ITEM,
+        ENTER_BIRTHDAY,
+        BUY_CLAIM_BLOCKS,
         UNKNOWN;
 
         public final String key;
@@ -180,7 +184,9 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
     @RequiredArgsConstructor
     public static final class Detail<E> {
         public static final Detail<Block> BLOCK = new Detail<>("block", Block.class);
+        public static final Detail<Double> MONEY = new Detail<>("money", Double.class);
         public static final Detail<Entity> ENTITY = new Detail<>("entity", Entity.class);
+        public static final Detail<Integer> COUNT = new Detail<>("count", Integer.class);
         public static final Detail<Integer> INDEX = new Detail<>("index", Integer.class);
         public static final Detail<ItemStack> ITEM = new Detail<>("item", ItemStack.class);
         public static final Detail<Location> LOCATION = new Detail<>("location", Location.class);
