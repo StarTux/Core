@@ -157,9 +157,16 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         DUNGEON_LOOT,
         OPEN_MENU,
         OPEN_MASS_STORAGE,
+        STORE_MASS_STORAGE,
         SELL_ITEM,
+        VIEW_PROFILE,
+        VIEW_FRIENDS_LIST,
         ENTER_BIRTHDAY,
+        SHARE_FRIENDSHIP_ITEM,
+        MAKE_FRIEND,
         BUY_CLAIM_BLOCKS,
+        SHOP_SEARCH,
+        SHOP_SEARCH_PORT,
         UNKNOWN;
 
         public final String key;
