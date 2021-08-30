@@ -82,6 +82,7 @@ public final class PluginPlayerQuery extends Event {
         public static final Name<Boolean> INSIDE_TRUSTED_CLAIM = new Name<>("inside_trusted_claim", Boolean.class);
         public static final Name<Boolean> PRIMARY_HOME_IS_SET = new Name<>("primary_home_is_set", Boolean.class);
         public static final Name<Integer> HOME_COUNT = new Name<>("home_count", Integer.class);
+        public static final Name<Boolean> KIT_CLAIMED = new Name<>("kit_claimed", Boolean.class);
 
         public final String key;
         public final Class<T> responseType;
