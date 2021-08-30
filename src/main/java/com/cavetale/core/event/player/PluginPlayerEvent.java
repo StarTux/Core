@@ -169,7 +169,6 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         SHOP_SEARCH,
         SHOP_SEARCH_PORT,
         USE_MONEY,
-        CLAIM_KIT,
         UNKNOWN;
 
         public final String key;
