@@ -136,6 +136,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
 
     public enum Name {
         USE_WILD,
+        USE_WILD_WITH_CLAIM,
         SET_PRIMARY_HOME,
         SET_NAMED_HOME,
         USE_PRIMARY_HOME,

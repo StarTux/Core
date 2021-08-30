@@ -78,6 +78,7 @@ public final class PluginPlayerQuery extends Event {
         private static final Map<String, Name> KEY_MAP = new HashMap<>();
         public static final Name<Void> UNKNOWN = new Name<>("unknown", Void.class);
         public static final Name<Integer> CLAIM_COUNT = new Name<>("claim_count", Integer.class);
+        public static final Name<Boolean> INSIDE_OWNED_CLAIM = new Name<>("inside_owned_claim", Boolean.class);
         public static final Name<Boolean> INSIDE_TRUSTED_CLAIM = new Name<>("inside_trusted_claim", Boolean.class);
         public static final Name<Boolean> PRIMARY_HOME_IS_SET = new Name<>("primary_home_is_set", Boolean.class);
         public static final Name<Integer> HOME_COUNT = new Name<>("home_count", Integer.class);
