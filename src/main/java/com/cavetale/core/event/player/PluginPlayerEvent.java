@@ -160,6 +160,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         OPEN_MASS_STORAGE,
         STORE_MASS_STORAGE,
         SEARCH_MASS_STORAGE,
+        FIND_MASS_STORAGE,
         SELL_ITEM,
         VIEW_PROFILE,
         VIEW_FRIENDS_LIST,
