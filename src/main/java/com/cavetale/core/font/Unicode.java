@@ -1,11 +1,14 @@
 package com.cavetale.core.font;
 
+import java.util.function.Function;
+
 public enum Unicode {
     CENT('\u00A2'), // ¢
     COPYRIGHT('\u00A9'), // ©
     SUPER_2('\u00B2'), // ²
     SUPER_3('\u00B3'), // ³
     PILCROW('\u00B6'), // ¶
+    SUPER_1('\u00B9'), // ¹
     ONE_QUARTER('\u00BC'), // ¼
     ONE_HALF('\u00BD'), // ½
     THREE_QUARTERS('\u00BE'), // ¾
@@ -51,8 +54,8 @@ public enum Unicode {
     SUPER_PLUS('\u207A'), // ⁺
     SUPER_MINUS('\u207B'), // ⁻
     SUPER_EQ('\u207C'), // ⁼
-    SUPER_L_PAR('\u207D'), // ⁽
-    SUPER_R_PAR('\u207E'), // ⁾
+    SUPER_LPAR('\u207D'), // ⁽
+    SUPER_RPAR('\u207E'), // ⁾
     SUPER_N('\u207F'), // ⁿ
     SUB_0('\u2080'), // ₀
     SUB_1('\u2081'), // ₁
@@ -64,6 +67,11 @@ public enum Unicode {
     SUB_7('\u2087'), // ₇
     SUB_8('\u2088'), // ₈
     SUB_9('\u2089'), // ₉
+    SUB_PLUS('\u208A'), // ₊
+    SUB_MINUS('\u208B'), // ₋
+    SUB_EQ('\u208C'), // ₌
+    SUB_LPAR('\u208D'), // ₍
+    SUB_RPAR('\u208E'), // ₎
     EURO_CENT('\u20A0'), // ₠
     EURO('\u20AC'), // €
     TRADEMARK('\u2122'), // ™
@@ -182,6 +190,65 @@ public enum Unicode {
         this.character = character;
     }
 
+    public static Unicode charToSuperscript(final char c) {
+        switch (c) {
+        case '0': return SUPER_0;
+        case '1': return SUPER_1;
+        case '2': return SUPER_2;
+        case '3': return SUPER_3;
+        case '4': return SUPER_4;
+        case '5': return SUPER_5;
+        case '6': return SUPER_6;
+        case '7': return SUPER_7;
+        case '8': return SUPER_8;
+        case '9': return SUPER_9;
+        case '-': return SUPER_MINUS;
+        case '+': return SUPER_PLUS;
+        case '=': return SUPER_EQ;
+        case '(': return SUPER_LPAR;
+        case ')': return SUPER_RPAR;
+        default: return null;
+        }
+    }
+
+    public static Unicode charToSubscript(final char c) {
+        switch (c) {
+        case '0': return SUB_0;
+        case '1': return SUB_1;
+        case '2': return SUB_2;
+        case '3': return SUB_3;
+        case '4': return SUB_4;
+        case '5': return SUB_5;
+        case '6': return SUB_6;
+        case '7': return SUB_7;
+        case '8': return SUB_8;
+        case '9': return SUB_9;
+        case '-': return SUB_MINUS;
+        case '+': return SUB_PLUS;
+        case '=': return SUB_EQ;
+        case '(': return SUB_LPAR;
+        case ')': return SUB_RPAR;
+        default: return null;
+        }
+    }
+
+    public static String translate(String in, Function<Character, Unicode> translator) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < in.length(); i += 1) {
+            Unicode unicode = translator.apply(in.charAt(i));
+            if (unicode != null) sb.append(unicode.character);
+        }
+        return sb.toString();
+    }
+
+    public static String superscript(int number) {
+        return translate("" + number, Unicode::charToSuperscript);
+    }
+
+    public static String subscript(int number) {
+        return translate("" + number, Unicode::charToSubscript);
+    }
+
     /**
      * Sort this enum and print it to stdout. Throw if there's a
      * duplicate.
@@ -190,7 +257,8 @@ public enum Unicode {
         Unicode[] array = Unicode.values();
         java.util.Arrays.sort(array, (a, b) -> Integer.compare((int) a.character, (int) b.character));
         Unicode previous = null;
-        for (Unicode u : array) {
+        for (int i = 0; i < array.length; i += 1) {
+            Unicode u = array[i];
             // Duplicate detection
             if (previous != null && u.character == previous.character) {
                 throw new IllegalStateException(u + "=" + previous);
@@ -199,7 +267,9 @@ public enum Unicode {
             // Print
             String show = Integer.toHexString((int) u.character).toUpperCase();
             while (show.length() < 4) show = "0" + show;
-            System.out.println(u.name() + "('\\u" + show + "'), // " + u.character);
+            System.out.print(u.name() + "('\\u" + show + "')");
+            System.out.print(i < array.length - 1 ? "," : ";");
+            System.out.println(" // " + u.character);
         }
     }
 }
