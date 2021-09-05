@@ -138,7 +138,7 @@ public final class Emoji {
             String key = tail2.substring(0, index2);
             Emoji emoji = EMOJI_MAP.get(key);
             if (emoji == null || !glyphPolicy.entails(emoji.glyphPolicy)) {
-                head = head + ":" + key;
+                head = head + tail.substring(0, index) + ":" + key;
                 tail = tail2.substring(index2);
                 continue;
             }
