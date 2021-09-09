@@ -146,12 +146,6 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         SHOP_SEARCH_PORT,
         USE_MONEY;
 
-        public final String key;
-
-        Name() {
-            this.key = name().toLowerCase();
-        }
-
         public PluginPlayerEvent ultimate(Plugin thePlugin, Player thePlayer) {
             return PluginPlayerEvent.ultimate(thePlugin, thePlayer, this);
         }
