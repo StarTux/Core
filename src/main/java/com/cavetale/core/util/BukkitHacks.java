@@ -13,6 +13,7 @@ public final class BukkitHacks {
         syncCommandsScheduled = true;
         Bukkit.getScheduler().runTask(CorePlugin.getInstance(), () -> {
                 syncCommandsScheduled = false;
+                CorePlugin.getInstance().getLogger().info("Sync Commands...");
                 try {
                     Bukkit.getServer().getClass().getMethod("syncCommands").invoke(Bukkit.getServer());
                 } catch (Exception e) {
