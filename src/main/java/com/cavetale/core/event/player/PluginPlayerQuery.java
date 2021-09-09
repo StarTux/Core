@@ -1,9 +1,7 @@
 package com.cavetale.core.event.player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 public final class PluginPlayerQuery extends Event {
     @NonNull private final Plugin plugin;
     @NonNull private final Player player;
-    @NonNull private final String queryName;
+    @NonNull private final Name name;
     private final List<Response> responses = new ArrayList<>();
 
     /**
@@ -35,9 +33,9 @@ public final class PluginPlayerQuery extends Event {
         return handlerList;
     }
 
-    public static <T> T call(@NonNull Plugin plugin, @NonNull Player player, String queryName, Class<T> responseType) {
+    public static <T> T call(@NonNull Plugin plugin, @NonNull Player player, @NonNull Name name, Class<T> responseType) {
         PluginPlayerQuery event;
-        event = new PluginPlayerQuery(plugin, player, queryName);
+        event = new PluginPlayerQuery(plugin, player, name);
         Bukkit.getPluginManager().callEvent(event);
         for (Response response : event.responses) {
             if (responseType.isInstance(response.value)) {
@@ -47,9 +45,9 @@ public final class PluginPlayerQuery extends Event {
         return null;
     }
 
-    public static PluginPlayerQuery prep(@NonNull Plugin plugin, @NonNull Player player, String queryName) {
+    public static PluginPlayerQuery prep(@NonNull Plugin plugin, @NonNull Player player, @NonNull Name name) {
         PluginPlayerQuery event;
-        event = new PluginPlayerQuery(plugin, player, queryName);
+        event = new PluginPlayerQuery(plugin, player, name);
         Bukkit.getPluginManager().callEvent(event);
         return event;
     }
@@ -58,15 +56,21 @@ public final class PluginPlayerQuery extends Event {
         return plugin.getName();
     }
 
-    @NonNull public Name parseName() {
-        Name result = Name.of(queryName);
-        return result != null ? result : Name.UNKNOWN;
+    /**
+     * @deprecated Use getName()
+     */
+    @NonNull @Deprecated
+    public Name parseName() {
+        return name;
     }
 
+    /**
+     * @deprecated Use Name.respond()
+     */
+    @Deprecated
     public void respond(@NonNull Plugin responder, @NonNull Object value) {
         responses.add(new Response(responder, value));
-        Name name = Name.of(queryName);
-        if (name != null && !name.responseType.isInstance(value)) {
+        if (!name.responseType.isInstance(value)) {
             plugin.getLogger().warning("PlayerPluginQuery::respond: Invalid response type!"
                                        + " name=" + name.key + "(" + name.responseType.getSimpleName() + ")"
                                        + " plugin=" + responder.getName()
@@ -75,7 +79,6 @@ public final class PluginPlayerQuery extends Event {
     }
 
     public static final class Name<T> {
-        private static final Map<String, Name> KEY_MAP = new HashMap<>();
         public static final Name<Void> UNKNOWN = new Name<>("unknown", Void.class);
         public static final Name<Integer> CLAIM_COUNT = new Name<>("claim_count", Integer.class);
         public static final Name<Boolean> INSIDE_OWNED_CLAIM = new Name<>("inside_owned_claim", Boolean.class);
@@ -89,15 +92,14 @@ public final class PluginPlayerQuery extends Event {
         private Name(final String key, final Class<T> responseType) {
             this.key = key;
             this.responseType = responseType;
-            KEY_MAP.put(key, this);
         }
 
         public PluginPlayerQuery prep(Plugin thePlugin, Player thePlayer) {
-            return PluginPlayerQuery.prep(thePlugin, thePlayer, key);
+            return PluginPlayerQuery.prep(thePlugin, thePlayer, this);
         }
 
         public T call(Plugin thePlugin, Player thePlayer) {
-            return PluginPlayerQuery.call(thePlugin, thePlayer, key, responseType);
+            return PluginPlayerQuery.call(thePlugin, thePlayer, this, responseType);
         }
 
         public T call(Plugin thePlugin, Player thePlayer, T dfl) {
@@ -106,15 +108,10 @@ public final class PluginPlayerQuery extends Event {
         }
 
         public void respond(PluginPlayerQuery query, Plugin responder, T value) {
-            Name otherName = query.parseName();
-            if (otherName != this) {
-                throw new IllegalArgumentException(otherName.key + " != " + key);
+            if (query.name != this) {
+                throw new IllegalArgumentException(query.name.key + " != " + this.key);
             }
-            query.respond(responder, value);
-        }
-
-        public static Name of(String key) {
-            return KEY_MAP.get(key);
+            query.responses.add(new Response(responder, value));
         }
     }
 

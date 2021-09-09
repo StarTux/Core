@@ -26,31 +26,22 @@ import org.bukkit.plugin.Plugin;
  * and especially without creating myriad complicated inter-plugin
  * dependencies.
  *
- * Each event object contains a reference to the issuing plugin. The
- * eventName should be a snake case descriptive name of what happened,
- * without the name of the plugin. Event objects may be defined as
- * cancellable or ultimate (uncancellable). We expect most events to
- * not be cancellable.
+ * Each event object contains a reference to the issuing plugin.Event
+ * objects may be defined as cancellable or ultimate
+ * (uncancellable). We expect most events to not be cancellable.
  *
  * <code>
- * PluginPlayerEvent.ultimate(plugin, player, "set_home")
- *   .detail("home_name", homeName)
- *   .call();
- * // OR
  * PluginPlayerEvent.Name.SET_HOME.ultimate(plugin, player)
  *   .detail(Detail.HOME_NAME, homeName)
  *   .call();
  * </code>
- *
- * In the future we may add an enum with a collection of event names
- * and detail names for increased compile-time safety.
  */
 @Getter @RequiredArgsConstructor
 public final class PluginPlayerEvent extends Event implements Cancellable {
     @NonNull private final Plugin plugin;
     @NonNull private final Player player;
-    @NonNull private final String eventName;
-    @NonNull private final Map<String, Object> details = new HashMap<>();
+    @NonNull private final Name name;
+    @NonNull private final Map<Detail, Object> details = new HashMap<>();
     private final boolean cancellable;
     private boolean cancelled;
 
@@ -66,48 +57,35 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         return handlerList;
     }
 
-    public static PluginPlayerEvent ultimate(Plugin plugin, Player player, String eventName) {
-        return new PluginPlayerEvent(plugin, player, eventName, false);
+    public static PluginPlayerEvent ultimate(Plugin plugin, Player player, Name name) {
+        return new PluginPlayerEvent(plugin, player, name, false);
     }
 
-    public static PluginPlayerEvent cancellable(Plugin plugin, Player player, String eventName) {
-        return new PluginPlayerEvent(plugin, player, eventName, true);
+    public static PluginPlayerEvent cancellable(Plugin plugin, Player player, Name name) {
+        return new PluginPlayerEvent(plugin, player, name, true);
     }
 
-    public static void call(Plugin plugin, Player player, String eventName) {
-        ultimate(plugin, player, eventName).call();
+    public static void call(Plugin plugin, Player player, Name name) {
+        ultimate(plugin, player, name).call();
     }
 
-    public PluginPlayerEvent detail(@NonNull String key, Object value) {
+    public <E> PluginPlayerEvent detail(@NonNull Detail<E> detail, E value) {
         if (value == null) {
-            details.remove(key);
+            details.remove(detail);
         } else {
-            details.put(key, value);
+            details.put(detail, value);
         }
         return this;
     }
 
-    public <E> PluginPlayerEvent detail(@NonNull Detail<E> detail, E value) {
-        return detail(detail.key, value);
-    }
-
-    public <E> E getDetail(@NonNull String key, Class<E> clazz, E defaultValue) {
-        Object object = details.get(key);
-        return clazz.isInstance(object) ? clazz.cast(object) : defaultValue;
-    }
-
     public <E> E getDetail(@NonNull Detail<E> detail, E defaultValue) {
-        return getDetail(detail.key, detail.valueType, defaultValue);
-    }
-
-    public boolean isDetail(@NonNull String key, @NonNull Object value) {
-        return Objects.equals(details.get(key), value);
+        Object object = details.get(detail);
+        return detail.valueType.isInstance(object) ? detail.valueType.cast(object) : defaultValue;
     }
 
     public <E> boolean isDetail(@NonNull Detail<E> detail, @NonNull E value) {
-        return Objects.equals(details.get(detail.key), value);
+        return Objects.equals(details.get(detail), value);
     }
-
 
     public boolean call() {
         Bukkit.getPluginManager().callEvent(this);
@@ -122,16 +100,12 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         this.cancelled = isCancelled;
     }
 
-    public String getPluginName() {
-        return plugin.getName();
-    }
-
-    @NonNull public Name parseName() {
-        try {
-            return Name.valueOf(eventName.toUpperCase());
-        } catch (IllegalArgumentException iae) {
-            return Name.UNKNOWN;
-        }
+    /**
+     * @deprecated Use getName()
+     */
+    @NonNull @Deprecated
+    public Name parseName() {
+        return name;
     }
 
     public enum Name {
@@ -170,8 +144,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         BUY_CLAIM_BLOCKS,
         SHOP_SEARCH,
         SHOP_SEARCH_PORT,
-        USE_MONEY,
-        UNKNOWN;
+        USE_MONEY;
 
         public final String key;
 
@@ -180,19 +153,18 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         }
 
         public PluginPlayerEvent ultimate(Plugin thePlugin, Player thePlayer) {
-            return PluginPlayerEvent.ultimate(thePlugin, thePlayer, key);
+            return PluginPlayerEvent.ultimate(thePlugin, thePlayer, this);
         }
 
         public PluginPlayerEvent cancellable(Plugin thePlugin, Player thePlayer) {
-            return PluginPlayerEvent.cancellable(thePlugin, thePlayer, key);
+            return PluginPlayerEvent.cancellable(thePlugin, thePlayer, this);
         }
 
         public void call(Plugin thePlugin, Player thePlayer) {
-            PluginPlayerEvent.call(thePlugin, thePlayer, key);
+            PluginPlayerEvent.call(thePlugin, thePlayer, this);
         }
     }
 
-    @RequiredArgsConstructor
     public static final class Detail<E> {
         public static final Detail<Block> BLOCK = new Detail<>("block", Block.class);
         public static final Detail<Double> MONEY = new Detail<>("money", Double.class);
@@ -207,6 +179,11 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
 
         public final String key;
         public final Class<E> valueType;
+
+        private Detail(final String key, final Class<E> valueType) {
+            this.key = key;
+            this.valueType = valueType;
+        }
 
         public void set(PluginPlayerEvent event, E value) {
             event.detail(this, value);
