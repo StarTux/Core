@@ -144,7 +144,20 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         BUY_CLAIM_BLOCKS,
         SHOP_SEARCH,
         SHOP_SEARCH_PORT,
-        USE_MONEY;
+        USE_MONEY,
+        LIST_PLAYER_TITLES,
+        READ_MAIL,
+        RIDE_TELEVATOR,
+        MAKE_SHOP_CHEST,
+        POCKET_MOB_CATCH,
+        POCKET_MOB_RELEASE,
+        MAKE_LINK_PORTAL,
+        LINK_PORTAL_TRAVEL,
+        KIT_OPEN,
+        RAID_VICTORY,
+        MINIGAME_PLAY_GAME,
+        MINIGAME_WIN_GAME,
+        PLAYER_SESSION_LOADED;
 
         public PluginPlayerEvent ultimate(Plugin thePlugin, Player thePlayer) {
             return PluginPlayerEvent.ultimate(thePlugin, thePlayer, this);
