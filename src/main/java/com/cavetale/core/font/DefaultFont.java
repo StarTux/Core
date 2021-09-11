@@ -3,6 +3,7 @@ package com.cavetale.core.font;
 import lombok.Getter;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
@@ -103,6 +104,13 @@ public enum DefaultFont implements Font {
             .color(color)
             .content("" + BACKSPACE_10.character + glyph.character + BACKSPACE_171.character)
             .build();
+    }
+
+    public static Component guiBlankOverlay(int guiSize, TextColor color, Component title) {
+        return TextComponent.ofChildren(new Component[] {
+                guiBlankOverlay(guiSize, color),
+                title,
+            });
     }
 
     public static Component guiBlankOverlay(int guiSize) {
