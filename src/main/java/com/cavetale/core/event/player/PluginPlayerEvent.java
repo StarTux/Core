@@ -146,6 +146,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         SHOP_SEARCH_PORT,
         USE_MONEY,
         LIST_PLAYER_TITLES,
+        SELECT_PLAYER_TITLE,
         READ_MAIL,
         RIDE_TELEVATOR,
         MAKE_SHOP_CHEST,
