@@ -128,6 +128,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         USE_CHAT_CHANNEL,
         LIST_CHAT_CHANNELS,
         JOIN_CHAT_PARTY,
+        USE_CHAT_PARTY,
         SWITCH_SERVER,
         USE_MINE,
         DUNGEON_LOOT,
