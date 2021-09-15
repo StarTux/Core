@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -180,6 +181,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
 
     public static final class Detail<E> {
         public static final Detail<Block> BLOCK = new Detail<>("block", Block.class);
+        public static final Detail<BlockFace> DIRECTION = new Detail<>("direction", BlockFace.class);
         public static final Detail<Double> MONEY = new Detail<>("money", Double.class);
         public static final Detail<Entity> ENTITY = new Detail<>("entity", Entity.class);
         public static final Detail<Integer> COUNT = new Detail<>("count", Integer.class);
