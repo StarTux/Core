@@ -189,6 +189,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         public static final Detail<Material> MATERIAL = new Detail<>("material", Material.class);
         public static final Detail<String> NAME = new Detail<>("name", String.class);
         public static final Detail<UUID> OWNER = new Detail<>("owner", UUID.class);
+        public static final Detail<UUID> TARGET = new Detail<>("target", UUID.class);
 
         public final String key;
         public final Class<E> valueType;
