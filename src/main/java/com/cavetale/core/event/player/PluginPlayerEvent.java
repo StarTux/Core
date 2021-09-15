@@ -161,6 +161,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         MAKE_LINK_PORTAL,
         LINK_PORTAL_TRAVEL,
         KIT_OPEN,
+        INTERACT_NPC,
         RAID_VICTORY,
         MINIGAME_PLAY_GAME,
         MINIGAME_WIN_GAME,
