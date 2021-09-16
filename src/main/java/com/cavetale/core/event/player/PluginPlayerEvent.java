@@ -133,6 +133,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         USE_PRIVATE_CHAT,
         USE_PRIVATE_CHAT_REPLY,
         FOCUS_PRIVATE_CHAT,
+        VIEW_SERVER_LIST,
         SWITCH_SERVER,
         USE_MINE,
         DUNGEON_LOOT,
