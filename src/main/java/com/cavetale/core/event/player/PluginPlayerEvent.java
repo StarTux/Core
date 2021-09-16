@@ -149,6 +149,9 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         SHARE_FRIENDSHIP_ITEM,
         MAKE_FRIEND,
         BUY_CLAIM_BLOCKS,
+        VIEW_CLAIM_INFO,
+        VIEW_CLAIM_SETTINGS,
+        CHANGE_CLAIM_SETTING,
         SHOP_SEARCH,
         SHOP_SEARCH_PORT,
         USE_MONEY,
@@ -185,6 +188,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
     public static final class Detail<E> {
         public static final Detail<Block> BLOCK = new Detail<>("block", Block.class);
         public static final Detail<BlockFace> DIRECTION = new Detail<>("direction", BlockFace.class);
+        public static final Detail<Boolean> TOGGLE = new Detail<>("toggle", Boolean.class);
         public static final Detail<Double> MONEY = new Detail<>("money", Double.class);
         public static final Detail<Entity> ENTITY = new Detail<>("entity", Entity.class);
         public static final Detail<Integer> COUNT = new Detail<>("count", Integer.class);
