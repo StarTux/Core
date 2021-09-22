@@ -110,8 +110,20 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
     }
 
     public enum Name {
+        // Claims
         USE_WILD,
         USE_WILD_WITH_CLAIM,
+        CREATE_CLAIM,
+        BUY_CLAIM_BLOCKS,
+        VIEW_CLAIM_INFO,
+        VIEW_CLAIM_SETTINGS,
+        CHANGE_CLAIM_SETTING,
+        CLAIM_TRUST,
+        CLAIM_UNTRUST,
+        CREATE_SUBCLAIM,
+        SUBCLAIM_TRUST,
+        SUBCLAIM_UNTRUST,
+        // Homes
         SET_PRIMARY_HOME,
         SET_NAMED_HOME,
         USE_PRIMARY_HOME,
@@ -119,11 +131,14 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         VISIT_HOME,
         VISIT_PUBLIC_HOME,
         VIEW_PUBLIC_HOMES,
+        INVITE_HOME,
+        UNINVITE_HOME,
+        // Warps
         LIST_WARPS,
         USE_WARP,
-        CREATE_CLAIM,
         USE_SPAWN,
         OPEN_STASH,
+        // Chat
         FOCUS_CHAT_CHANNEL,
         OPEN_CHAT_SETTINGS,
         USE_CHAT_CHANNEL,
@@ -133,8 +148,10 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         USE_PRIVATE_CHAT,
         USE_PRIVATE_CHAT_REPLY,
         FOCUS_PRIVATE_CHAT,
+        // Server
         VIEW_SERVER_LIST,
         SWITCH_SERVER,
+        // Mine
         USE_MINE,
         DUNGEON_LOOT,
         OPEN_MENU,
@@ -148,10 +165,6 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         ENTER_BIRTHDAY,
         SHARE_FRIENDSHIP_ITEM,
         MAKE_FRIEND,
-        BUY_CLAIM_BLOCKS,
-        VIEW_CLAIM_INFO,
-        VIEW_CLAIM_SETTINGS,
-        CHANGE_CLAIM_SETTING,
         SHOP_SEARCH,
         SHOP_SEARCH_PORT,
         USE_MONEY,
@@ -203,7 +216,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         public final String key;
         public final Class<E> valueType;
 
-        private Detail(final String key, final Class<E> valueType) {
+        public Detail(final String key, final Class<E> valueType) {
             this.key = key;
             this.valueType = valueType;
         }
