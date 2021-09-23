@@ -154,35 +154,55 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         // Mine
         USE_MINE,
         DUNGEON_LOOT,
+        // Menu
         OPEN_MENU,
+        // Mass Storage
         OPEN_MASS_STORAGE,
         STORE_MASS_STORAGE,
         SEARCH_MASS_STORAGE,
         FIND_MASS_STORAGE,
+        // Sell
         SELL_ITEM,
+        // Fam
         VIEW_PROFILE,
         VIEW_FRIENDS_LIST,
         ENTER_BIRTHDAY,
         SHARE_FRIENDSHIP_ITEM,
         MAKE_FRIEND,
+        // Shop
         SHOP_SEARCH,
         SHOP_SEARCH_PORT,
+        MAKE_SHOP_CHEST,
+        // Money
         USE_MONEY,
+        // Title
         LIST_PLAYER_TITLES,
         SELECT_PLAYER_TITLE,
+        // Mail
         READ_MAIL,
+        // Televator
         RIDE_TELEVATOR,
-        MAKE_SHOP_CHEST,
+        // Pocket Mob
         POCKET_MOB_CATCH,
         POCKET_MOB_RELEASE,
+        // Link Portal
         MAKE_LINK_PORTAL,
         LINK_PORTAL_TRAVEL,
+        // Kit
         KIT_OPEN,
+        // NPC
         INTERACT_NPC,
+        // Raid
         RAID_START,
         RAID_VICTORY,
+        // Minigame
         MINIGAME_PLAY_GAME,
         MINIGAME_WIN_GAME,
+        // TPA
+        REQUEST_TPA,
+        ACCEPT_TPA,
+        PORT_TPA,
+        // Generic
         PLAYER_SESSION_LOADED;
 
         public PluginPlayerEvent ultimate(Plugin thePlugin, Player thePlayer) {
