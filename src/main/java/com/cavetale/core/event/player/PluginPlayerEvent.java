@@ -181,6 +181,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         SELECT_PLAYER_TITLE,
         // Mail
         READ_MAIL,
+        SEND_MAIL,
         // Televator
         RIDE_TELEVATOR,
         // Pocket Mob
