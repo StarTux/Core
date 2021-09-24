@@ -134,6 +134,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         INVITE_HOME,
         UNINVITE_HOME,
         LIST_HOMES,
+        DELETE_HOME,
         // Warps
         LIST_WARPS,
         USE_WARP,
