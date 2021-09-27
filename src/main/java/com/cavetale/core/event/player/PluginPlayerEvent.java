@@ -115,6 +115,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         USE_WILD_WITH_CLAIM,
         CREATE_CLAIM,
         BUY_CLAIM_BLOCKS,
+        GROW_CLAIM,
         VIEW_CLAIM_INFO,
         VIEW_CLAIM_SETTINGS,
         CHANGE_CLAIM_SETTING,
