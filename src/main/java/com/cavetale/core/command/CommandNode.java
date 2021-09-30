@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -392,7 +393,7 @@ public final class CommandNode {
         } else {
             lines = help.help(context, this);
         }
-        context.message(Component.join(Component.newline(), lines));
+        context.message(Component.join(JoinConfiguration.separator(Component.newline()), lines));
         return lines.size();
     }
 
