@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Note;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -206,6 +207,8 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         REQUEST_TPA,
         ACCEPT_TPA,
         PORT_TPA,
+        // Mytems
+        PLAY_NOTE,
         // Generic
         PLAYER_SESSION_LOADED;
 
@@ -233,6 +236,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         public static final Detail<ItemStack> ITEM = new Detail<>("item", ItemStack.class);
         public static final Detail<Location> LOCATION = new Detail<>("location", Location.class);
         public static final Detail<Material> MATERIAL = new Detail<>("material", Material.class);
+        public static final Detail<Note> NOTE = new Detail<>("note", Note.class);
         public static final Detail<String> NAME = new Detail<>("name", String.class);
         public static final Detail<UUID> OWNER = new Detail<>("owner", UUID.class);
         public static final Detail<UUID> TARGET = new Detail<>("target", UUID.class);
