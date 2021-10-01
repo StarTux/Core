@@ -211,6 +211,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         // Mytems
         PLAY_NOTE,
         // Generic
+        START_FLYING,
         PLAYER_SESSION_LOADED;
 
         public PluginPlayerEvent ultimate(Plugin thePlugin, Player thePlayer) {
