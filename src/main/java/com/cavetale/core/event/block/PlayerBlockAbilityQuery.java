@@ -52,7 +52,8 @@ public final class PlayerBlockAbilityQuery extends Event implements Cancellable 
         INVENTORY, // Lectern
         USE, // Buttons, Doors
         PLACE_ENTITY,
-        SPAWN_MOB; // PocketMob (before the attempt)
+        SPAWN_MOB, // PocketMob (before the attempt)
+        FLY;
 
         public boolean query(final Player thePlayer, final Block theBlock) {
             PlayerBlockAbilityQuery query = new PlayerBlockAbilityQuery(thePlayer, theBlock, this);
