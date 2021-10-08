@@ -47,6 +47,7 @@ public final class PlayerEntityAbilityQuery extends Event implements Cancellable
     @Getter @RequiredArgsConstructor
     public enum Action {
         DAMAGE,
+        IGNITE,
         POTION,
         SIT, // Cats, Dogs
         FEED,
