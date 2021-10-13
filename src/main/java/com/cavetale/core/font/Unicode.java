@@ -1,6 +1,7 @@
 package com.cavetale.core.font;
 
 import java.util.function.Function;
+import net.kyori.adventure.text.Component;
 
 public enum Unicode {
     CENT('\u00A2'), // ¢
@@ -184,10 +185,14 @@ public enum Unicode {
 
     public final String key;
     public final char character;
+    public final String string;
+    public final Component component;
 
     Unicode(final char character) {
         this.key = name().toLowerCase();
         this.character = character;
+        this.string = "" + character;
+        this.component = Component.text(string);
     }
 
     public static Unicode charToSuperscript(final char c) {
