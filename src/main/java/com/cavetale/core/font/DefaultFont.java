@@ -19,12 +19,20 @@ public enum DefaultFont implements Font {
     BACKSPACE_171("mytems:item/space", -32768, -171, '\uE002', GlyphPolicy.HIDDEN), // Inv right edge to title
     BACKSPACE_3("mytems:item/space", -32768, -3, '\uE003', GlyphPolicy.HIDDEN),
     GUI_RAID_REWARD("mytems:item/gui_raid_reward", 130, 256, '\uE101', GlyphPolicy.HIDDEN),
+    // Blank
     GUI_BLANK_9("mytems:item/gui_blank_9", 130, 256, '\uE011', GlyphPolicy.HIDDEN),
     GUI_BLANK_18("mytems:item/gui_blank_18", 130, 256, '\uE012', GlyphPolicy.HIDDEN),
     GUI_BLANK_27("mytems:item/gui_blank_27", 130, 256, '\uE013', GlyphPolicy.HIDDEN),
     GUI_BLANK_36("mytems:item/gui_blank_36", 130, 256, '\uE014', GlyphPolicy.HIDDEN),
     GUI_BLANK_45("mytems:item/gui_blank_45", 130, 256, '\uE015', GlyphPolicy.HIDDEN),
     GUI_BLANK_54("mytems:item/gui_blank_54", 130, 256, '\uE016', GlyphPolicy.HIDDEN),
+    // Top Bar
+    GUI_TOP_BAR_9("mytems:item/gui_top_bar_9", 130, 256, '\uE017', GlyphPolicy.HIDDEN),
+    GUI_TOP_BAR_18("mytems:item/gui_top_bar_18", 130, 256, '\uE018', GlyphPolicy.HIDDEN),
+    GUI_TOP_BAR_27("mytems:item/gui_top_bar_27", 130, 256, '\uE019', GlyphPolicy.HIDDEN),
+    GUI_TOP_BAR_36("mytems:item/gui_top_bar_36", 130, 256, '\uE01A', GlyphPolicy.HIDDEN),
+    GUI_TOP_BAR_45("mytems:item/gui_top_bar_45", 130, 256, '\uE01B', GlyphPolicy.HIDDEN),
+    GUI_TOP_BAR_54("mytems:item/gui_top_bar_54", 130, 256, '\uE01C', GlyphPolicy.HIDDEN),
     // Flags
     BRITAIN("mytems:item/britain", 8, 8, '\uE106'),
     SPAIN("mytems:item/spain", 8, 8, '\uE107'),
@@ -57,6 +65,7 @@ public enum DefaultFont implements Font {
     public final int ascent;
     public final int height;
     public final char character;
+    public final String string;
     public final GlyphPolicy policy;
     public final Component component;
 
@@ -65,6 +74,7 @@ public enum DefaultFont implements Font {
         this.ascent = ascent;
         this.height = height;
         this.character = character;
+        this.string = "" + character;
         this.policy = policy;
         this.component = Component.text(character)
             .style(Style.style()
