@@ -15,9 +15,17 @@ import net.kyori.adventure.text.format.TextColor;
  */
 @Getter
 public enum DefaultFont implements Font {
-    BACKSPACE_10("mytems:item/space", -32768, -10, '\uE001', GlyphPolicy.HIDDEN), // Inv title to left edge
-    BACKSPACE_171("mytems:item/space", -32768, -171, '\uE002', GlyphPolicy.HIDDEN), // Inv right edge to title
+    /** Inventory title to left edge. */
+    BACKSPACE_10("mytems:item/space", -32768, -10, '\uE001', GlyphPolicy.HIDDEN),
+    /** Inventory right edge to title. */
+    BACKSPACE_171("mytems:item/space", -32768, -171, '\uE002', GlyphPolicy.HIDDEN),
     BACKSPACE_3("mytems:item/space", -32768, -3, '\uE003', GlyphPolicy.HIDDEN),
+    /** Inventory right edge to left. */
+    BACKSPACE_179("mytems:item/space", -32768, -179, '\uE004', GlyphPolicy.HIDDEN),
+    /** Top Bar right edge to left. */
+    BACKSPACE_174("mytems:item/space", -32768, -174, '\uE005', GlyphPolicy.HIDDEN),
+    /** Top Bar right edge to title. */
+    BACKSPACE_166("mytems:item/space", -32768, -166, '\uE006', GlyphPolicy.HIDDEN),
     GUI_RAID_REWARD("mytems:item/gui_raid_reward", 130, 256, '\uE101', GlyphPolicy.HIDDEN),
     // Blank
     GUI_BLANK_9("mytems:item/gui_blank_9", 130, 256, '\uE011', GlyphPolicy.HIDDEN),
