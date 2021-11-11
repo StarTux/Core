@@ -66,8 +66,21 @@ public enum DefaultFont implements Font {
     MODERATOR("mytems:item/moderator", 7, 8, '\uE117'),
     TRUSTED("mytems:item/trusted", 7, 8, '\uE118'),
     BUILDER("mytems:item/builder", 7, 8, '\uE11C'),
-    GOAT("mytems:item/goat", 6, 8, '\uE11D');
-    // Next title unicode character: 0xE11E
+    GOAT("mytems:item/goat", 6, 8, '\uE11D'),
+    // Buttons
+    BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E'),
+    OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F'),
+    CANCEL_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE120'),
+    ABORT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE121'),
+    START_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE122'),
+    STOP_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE123'),
+    ACCEPT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE124'),
+    DECLINE_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE125'),
+    // Player Ranks
+    FRIENDLY("mytems:item/player_ranks", 8, 9, '\uE216'),
+    MEMBER("mytems:item/player_ranks", 8, 9, '\uE217'),
+    SPELEOLOGIST("mytems:item/player_ranks", 8, 9, '\uE218');
+    // Next title unicode character: 0xE219
 
     public final String filename;
     public final int ascent;
