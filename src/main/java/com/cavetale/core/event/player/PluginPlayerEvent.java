@@ -150,6 +150,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         LIST_CHAT_CHANNELS,
         JOIN_CHAT_PARTY,
         USE_CHAT_PARTY,
+        USE_CHAT_TEAM,
         USE_PRIVATE_CHAT,
         USE_PRIVATE_CHAT_REPLY,
         FOCUS_PRIVATE_CHAT,
