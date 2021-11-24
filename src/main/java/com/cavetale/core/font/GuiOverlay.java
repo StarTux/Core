@@ -84,8 +84,20 @@ public enum GuiOverlay {
         protected Component title = Component.empty();
 
         public Builder layer(GuiOverlay overlay, TextColor color) {
-            layers.add(new Layer(overlay, color));
+            layers.add(new Layer(overlay.getScale(guiSize), color,
+                                 overlay.backToLeftEdge, overlay.backToTitle));
             return this;
+        }
+
+        public Builder highlightSlot(int slotIndex, TextColor color) {
+            int ordinal = DefaultFont.GUI_HIGHLIGHT_SLOT_0.ordinal();
+            DefaultFont glyph = DefaultFont.values()[ordinal + slotIndex];
+            layers.add(new Layer(glyph, color, DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171));
+            return this;
+        }
+
+        public Builder highlightSlot(int x, int y, TextColor color) {
+            return highlightSlot(x + y * 9, color);
         }
 
         public Builder title(Component text) {
@@ -99,11 +111,11 @@ public enum GuiOverlay {
                 Layer layer = layers.get(i);
                 StringBuilder text = new StringBuilder();
                 if (i == 0) text.append(DefaultFont.BACKSPACE_10.string);
-                text.append(layer.overlay.getScale(guiSize).string);
+                text.append(layer.glyph.string);
                 if (i < layers.size() - 1) {
-                    text.append(layer.overlay.backToLeftEdge.string);
+                    text.append(layer.backToLeftEdge.string);
                 } else {
-                    text.append(layer.overlay.backToTitle.string);
+                    text.append(layer.backToTitle.string);
                 }
                 result.append(Component.text(text.toString(), layer.color));
             }
@@ -111,5 +123,6 @@ public enum GuiOverlay {
         }
     }
 
-    public static record Layer(GuiOverlay overlay, TextColor color) { }
+    private static record Layer(DefaultFont glyph, TextColor color,
+                                DefaultFont backToLeftEdge, DefaultFont backToTitle) { }
 }
