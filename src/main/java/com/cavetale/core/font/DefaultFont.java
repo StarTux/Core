@@ -131,11 +131,13 @@ public enum DefaultFont implements Font {
     STOP_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE123'),
     ACCEPT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE124'),
     DECLINE_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE125'),
+    YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F'),
+    NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160'),
     // Player Ranks
     FRIENDLY("mytems:item/player_ranks", 8, 9, '\uE15C'),
     MEMBER("mytems:item/player_ranks", 8, 9, '\uE15D'),
     SPELEOLOGIST("mytems:item/player_ranks", 8, 9, '\uE15E');
-    // Next title unicode character: 0xE15F
+    // Next title unicode character: 0xE161
 
     public final String filename;
     public final int ascent;
