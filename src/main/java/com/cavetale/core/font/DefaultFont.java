@@ -134,9 +134,9 @@ public enum DefaultFont implements Font {
     YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F'),
     NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160'),
     // Player Ranks
-    FRIENDLY("mytems:item/player_ranks", 8, 9, '\uE15C'),
-    MEMBER("mytems:item/player_ranks", 8, 9, '\uE15D'),
-    SPELEOLOGIST("mytems:item/player_ranks", 8, 9, '\uE15E');
+    FRIENDLY("mytems:item/player_ranks", 7, 8, '\uE15C'),
+    MEMBER("mytems:item/player_ranks", 7, 8, '\uE15D'),
+    SPELEOLOGIST("mytems:item/player_ranks", 7, 8, '\uE15E');
     // Next title unicode character: 0xE161
 
     public final String filename;
