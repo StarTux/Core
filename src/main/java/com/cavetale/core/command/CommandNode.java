@@ -30,7 +30,6 @@ public final class CommandNode {
     private List<String> aliases = new ArrayList<>();
     private CommandCall call;
     private CommandCompleter completer;
-    private CommandHelp help;
     private String permission;
     private String arguments; // compiling help
     private Component description; // compiling help
@@ -180,30 +179,8 @@ public final class CommandNode {
     }
 
     /**
-     * Set the helper which produces the help for this node.
-     * Permission checks and subcommand help is automated and need not
-     * be worried about.
-     */
-    public CommandNode helper(CommandHelp newHelp) {
-        this.help = newHelp;
-        return this;
-    }
-
-    /**
-     * Supply the exact help as a list.
-     * Permission checks and subcommand help is automated.
-     */
-    public CommandNode helpList(List<Component> newHelp) {
-        this.help = (ctx, nod) -> {
-            return newHelp;
-        };
-        return this;
-    }
-
-    /**
      * Supply the description for this command which will be printed
-     * as part of the help. Calling helper(), helpList(), or
-     * helpLine() will render this obsolete.
+     * as part of the help.
      */
     public CommandNode description(String desc) {
         this.description = Component.text(desc, NamedTextColor.WHITE);
@@ -212,8 +189,7 @@ public final class CommandNode {
 
     /**
      * Supply the description for this command which will be printed
-     * as part of the help. Calling helper(), helpList(), or
-     * helpLine() will render this obsolete.
+     * as part of the help.
      */
     public CommandNode description(Component desc) {
         this.description = desc;
@@ -221,8 +197,7 @@ public final class CommandNode {
     }
 
     /**
-     * Supply the args which will be part of the automated
-     * help. Calling helper() or helpList() will render this obsolete.
+     * Supply the args which will be part of the automated help.
      * Example: <code>{@code node.arguments("<player> <item> [page]");}</code>
      */
     public CommandNode arguments(String args) {
@@ -375,24 +350,22 @@ public final class CommandNode {
         String prefix = sb.toString();
         int count = 0;
         List<Component> lines;
-        if (help == null) {
-            Component commandLine = getColorizedCommandLine().asComponent();
-            TextComponent.Builder line = Component.text()
-                .append(commandLine);
-            if (arguments != null) {
-                line.append(Component.space());
-                line.append(Component.text(arguments, NamedTextColor.GRAY));
-            }
-            if (description != null) {
-                line.append(Component.text(" - ", NamedTextColor.DARK_GRAY));
-                line.append(description);
-            }
-            line.clickEvent(ClickEvent.suggestCommand(getCommandLine()));
-            line.hoverEvent(HoverEvent.showText(commandLine));
-            lines = Arrays.asList(line.build());
-        } else {
-            lines = help.help(context, this);
+        Component commandLine = getColorizedCommandLine().asComponent();
+        TextComponent.Builder line = Component.text()
+            .append(commandLine);
+        if (arguments != null) {
+            line.append(Component.space());
+            line.append(Component.text(arguments, NamedTextColor.GRAY));
+        } else if (children != null) {
+            line.append(Component.text("...", NamedTextColor.AQUA));
         }
+        if (description != null) {
+            line.append(Component.text(" \u2014 ", NamedTextColor.DARK_GRAY));
+            line.append(description);
+        }
+        line.clickEvent(ClickEvent.suggestCommand(getCommandLine()));
+        line.hoverEvent(HoverEvent.showText(commandLine));
+        lines = Arrays.asList(line.build());
         context.message(Component.join(JoinConfiguration.separator(Component.newline()), lines));
         return lines.size();
     }
@@ -459,9 +432,9 @@ public final class CommandNode {
 
     public TextComponent.Builder getColorizedCommandLine() {
             return parent == null
-                ? Component.text().append(Component.text("/" + key, NamedTextColor.YELLOW))
+                ? Component.text().append(Component.text("/" + key, NamedTextColor.GREEN))
                 : (parent.getColorizedCommandLine()
                    .append(Component.space())
-                   .append(Component.text(key, NamedTextColor.GOLD)));
+                   .append(Component.text(key, NamedTextColor.AQUA)));
     }
 }
