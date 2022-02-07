@@ -356,7 +356,7 @@ public final class CommandNode {
         if (arguments != null) {
             line.append(Component.space());
             line.append(Component.text(arguments, NamedTextColor.GRAY));
-        } else if (children != null) {
+        } else if (!children.isEmpty()) {
             line.append(Component.text("...", NamedTextColor.AQUA));
         }
         if (description != null) {
