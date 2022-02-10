@@ -98,25 +98,28 @@ public enum DefaultFont implements Font {
     GUI_HIGHLIGHT_SLOT_52("mytems:item/gui_highlight_slot_52", 130, 256, '\uE15A', GlyphPolicy.HIDDEN),
     GUI_HIGHLIGHT_SLOT_53("mytems:item/gui_highlight_slot_53", 130, 256, '\uE15B', GlyphPolicy.HIDDEN),
     // Flags
-    BRITAIN("mytems:item/britain", 8, 8, '\uE106'),
-    SPAIN("mytems:item/spain", 8, 8, '\uE107'),
-    MEXICO("mytems:item/mexico", 8, 8, '\uE108'),
-    USA("mytems:item/usa", 8, 8, '\uE109'),
-    AUSTRIA("mytems:item/austria", 8, 8, '\uE10B'),
-    BELGIUM("mytems:item/belgium", 8, 8, '\uE10C'),
-    DENMARK("mytems:item/denmark", 8, 8, '\uE10D'),
-    EUROPE("mytems:item/europe", 8, 8, '\uE10E'),
-    FRANCE("mytems:item/france", 8, 8, '\uE10F'),
-    GERMANY("mytems:item/germany", 8, 8, '\uE110'),
-    IRELAND("mytems:item/ireland", 8, 8, '\uE111'),
-    ITALY("mytems:item/italy", 8, 8, '\uE112'),
-    NORWAY("mytems:item/norway", 8, 8, '\uE113'),
-    POLAND("mytems:item/poland", 8, 8, '\uE114'),
-    SWEDEN("mytems:item/sweden", 8, 8, '\uE115'),
-    SWITZERLAND("mytems:item/switzerland", 8, 8, '\uE116'),
+    BRITAIN("mytems:item/britain", 7, 8, '\uE106'),
+    SPAIN("mytems:item/spain", 7, 8, '\uE107'),
+    MEXICO("mytems:item/mexico", 7, 8, '\uE108'),
+    USA("mytems:item/usa", 7, 8, '\uE109'),
+    AUSTRIA("mytems:item/austria", 7, 8, '\uE10B'),
+    BELGIUM("mytems:item/belgium", 7, 8, '\uE10C'),
+    DENMARK("mytems:item/denmark", 7, 8, '\uE10D'),
+    EUROPE("mytems:item/europe", 7, 8, '\uE10E'),
+    FRANCE("mytems:item/france", 7, 8, '\uE10F'),
+    GERMANY("mytems:item/germany", 7, 8, '\uE110'),
+    IRELAND("mytems:item/ireland", 7, 8, '\uE111'),
+    ITALY("mytems:item/italy", 7, 8, '\uE112'),
+    NORWAY("mytems:item/norway", 7, 8, '\uE113'),
+    POLAND("mytems:item/poland", 7, 8, '\uE114'),
+    SWEDEN("mytems:item/sweden", 7, 8, '\uE115'),
+    SWITZERLAND("mytems:item/switzerland", 7, 8, '\uE116'),
     PRIDE_FLAG("mytems:item/pride_flag", 7, 8, '\uE119'),
     TRANS_PRIDE_FLAG("mytems:item/trans_pride_flag", 7, 8, '\uE11A'),
-    ENGLAND("mytems:item/england", 8, 8, '\uE11B'),
+    ENGLAND("mytems:item/england", 7, 8, '\uE11B'),
+    CANADA("mytems:item/canada", 7, 8, (char) 0xE163),
+    AUSTRALIA("mytems:item/australia", 7, 8, (char) 0xE164),
+    NETHERLANDS("mytems:item/netherlands", 7, 8, (char) 0xE165),
     // Ranks
     // Buttons
     BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E'),
@@ -140,7 +143,7 @@ public enum DefaultFont implements Font {
     FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C),
     MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D),
     SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E);
-    // Next title unicode character: \uE163
+    // Next title unicode character: (char) 0xE166
 
     public final String filename;
     public final int ascent;
