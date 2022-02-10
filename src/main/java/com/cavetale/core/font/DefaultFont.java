@@ -7,6 +7,7 @@ import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
+import static com.cavetale.core.font.Globals.*;
 
 /**
  * GUI codes start at 0xE001.
@@ -117,11 +118,6 @@ public enum DefaultFont implements Font {
     TRANS_PRIDE_FLAG("mytems:item/trans_pride_flag", 7, 8, '\uE11A'),
     ENGLAND("mytems:item/england", 8, 8, '\uE11B'),
     // Ranks
-    ADMIN("mytems:item/admin", 7, 8, '\uE10A'),
-    MODERATOR("mytems:item/moderator", 7, 8, '\uE117'),
-    TRUSTED("mytems:item/trusted", 7, 8, '\uE118'),
-    BUILDER("mytems:item/builder", 7, 8, '\uE11C'),
-    GOAT("mytems:item/goat", 6, 8, '\uE11D'),
     // Buttons
     BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E'),
     OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F'),
@@ -133,11 +129,18 @@ public enum DefaultFont implements Font {
     DECLINE_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE125'),
     YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F'),
     NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160'),
-    // Player Ranks
-    FRIENDLY("mytems:item/player_ranks", 7, 8, '\uE15C'),
-    MEMBER("mytems:item/player_ranks", 7, 8, '\uE15D'),
-    SPELEOLOGIST("mytems:item/player_ranks", 7, 8, '\uE15E');
-    // Next title unicode character: 0xE161
+    // Ranks
+    ADMIN(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE10A),
+    MODERATOR(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE117),
+    TRUSTED(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE118),
+    BUILDER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE11C),
+    GOAT(MYTEMS_ITEM_RANKS, 6, 8, (char) 0xE11D),
+    CELESTIAL(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE161),
+    YOUTUBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE162),
+    FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C),
+    MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D),
+    SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E);
+    // Next title unicode character: \uE163
 
     public final String filename;
     public final int ascent;
