@@ -44,6 +44,12 @@ public final class CommandContext {
         return player;
     }
 
+    public RemotePlayer requireRemotePlayer() {
+        if (player != null) return new RemotePlayerWrapper(player);
+        if (sender instanceof RemotePlayer remotePlayer) return remotePlayer;
+        throw new CommandWarn("(Remote) Player expected");
+    }
+
     public void message(String msg) {
         sender.sendMessage(msg);
     }

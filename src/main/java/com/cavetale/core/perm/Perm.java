@@ -1,5 +1,6 @@
 package com.cavetale.core.perm;
 
+import com.cavetale.core.CorePlugin;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
@@ -7,6 +8,7 @@ import java.util.UUID;
 public interface Perm {
     default void register() {
         Holder.perm = this;
+        CorePlugin.getInstance().getLogger().info("Perm registered: " + getClass().getName());
     }
 
     default void unregister() {

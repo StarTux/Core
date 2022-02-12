@@ -105,6 +105,11 @@ public final class CommandNode {
         return this;
     }
 
+    public CommandNode remotePlayerCaller(BiFunction<RemotePlayer, String[], Boolean> callback) {
+        this.call = (ctx, nod, args) -> callback.apply(ctx.requireRemotePlayer(), args);
+        return this;
+    }
+
     /**
      * Set the tab completer.
      * This will add to completions generated from child nodes.
