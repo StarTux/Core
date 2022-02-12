@@ -1,6 +1,7 @@
 package com.cavetale.core.connect;
 
 import com.cavetale.core.CorePlugin;
+import org.bukkit.entity.Player;
 
 public interface Connect {
     default void register() {
@@ -17,6 +18,8 @@ public interface Connect {
     }
 
     String getServerName();
+
+    void dispatchRemoteCommand(Player player, String command, String targetServer);
 }
 
 final class Holder {
