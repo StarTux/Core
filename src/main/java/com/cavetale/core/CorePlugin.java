@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import static net.kyori.adventure.text.Component.text;
 
 public final class CorePlugin extends JavaPlugin {
     @Getter private static CorePlugin instance;
@@ -52,6 +53,16 @@ public final class CorePlugin extends JavaPlugin {
             .senderCaller((sender, args) -> {
                     if (args.length != 0) return false;
                     Emoji.dump(sender);
+                    return true;
+                });
+        coreCommand.addChild("subscript").arguments("<text>")
+            .denyTabCompletion()
+            .description("Convert to subscript")
+            .senderCaller((sender, args) -> {
+                    if (args.length == 0) return false;
+                    String text = String.join(" ", args);
+                    String sub = Unicode.subscript(text);
+                    sender.sendMessage(text(sub).insertion(sub));
                     return true;
                 });
     }
