@@ -298,6 +298,12 @@ public enum Unicode {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < in.length(); i += 1) {
             char c = in.charAt(i);
+            if (c == '\u00A7') {
+                sb.append(c);
+                i += 1;
+                if (i < in.length()) sb.append(in.charAt(i));
+                continue;
+            }
             Unicode unicode = translator.apply(in.charAt(i));
             sb.append(unicode != null ? unicode.character : c);
         }
