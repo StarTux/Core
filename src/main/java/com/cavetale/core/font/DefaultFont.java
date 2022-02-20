@@ -120,6 +120,7 @@ public enum DefaultFont implements Font {
     CANADA("mytems:item/canada", 7, 8, (char) 0xE163),
     AUSTRALIA("mytems:item/australia", 7, 8, (char) 0xE164),
     NETHERLANDS("mytems:item/netherlands", 7, 8, (char) 0xE165),
+    UKRAINE("mytems:item/ukraine", 7, 8, (char) 0xE166),
     // Ranks
     // Buttons
     BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E'),
@@ -143,7 +144,7 @@ public enum DefaultFont implements Font {
     FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C),
     MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D),
     SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E);
-    // Next title unicode character: (char) 0xE166
+    // Next title unicode character: (char) 0xE167
 
     public final String filename;
     public final int ascent;
