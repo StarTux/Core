@@ -19,8 +19,12 @@ public final class CorePlugin extends JavaPlugin {
     private CommandNode coreCommand;
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         instance = this;
+    }
+
+    @Override
+    public void onEnable() {
         loadConfiguration();
         Emoji.init();
         Bukkit.getScheduler().runTask(this, () -> {
@@ -63,6 +67,16 @@ public final class CorePlugin extends JavaPlugin {
                     String text = String.join(" ", args);
                     String sub = Unicode.subscript(text);
                     sender.sendMessage(text(sub).insertion(sub));
+                    return true;
+                });
+        coreCommand.addChild("connect").denyTabCompletion()
+            .denyTabCompletion()
+            .description("Connect debugging")
+            .senderCaller((sender, args) -> {
+                    if (args.length != 0) return false;
+                    sender.sendMessage("serverName=" + com.cavetale.core.connect.Connect.get().getServerName());
+                    sender.sendMessage("networkServer=" + com.cavetale.core.connect.NetworkServer.current());
+                    sender.sendMessage("serverCategory=" + com.cavetale.core.connect.ServerCategory.current());
                     return true;
                 });
     }
