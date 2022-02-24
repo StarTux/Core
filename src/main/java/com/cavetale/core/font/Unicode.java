@@ -285,6 +285,12 @@ public enum Unicode {
         }
     }
 
+    public static Unicode charToTinyFont(final char c) {
+        return c >= 'a' && c <= 'z'
+            ? values()[(int) c - (int) 'a' + SMALLA.ordinal()]
+            : null;
+    }
+
     public static String translate(String in, Function<Character, Unicode> translator) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < in.length(); i += 1) {
@@ -320,6 +326,10 @@ public enum Unicode {
 
     public static String subscript(String in) {
         return translateOrKeep(in, Unicode::charToSubscript);
+    }
+
+    public static String tiny(String in) {
+        return translateOrKeep(in, Unicode::charToTinyFont);
     }
 
     /**
