@@ -7,16 +7,16 @@ import java.util.UUID;
 
 public interface Perm {
     default void register() {
-        Holder.perm = this;
+        Companion.perm = this;
         CorePlugin.getInstance().getLogger().info("Perm registered: " + getClass().getName());
     }
 
     default void unregister() {
-        Holder.perm = null;
+        Companion.perm = DefaultPerm.INSTANCE;
     }
 
     static Perm get() {
-        return Holder.perm;
+        return Companion.perm;
     }
 
     boolean has(UUID uuid, String permission);
@@ -36,8 +36,8 @@ public interface Perm {
     boolean replaceGroup(UUID uuid, String oldGroup, String newGroup);
 }
 
-final class Holder {
-    private Holder() { };
+final class Companion {
+    private Companion() { };
 
-    protected static Perm perm;
+    protected static Perm perm = DefaultPerm.INSTANCE;
 }

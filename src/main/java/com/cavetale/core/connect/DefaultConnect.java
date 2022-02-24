@@ -7,7 +7,7 @@ final class DefaultConnect implements Connect {
 
     @Override
     public String getServerName() {
-        return "cavetale";
+        return "unknown";
     }
 
     @Override

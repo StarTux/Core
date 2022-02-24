@@ -5,16 +5,16 @@ import org.bukkit.entity.Player;
 
 public interface Connect {
     default void register() {
-        Holder.connect = this;
+        Companion.connect = this;
         CorePlugin.getInstance().getLogger().info("Connect registered: " + getClass().getName());
     }
 
     default void unregister() {
-        Holder.connect = DefaultConnect.INSTANCE;
+        Companion.connect = DefaultConnect.INSTANCE;
     }
 
     static Connect get() {
-        return Holder.connect;
+        return Companion.connect;
     }
 
     String getServerName();
@@ -22,8 +22,8 @@ public interface Connect {
     void dispatchRemoteCommand(Player player, String command, String targetServer);
 }
 
-final class Holder {
-    private Holder() { };
+final class Companion {
+    private Companion() { };
 
     protected static Connect connect = DefaultConnect.INSTANCE;
 }
