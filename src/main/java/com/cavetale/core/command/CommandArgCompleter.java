@@ -2,7 +2,6 @@ package com.cavetale.core.command;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.DoublePredicate;
 import java.util.function.Function;
@@ -31,7 +30,7 @@ public interface CommandArgCompleter {
     CommandArgCompleter EMPTY = new CommandArgCompleter() {
             @Override
             public List<String> complete(CommandContext context, CommandNode node, String arg) {
-                return Collections.emptyList();
+                return List.of();
             }
         };
 
@@ -129,11 +128,15 @@ public interface CommandArgCompleter {
     CommandArgCompleter INTEGER = new CommandArgCompleter() {
             @Override
             public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                int value;
                 try {
-                    return Arrays.asList("" + Integer.parseInt(arg));
+                    value = Integer.parseInt(arg);
                 } catch (NumberFormatException nfe) {
-                    return Collections.emptyList();
+                    return List.of();
                 }
+                return List.of("" + value,
+                               "" + (value * 10),
+                               "" + (value * 100));
             }
         };
 
@@ -145,9 +148,9 @@ public interface CommandArgCompleter {
                     int input = Integer.parseInt(arg);
                     return validator.test(input)
                         ? Arrays.asList("" + input)
-                        : Collections.emptyList();
+                        : List.of();
                 } catch (NumberFormatException nfe) {
-                    return Collections.emptyList();
+                    return List.of();
                 }
             }
         };
@@ -159,7 +162,7 @@ public interface CommandArgCompleter {
                 try {
                     return Arrays.asList("" + Long.parseLong(arg));
                 } catch (NumberFormatException nfe) {
-                    return Collections.emptyList();
+                    return List.of();
                 }
             }
         };
@@ -172,9 +175,9 @@ public interface CommandArgCompleter {
                     long input = Long.parseLong(arg);
                     return validator.test(input)
                         ? Arrays.asList("" + input)
-                        : Collections.emptyList();
+                        : List.of();
                 } catch (NumberFormatException nfe) {
-                    return Collections.emptyList();
+                    return List.of();
                 }
             }
         };
@@ -186,7 +189,7 @@ public interface CommandArgCompleter {
                 try {
                     return Arrays.asList("" + Double.parseDouble(arg));
                 } catch (NumberFormatException nfe) {
-                    return Collections.emptyList();
+                    return List.of();
                 }
             }
         };
@@ -199,9 +202,9 @@ public interface CommandArgCompleter {
                     double input = Double.parseDouble(arg);
                     return validator.test(input)
                         ? Arrays.asList("" + input)
-                        : Collections.emptyList();
+                        : List.of();
                 } catch (NumberFormatException nfe) {
-                    return Collections.emptyList();
+                    return List.of();
                 }
             }
         };
