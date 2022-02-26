@@ -763,7 +763,8 @@ public enum VanillaItems implements Font {
     WHITE_CANDLE(Material.WHITE_CANDLE, "minecraft:item/white_candle", 8, 8, '\uE6E8'),
     YELLOW_CANDLE(Material.YELLOW_CANDLE, "minecraft:item/yellow_candle", 8, 8, '\uE6E9'),
     CLOCK(Material.CLOCK, "minecraft:item/clock_00", 8, 8, '\uE6EA'),
-    COMPASS(Material.COMPASS, "minecraft:item/compass_16", 8, 8, '\uE6EB');
+    COMPASS(Material.COMPASS, "minecraft:item/compass_16", 8, 8, '\uE6EB'),
+    CROSSBOW(Material.CROSSBOW, "minecraft:item/crossbow_standby", 8, 8, '\uE6EC');
 
     public final Material material;
     public final String filename;
