@@ -1,7 +1,6 @@
 package com.cavetale.core.command;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.DoublePredicate;
 import java.util.function.Function;
@@ -125,33 +124,34 @@ public interface CommandArgCompleter {
         };
     }
 
-    CommandArgCompleter INTEGER = new CommandArgCompleter() {
-            @Override
-            public List<String> complete(CommandContext context, CommandNode node, String arg) {
-                int value;
-                try {
-                    value = Integer.parseInt(arg);
-                } catch (NumberFormatException nfe) {
-                    return List.of();
-                }
-                return List.of("" + value,
-                               "" + (value * 10),
-                               "" + (value * 100));
-            }
-        };
+    CommandArgCompleter INTEGER = integer(i -> true);
 
     static CommandArgCompleter integer(final IntPredicate validator) {
         return new CommandArgCompleter() {
             @Override
             public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                if (arg.isEmpty()) {
+                    ArrayList<String> result = new ArrayList<>();
+                    for (int i : List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                                         -1, -2, -3, -4, -5, -6, -7, -8, -9)) {
+                        if (validator.test(i)) result.add("" + i);
+                    }
+                    return result;
+                }
+                final int input;
                 try {
-                    int input = Integer.parseInt(arg);
-                    return validator.test(input)
-                        ? Arrays.asList("" + input)
-                        : List.of();
+                    input = Integer.parseInt(arg);
                 } catch (NumberFormatException nfe) {
                     return List.of();
                 }
+                if (!validator.test(input)) return List.of();
+                ArrayList<String> result = new ArrayList<>();
+                result.add("" + input);
+                for (int i : List.of(10, 100, 1000)) {
+                    int value = input * i;
+                    if (validator.test(value)) result.add("" + value);
+                }
+                return result;
             }
         };
     }
@@ -160,7 +160,7 @@ public interface CommandArgCompleter {
             @Override
             public List<String> complete(CommandContext context, CommandNode node, String arg) {
                 try {
-                    return Arrays.asList("" + Long.parseLong(arg));
+                    return List.of("" + Long.parseLong(arg));
                 } catch (NumberFormatException nfe) {
                     return List.of();
                 }
@@ -174,7 +174,7 @@ public interface CommandArgCompleter {
                 try {
                     long input = Long.parseLong(arg);
                     return validator.test(input)
-                        ? Arrays.asList("" + input)
+                        ? List.of("" + input)
                         : List.of();
                 } catch (NumberFormatException nfe) {
                     return List.of();
@@ -187,7 +187,7 @@ public interface CommandArgCompleter {
             @Override
             public List<String> complete(CommandContext context, CommandNode node, String arg) {
                 try {
-                    return Arrays.asList("" + Double.parseDouble(arg));
+                    return List.of("" + Double.parseDouble(arg));
                 } catch (NumberFormatException nfe) {
                     return List.of();
                 }
@@ -201,12 +201,29 @@ public interface CommandArgCompleter {
                 try {
                     double input = Double.parseDouble(arg);
                     return validator.test(input)
-                        ? Arrays.asList("" + input)
+                        ? List.of("" + input)
                         : List.of();
                 } catch (NumberFormatException nfe) {
                     return List.of();
                 }
             }
         };
+    }
+
+    static int requireInt(String arg, IntPredicate validator) {
+        final int input;
+        try {
+            input = Integer.parseInt(arg);
+        } catch (NumberFormatException nfe) {
+            throw new CommandWarn("Number expected: " + arg);
+        }
+        if (!validator.test(input)) {
+            throw new CommandWarn("Invalid number: " + arg);
+        }
+        return input;
+    }
+
+    static int requireInt(String arg) {
+        return requireInt(arg, i -> true);
     }
 }
