@@ -1,5 +1,7 @@
 package com.cavetale.core.connect;
 
+import java.util.Set;
+import java.util.UUID;
 import org.bukkit.entity.Player;
 
 final class DefaultConnect implements Connect {
@@ -12,4 +14,9 @@ final class DefaultConnect implements Connect {
 
     @Override
     public void dispatchRemoteCommand(Player player, String command, String targetServer) { }
+
+    @Override
+    public Set<UUID> getOnlinePlayers() {
+        return Set.of();
+    }
 }

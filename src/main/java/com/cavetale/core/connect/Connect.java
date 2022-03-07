@@ -1,6 +1,8 @@
 package com.cavetale.core.connect;
 
 import com.cavetale.core.CorePlugin;
+import java.util.Set;
+import java.util.UUID;
 import org.bukkit.entity.Player;
 
 public interface Connect {
@@ -20,6 +22,8 @@ public interface Connect {
     String getServerName();
 
     void dispatchRemoteCommand(Player player, String command, String targetServer);
+
+    Set<UUID> getOnlinePlayers();
 }
 
 final class Companion {
