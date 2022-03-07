@@ -1,7 +1,9 @@
 package com.cavetale.core.connect;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 final class DefaultConnect implements Connect {
@@ -17,6 +19,10 @@ final class DefaultConnect implements Connect {
 
     @Override
     public Set<UUID> getOnlinePlayers() {
-        return Set.of();
+        Set<UUID> result = new HashSet<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            result.add(player.getUniqueId());
+        }
+        return result;
     }
 }
