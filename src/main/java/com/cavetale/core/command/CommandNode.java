@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -97,11 +98,39 @@ public final class CommandNode {
 
     /**
      * Set the command caller. (Chainable, convenience)
+     * This allows functions with CommandSender, requiring an empty
+     * argument list.
+     */
+    public CommandNode senderCaller(Consumer<CommandSender> callback) {
+        this.call = (ctx, nod, args) -> {
+            if (args.length != 0) return false;
+            callback.accept(ctx.sender);
+            return true;
+        };
+        return this;
+    }
+
+    /**
+     * Set the command caller. (Chainable, convenience)
      * This exists to allow functions with Player and String[]
      * arguments.
      */
     public CommandNode playerCaller(BiFunction<Player, String[], Boolean> callback) {
         this.call = (ctx, nod, args) -> callback.apply(ctx.requirePlayer(), args);
+        return this;
+    }
+
+    /**
+     * Set the command caller.
+     * This allows functions with a Player, requiring an empty
+     * argument list.
+     */
+    public CommandNode playerCaller(Consumer<Player> callback) {
+        this.call = (ctx, nod, args) -> {
+            if (args.length != 0) return false;
+            callback.accept(ctx.requirePlayer());
+            return true;
+        };
         return this;
     }
 
