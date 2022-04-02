@@ -102,4 +102,13 @@ public final class Json {
             return Component.empty();
         }
     }
+
+    public static <T> T clone(T object, Class<T> type) {
+        return deserialize(serialize(object), type);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T clone(T object) {
+        return clone(object, (Class<T>) object.getClass());
+    }
 }
