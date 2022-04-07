@@ -23,4 +23,12 @@ public interface EditMenuAdapter {
     default List<Component> getTooltip() {
         return null;
     }
+
+    default List<Object> getPossibleValues(String fieldName, int typeIndex) {
+        return null;
+    }
+
+    default Boolean validateValue(String fieldName, Object newValue, int typeIndex) {
+        return null;
+    }
 }
