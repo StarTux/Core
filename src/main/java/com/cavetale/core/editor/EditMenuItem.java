@@ -10,4 +10,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface EditMenuItem {
     boolean deletable() default false;
     boolean settable() default true;
+    String description() default "";
 }
