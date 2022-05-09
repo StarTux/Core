@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@FunctionalInterface
 public interface CommandArgCompleter {
     /**
      * Produce a list of possible completions for the command line argument.

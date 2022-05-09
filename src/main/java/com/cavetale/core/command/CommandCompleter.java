@@ -3,6 +3,7 @@ package com.cavetale.core.command;
 import java.util.Collections;
 import java.util.List;
 
+@FunctionalInterface
 public interface CommandCompleter {
     /**
      * Produce a list of possible completions for the command line input.
