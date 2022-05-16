@@ -149,6 +149,7 @@ public enum DefaultFont implements Font {
     public final String filename;
     public final int ascent;
     public final int height;
+    public final int rows = 1;
     public final char character;
     public final String string;
     public final GlyphPolicy policy;

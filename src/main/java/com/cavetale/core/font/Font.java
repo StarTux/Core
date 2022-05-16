@@ -6,6 +6,7 @@ public interface Font {
     String getFilename();
     int getAscent();
     int getHeight();
+    int getRows();
     char getCharacter();
     GlyphPolicy getPolicy();
 }
