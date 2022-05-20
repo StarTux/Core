@@ -162,11 +162,13 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         DUNGEON_LOOT,
         // Menu
         OPEN_MENU,
+        MENU_GO_BACK,
         // Mass Storage
         OPEN_MASS_STORAGE,
         STORE_MASS_STORAGE,
         SEARCH_MASS_STORAGE,
         FIND_MASS_STORAGE,
+        MASS_STORAGE_GO_BACK,
         // Sell
         SELL_ITEM,
         // Fam
