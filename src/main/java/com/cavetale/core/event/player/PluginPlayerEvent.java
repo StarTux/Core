@@ -60,16 +60,22 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         return handlerList;
     }
 
+    @Deprecated
     public static PluginPlayerEvent ultimate(Plugin plugin, Player player, Name name) {
         return new PluginPlayerEvent(plugin, player, name, false);
     }
 
+    @Deprecated
     public static PluginPlayerEvent cancellable(Plugin plugin, Player player, Name name) {
         return new PluginPlayerEvent(plugin, player, name, true);
     }
 
     public static void call(Plugin plugin, Player player, Name name) {
-        ultimate(plugin, player, name).call();
+        make(plugin, player, name).callEvent();
+    }
+
+    public static PluginPlayerEvent make(Plugin plugin, Player player, Name name) {
+        return new PluginPlayerEvent(plugin, player, name, false);
     }
 
     public <E> PluginPlayerEvent detail(@NonNull Detail<E> detail, E value) {
@@ -90,6 +96,7 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         return Objects.equals(details.get(detail), value);
     }
 
+    @Deprecated
     public boolean call() {
         Bukkit.getPluginManager().callEvent(this);
         return !cancelled;
@@ -217,16 +224,22 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         START_FLYING,
         PLAYER_SESSION_LOADED;
 
+        @Deprecated
         public PluginPlayerEvent ultimate(Plugin thePlugin, Player thePlayer) {
             return PluginPlayerEvent.ultimate(thePlugin, thePlayer, this);
         }
 
+        @Deprecated
         public PluginPlayerEvent cancellable(Plugin thePlugin, Player thePlayer) {
             return PluginPlayerEvent.cancellable(thePlugin, thePlayer, this);
         }
 
         public void call(Plugin thePlugin, Player thePlayer) {
             PluginPlayerEvent.call(thePlugin, thePlayer, this);
+        }
+
+        public PluginPlayerEvent make(Plugin thePlugin, Player thePlayer) {
+            return PluginPlayerEvent.make(thePlugin, thePlayer, this);
         }
     }
 
