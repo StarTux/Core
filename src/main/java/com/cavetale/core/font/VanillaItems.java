@@ -842,6 +842,7 @@ public enum VanillaItems implements Font {
         case LILY_PAD:
         case FERN:
         case TALL_GRASS:
+        case LARGE_FERN:
             color = TextColor.color(0x00FF00);
             break;
         default:
