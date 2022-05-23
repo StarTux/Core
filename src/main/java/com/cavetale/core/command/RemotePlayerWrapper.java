@@ -7,10 +7,10 @@ import lombok.Value;
 import net.kyori.adventure.identity.Identified;
 import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 @Value
 public final class RemotePlayerWrapper implements RemotePlayer {
@@ -32,10 +32,9 @@ public final class RemotePlayerWrapper implements RemotePlayer {
     }
 
     @Override
-    public void bring(Plugin plugin, Consumer<PlayerSpawnLocationEvent> callback) {
-        PlayerSpawnLocationEvent fake = new PlayerSpawnLocationEvent(player, player.getLocation());
-        callback.accept(fake);
-        player.teleport(fake.getSpawnLocation());
+    public void bring(Plugin plugin, Location location, Consumer<Player> callback) {
+        player.teleport(location);
+        callback.accept(player);
     }
 
     @Override
