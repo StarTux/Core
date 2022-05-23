@@ -139,6 +139,15 @@ public final class CommandNode {
         return this;
     }
 
+    public CommandNode remotePlayerCaller(Consumer<RemotePlayer> callback) {
+        this.call = (ctx, nod, args) -> {
+            if (args.length != 0) return false;
+            callback.accept(ctx.requireRemotePlayer());
+            return true;
+        };
+        return this;
+    }
+
     /**
      * Set the tab completer.
      * This will add to completions generated from child nodes.
