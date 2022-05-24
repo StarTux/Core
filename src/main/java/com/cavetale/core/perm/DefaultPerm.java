@@ -1,15 +1,32 @@
 package com.cavetale.core.perm;
 
+import com.cavetale.core.CorePlugin;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.bukkit.plugin.Plugin;
 
 public final class DefaultPerm implements Perm {
     protected static final DefaultPerm INSTANCE = new DefaultPerm();
 
     @Override
+    public Plugin getPlugin() {
+        return CorePlugin.getInstance();
+    }
+
+    @Override
     public boolean has(UUID uuid, String permission) {
+        return false;
+    }
+
+    @Override
+    public boolean set(UUID uuid, String permission, boolean value) {
+        return false;
+    }
+
+    @Override
+    public boolean unset(UUID uuid, String permission) {
         return false;
     }
 

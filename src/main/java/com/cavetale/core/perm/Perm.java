@@ -4,6 +4,7 @@ import com.cavetale.core.CorePlugin;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
+import org.bukkit.plugin.Plugin;
 
 public interface Perm {
     default void register() {
@@ -19,7 +20,13 @@ public interface Perm {
         return Companion.perm;
     }
 
+    Plugin getPlugin();
+
     boolean has(UUID uuid, String permission);
+
+    boolean set(UUID uuid, String permission, boolean value);
+
+    boolean unset(UUID uuid, String permission);
 
     boolean isInGroup(UUID uuid, String groupName);
 
