@@ -23,20 +23,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 /**
- * A generic event meant for inter-plugin communication. The primary
+ * A generic event meant for inter-plugin communication.  The primary
  * intention here is to send messages from anywhere to a tutorial or
  * quests plugin, without having to define many different event types,
  * and especially without creating myriad complicated inter-plugin
  * dependencies.
  *
- * Each event object contains a reference to the issuing plugin.Event
- * objects may be defined as cancellable or ultimate
- * (uncancellable). We expect most events to not be cancellable.
+ * Each event object contains a reference to the issuing plugin.
  *
  * <code>
- * PluginPlayerEvent.Name.SET_HOME.ultimate(plugin, player)
+ * PluginPlayerEvent.Name.SET_HOME.make(plugin, player)
  *   .detail(Detail.HOME_NAME, homeName)
- *   .call();
+ *   .callEvent();
  * </code>
  */
 @Getter @RequiredArgsConstructor
