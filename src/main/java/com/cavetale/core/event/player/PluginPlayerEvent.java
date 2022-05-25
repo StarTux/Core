@@ -212,10 +212,6 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         // Minigame
         MINIGAME_PLAY_GAME,
         MINIGAME_WIN_GAME,
-        // TPA
-        REQUEST_TPA,
-        ACCEPT_TPA,
-        PORT_TPA,
         // Mytems
         PLAY_NOTE,
         // Generic

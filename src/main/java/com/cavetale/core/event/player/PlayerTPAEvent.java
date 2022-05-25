@@ -11,13 +11,15 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 /**
- * When a player requests TPA to another player.  The requesting
- * player may not currently be on this server.
+ * When a player requests TPA to another player or the receiving
+ * player accepts it.  The requesting player may not currently be on
+ * this server.
  */
 @Getter @RequiredArgsConstructor
-public final class PlayerTPARequestEvent extends Event implements Cancellable {
+public final class PlayerTPAEvent extends Event implements Cancellable {
     @NonNull private final UUID requester;
     @NonNull private final Player target;
+    @NonNull private final boolean accepted;
     @Setter private boolean cancelled;
 
     /**
