@@ -4,6 +4,7 @@ import com.cavetale.core.CorePlugin;
 import java.util.Set;
 import java.util.UUID;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 public interface Connect {
     default void register() {
@@ -12,12 +13,14 @@ public interface Connect {
     }
 
     default void unregister() {
-        Companion.connect = DefaultConnect.INSTANCE;
+        Companion.connect = Companion.DEFAULT;
     }
 
     static Connect get() {
         return Companion.connect;
     }
+
+    Plugin getPlugin();
 
     String getServerName();
 
@@ -27,7 +30,8 @@ public interface Connect {
 }
 
 final class Companion {
-    private Companion() { };
+    protected static final DefaultConnect DEFAULT = new DefaultConnect();
+    protected static Connect connect = DEFAULT;
 
-    protected static Connect connect = DefaultConnect.INSTANCE;
+    private Companion() { }
 }

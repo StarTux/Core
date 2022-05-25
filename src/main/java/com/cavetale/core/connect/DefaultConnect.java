@@ -1,5 +1,6 @@
 package com.cavetale.core.connect;
 
+import com.cavetale.core.CorePlugin;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -7,7 +8,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 final class DefaultConnect implements Connect {
-    protected static final DefaultConnect INSTANCE = new DefaultConnect();
+    @Override
+    public CorePlugin getPlugin() {
+        return CorePlugin.getInstance();
+    }
 
     @Override
     public String getServerName() {
