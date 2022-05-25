@@ -7,18 +7,22 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.event.HoverEvent;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import static net.kyori.adventure.text.Component.join;
+import static net.kyori.adventure.text.Component.newline;
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.JoinConfiguration.separator;
+import static net.kyori.adventure.text.event.ClickEvent.suggestCommand;
+import static net.kyori.adventure.text.event.HoverEvent.showText;
+import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
  * The basis for command line resolution.
@@ -226,7 +230,7 @@ public final class CommandNode {
      * as part of the help.
      */
     public CommandNode description(String desc) {
-        this.description = Component.text(desc, NamedTextColor.WHITE);
+        this.description = text(desc, WHITE);
         return this;
     }
 
@@ -284,24 +288,16 @@ public final class CommandNode {
     public boolean call(CommandContext context, String[] args) {
         if (args.length > 0 && !children.isEmpty()) {
             CommandNode child = findChildCommand(args[0]);
-            if (child != null && child.hasPermission(context)) {
+            if (child != null && child.hasPermission(context.sender)) {
                 boolean res = child.call(context, Arrays.copyOfRange(args, 1, args.length));
-                if (!res) res = sendHelp(context);
+                if (!res) res = sendHelp(context.sender);
                 return res;
             }
         }
         if (call != null) {
-            boolean res;
-            try {
-                res = call.call(context, this, args);
-            } catch (CommandWarn warn) {
-                context.sender.sendMessage(Component.text(warn.getMessage(), NamedTextColor.RED));
-                return true;
-            }
-            if (!res) res = sendHelp(context);
-            return res;
+            return wrapExecutor(context.sender, () -> call.call(context, this, args));
         }
-        return sendHelp(context);
+        return sendHelp(context.sender);
     }
 
     public boolean call(CommandSender sender, Command command, String label, String[] args) {
@@ -316,7 +312,7 @@ public final class CommandNode {
     public List<String> complete(CommandContext context, String[] args) {
         if (args.length == 0) return null;
         CommandNode child = findChildCommand(args[0]);
-        if (child != null && child.hasPermission(context)) {
+        if (child != null && child.hasPermission(context.sender)) {
             return child.complete(context, Arrays.copyOfRange(args, 1, args.length));
         }
         if (completer != null) {
@@ -375,7 +371,7 @@ public final class CommandNode {
         if (children.isEmpty()) return null;
         return children.stream()
             .filter(child -> !child.hidden)
-            .filter(child -> child.hasPermission(context))
+            .filter(child -> child.hasPermission(context.sender))
             .filter(child -> child.labelStartsWith(arg))
             .flatMap(CommandNode::getLabelStream)
             .collect(Collectors.toCollection(ArrayList::new));
@@ -385,31 +381,31 @@ public final class CommandNode {
      * Send help to a player. This will check the permission and
      * compute the correct help string for this node.
      */
-    private int sendHelpUtil(CommandContext context, int indent) {
+    private int sendHelpUtil(CommandSender sender, int indent) {
         if (hidden) return 0;
-        if (!hasPermission(context)) return 0;
+        if (!hasPermission(sender)) return 0;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < indent; i += 1) sb.append(' ');
         String prefix = sb.toString();
         int count = 0;
         List<Component> lines;
         Component commandLine = getColorizedCommandLine().asComponent();
-        TextComponent.Builder line = Component.text()
+        TextComponent.Builder line = text()
             .append(commandLine);
         if (arguments != null) {
             line.append(Component.space());
-            line.append(Component.text(arguments, NamedTextColor.GRAY));
+            line.append(text(arguments, GRAY));
         } else if (!children.isEmpty()) {
-            line.append(Component.text("...", NamedTextColor.AQUA));
+            line.append(text("...", AQUA));
         }
         if (description != null) {
-            line.append(Component.text(" \u2014 ", NamedTextColor.DARK_GRAY));
+            line.append(text(" \u2014 ", DARK_GRAY));
             line.append(description);
         }
-        line.clickEvent(ClickEvent.suggestCommand(getCommandLine()));
-        line.hoverEvent(HoverEvent.showText(commandLine));
+        line.clickEvent(suggestCommand(getCommandLine()));
+        line.hoverEvent(showText(commandLine));
         lines = Arrays.asList(line.build());
-        context.message(Component.join(JoinConfiguration.separator(Component.newline()), lines));
+        sender.sendMessage(join(separator(newline()), lines));
         return lines.size();
     }
 
@@ -418,11 +414,11 @@ public final class CommandNode {
      * @return true if at least a line of help was sent, false
      * otherwise
      */
-    public boolean sendHelp(CommandContext context) {
+    public boolean sendHelp(CommandSender sender) {
         int lineCount = 0;
-        lineCount += sendHelpUtil(context, 0);
+        lineCount += sendHelpUtil(sender, 0);
         for (CommandNode child : children) {
-            lineCount += child.sendHelpUtil(context, 2);
+            lineCount += child.sendHelpUtil(sender, 2);
         }
         return lineCount > 0;
     }
@@ -456,12 +452,9 @@ public final class CommandNode {
      * Check if the given context has permission to use this
      * node. (Convenience function)
      */
-    public boolean hasPermission(CommandContext context) {
+    public boolean hasPermission(CommandSender sender) {
         if (permission == null) return true;
-        if (context.isConsole()) return true;
-        if (context.isPlayer()) return context.player.hasPermission(permission);
-        if (context.isEntity()) return true;
-        return false;
+        return sender.hasPermission(permission);
     }
 
     /**
@@ -475,9 +468,36 @@ public final class CommandNode {
 
     public TextComponent.Builder getColorizedCommandLine() {
             return parent == null
-                ? Component.text().append(Component.text("/" + key, NamedTextColor.GREEN))
+                ? text().append(text("/" + key, GREEN))
                 : (parent.getColorizedCommandLine()
                    .append(Component.space())
-                   .append(Component.text(key, NamedTextColor.AQUA)));
+                   .append(text(key, AQUA)));
+    }
+
+    /**
+     * Wrap up another function so it reports CommandWarn or negative
+     * return values just like a command would.
+     */
+    public boolean wrapExecutor(CommandSender sender, Supplier<Boolean> supplier) {
+        final boolean res;
+        try {
+            res = supplier.get();
+        } catch (CommandWarn warn) {
+            sender.sendMessage(text(warn.getMessage(), RED));
+            return true;
+        }
+        return res ? res : sendHelp(sender);
+    }
+
+    /**
+     * Wrap up another function so it reports CommandWarn just like a
+     * command would.
+     */
+    public static void wrap(CommandSender sender, Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (CommandWarn warn) {
+            sender.sendMessage(text(warn.getMessage(), RED));
+        }
     }
 }
