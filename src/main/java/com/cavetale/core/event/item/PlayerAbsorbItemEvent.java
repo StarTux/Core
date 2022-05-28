@@ -3,10 +3,10 @@ package com.cavetale.core.event.item;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * When a player absorbs an item from the environment.
@@ -14,7 +14,12 @@ import org.bukkit.inventory.ItemStack;
 @Getter @RequiredArgsConstructor
 public final class PlayerAbsorbItemEvent extends Event {
     @NonNull private final Player player;
-    @NonNull private final ItemStack item;
+    @NonNull private final Item item;
+    private final int amount;
+
+    public int getRemaining() {
+        return item.getItemStack().getAmount() - amount;
+    }
 
     /**
      * Required by Event.

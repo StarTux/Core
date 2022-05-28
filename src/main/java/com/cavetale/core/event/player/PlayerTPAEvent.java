@@ -19,7 +19,7 @@ import org.bukkit.event.HandlerList;
 public final class PlayerTPAEvent extends Event implements Cancellable {
     @NonNull private final UUID requester;
     @NonNull private final Player target;
-    @NonNull private final boolean accepted;
+    private final boolean accepted;
     @Setter private boolean cancelled;
 
     /**
