@@ -125,6 +125,22 @@ public interface CommandArgCompleter {
         };
     }
 
+    static CommandArgCompleter supplyIgnoreCaseList(final Supplier<List<String>> listSupplier) {
+        return new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                List<String> result = new ArrayList<>();
+                String lower = arg.toLowerCase();
+                for (String it : listSupplier.get()) {
+                    if (lower.isEmpty() || it.contains(lower)) {
+                        result.add(it);
+                    }
+                }
+                return result;
+            }
+        };
+    }
+
     CommandArgCompleter INTEGER = integer(i -> true);
 
     static CommandArgCompleter integer(final IntPredicate validator) {
