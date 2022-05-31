@@ -5,8 +5,10 @@ package com.cavetale.core.connect;
  */
 public enum NetworkServer {
     CAVETALE(ServerCategory.SURVIVAL),
-    CREATIVE(ServerCategory.CREATIVE),
+    MINE(ServerCategory.SURVIVAL),
     RAID(ServerCategory.SURVIVAL),
+
+    CREATIVE(ServerCategory.CREATIVE),
 
     ALPHA(ServerCategory.SURVIVAL_TEST),
     BETA(ServerCategory.SURVIVAL_TEST),
