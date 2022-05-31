@@ -132,7 +132,7 @@ public interface CommandArgCompleter {
                 List<String> result = new ArrayList<>();
                 String lower = arg.toLowerCase();
                 for (String it : listSupplier.get()) {
-                    if (lower.isEmpty() || it.contains(lower)) {
+                    if (lower.isEmpty() || it.toLowerCase().contains(lower)) {
                         result.add(it);
                     }
                 }
