@@ -30,4 +30,8 @@ public interface RemotePlayer extends MessageCommandSender {
     default Player getPlayer() {
         throw new UnsupportedOperationException("getPlayer() Not implemented");
     }
+
+    static RemotePlayer wrap(Player player) {
+        return new RemotePlayerWrapper(player);
+    }
 }
