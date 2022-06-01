@@ -13,17 +13,21 @@ import org.bukkit.event.HandlerList;
 @Getter @RequiredArgsConstructor
 public final class ConnectMessageEvent extends Event {
     @NonNull private final String channel;
-    @NonNull private final String payload;
+    private final String payload;
     @NonNull private final String originServer;
     @NonNull private final String targetServer;
     @NonNull private final Date created;
 
     public <T> T getPayload(Class<T> type, Supplier<T> dfl) {
-        return Json.deserialize(payload, type, dfl);
+        return payload != null
+            ? Json.deserialize(payload, type, dfl)
+            : dfl.get();
     }
 
     public <T> T getPayload(Class<T> type) {
-        return Json.deserialize(payload, type);
+        return payload != null
+            ? Json.deserialize(payload, type)
+            : null;
     }
 
     @Override
