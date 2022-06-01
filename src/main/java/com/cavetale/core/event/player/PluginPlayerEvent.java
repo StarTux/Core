@@ -91,8 +91,8 @@ public final class PluginPlayerEvent extends Event {
         }
     }
 
-    public static void broadcast(Plugin plugin, Player player, Name name) {
-        Connect.get().broadcastMessageToAll(Payload.CHANNEL, Json.serialize(new Payload(plugin.getName(), player.getUniqueId(), name)));
+    public static void broadcast(Plugin plugin, UUID uuid, Name name) {
+        Connect.get().broadcastMessageToAll(Payload.CHANNEL, Json.serialize(new Payload(plugin.getName(), uuid, name)));
     }
 
     public static PluginPlayerEvent make(Plugin plugin, Player player, Name name) {
@@ -266,8 +266,8 @@ public final class PluginPlayerEvent extends Event {
             return PluginPlayerEvent.make(thePlugin, thePlayer, this);
         }
 
-        public void broadcast(Plugin thePlugin, Player thePlayer) {
-            PluginPlayerEvent.broadcast(thePlugin, thePlayer, this);
+        public void broadcast(Plugin thePlugin, UUID uuid) {
+            PluginPlayerEvent.broadcast(thePlugin, uuid, this);
         }
     }
 
