@@ -26,6 +26,24 @@ public interface Connect {
 
     String getServerName();
 
+    /**
+     * ConnectMessageEvent.
+     * Send a message to some server. They will receive
+     */
+    void sendMessage(String targetServer, String channel, String payload);
+
+    /**
+     * Send a message to all servers. They will receive
+     * ConnectMessageEvent.
+     */
+    void broadcastMessage(String channel, String payload);
+
+    /**
+     * Send a message to all servers including this server. They will
+     * receive ConnectMessageEvent.
+     */
+    void broadcastMessageToAll(String channel, String payload);
+
     void dispatchRemoteCommand(Player player, String command, String targetServer);
 
     Set<UUID> getOnlinePlayers();
@@ -35,6 +53,8 @@ public interface Connect {
      * instances.
      */
     List<RemotePlayer> getRemotePlayers();
+
+    RemotePlayer getRemotePlayer(UUID uuid);
 }
 
 final class Companion {

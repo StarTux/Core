@@ -1,5 +1,8 @@
 package com.cavetale.core.event.player;
 
+import com.cavetale.core.CorePlugin;
+import com.cavetale.core.connect.Connect;
+import com.cavetale.core.util.Json;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -7,6 +10,7 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.bukkit.Bukkit;
 import org.bukkit.Instrument;
 import org.bukkit.Location;
@@ -16,7 +20,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
@@ -38,13 +41,11 @@ import org.bukkit.plugin.Plugin;
  * </code>
  */
 @Getter @RequiredArgsConstructor
-public final class PluginPlayerEvent extends Event implements Cancellable {
+public final class PluginPlayerEvent extends Event {
     @NonNull private final Plugin plugin;
     @NonNull private final Player player;
     @NonNull private final Name name;
     @NonNull private final Map<Detail, Object> details = new HashMap<>();
-    private final boolean cancellable;
-    private boolean cancelled;
 
     /**
      * Required by Event.
@@ -60,20 +61,42 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
 
     @Deprecated
     public static PluginPlayerEvent ultimate(Plugin plugin, Player player, Name name) {
-        return new PluginPlayerEvent(plugin, player, name, false);
+        return new PluginPlayerEvent(plugin, player, name);
     }
 
     @Deprecated
     public static PluginPlayerEvent cancellable(Plugin plugin, Player player, Name name) {
-        return new PluginPlayerEvent(plugin, player, name, true);
+        return new PluginPlayerEvent(plugin, player, name);
     }
 
     public static void call(Plugin plugin, Player player, Name name) {
         make(plugin, player, name).callEvent();
     }
 
+    @Value
+    public static final class Payload {
+        public static final String CHANNEL = "core:plugin_player_event";
+        public final String pluginName;
+        public final UUID uuid;
+        public final Name name;
+
+        public boolean callEvent() {
+            if (name == null) return false;
+            Player thePlayer = Bukkit.getPlayer(uuid);
+            if (thePlayer == null) return false;
+            Plugin thePlugin = Bukkit.getPluginManager().getPlugin(pluginName);
+            if (thePlugin == null) thePlugin = CorePlugin.getInstance();
+            PluginPlayerEvent.call(thePlugin, thePlayer, name);
+            return true;
+        }
+    }
+
+    public static void broadcast(Plugin plugin, Player player, Name name) {
+        Connect.get().broadcastMessageToAll(Payload.CHANNEL, Json.serialize(new Payload(plugin.getName(), player.getUniqueId(), name)));
+    }
+
     public static PluginPlayerEvent make(Plugin plugin, Player player, Name name) {
-        return new PluginPlayerEvent(plugin, player, name, false);
+        return new PluginPlayerEvent(plugin, player, name);
     }
 
     public <E> PluginPlayerEvent detail(@NonNull Detail<E> detail, E value) {
@@ -97,15 +120,22 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
     @Deprecated
     public boolean call() {
         Bukkit.getPluginManager().callEvent(this);
-        return !cancelled;
+        return true;
     }
 
-    @Override
+    @Deprecated
+    public boolean isCancellable() {
+        return false;
+    }
+
+    @Deprecated
+    public boolean isCancelled() {
+        return false;
+    }
+
+    @Deprecated
     public void setCancelled(boolean isCancelled) {
-        if (!cancellable) {
-            throw new IllegalArgumentException("event is not cancellable!");
-        }
-        this.cancelled = isCancelled;
+        throw new IllegalArgumentException("event is not cancellable!");
     }
 
     /**
@@ -235,6 +265,10 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
         public PluginPlayerEvent make(Plugin thePlugin, Player thePlayer) {
             return PluginPlayerEvent.make(thePlugin, thePlayer, this);
         }
+
+        public void broadcast(Plugin thePlugin, Player thePlayer) {
+            PluginPlayerEvent.broadcast(thePlugin, thePlayer, this);
+        }
     }
 
     public static final class Detail<E> {
@@ -272,6 +306,17 @@ public final class PluginPlayerEvent extends Event implements Cancellable {
 
         public boolean is(PluginPlayerEvent event, E value) {
             return event.isDetail(this, value);
+        }
+
+        @Override
+        public int hashCode() {
+            return key.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (!(other instanceof Detail detail)) return false;
+            return key.equals(detail.key);
         }
     }
 }

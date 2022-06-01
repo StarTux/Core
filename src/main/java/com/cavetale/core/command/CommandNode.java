@@ -1,5 +1,7 @@
 package com.cavetale.core.command;
 
+import com.cavetale.core.connect.Connect;
+import com.cavetale.core.connect.NetworkServer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,7 +32,7 @@ import static net.kyori.adventure.text.format.NamedTextColor.*;
  */
 public final class CommandNode {
     private final CommandNode parent;
-    private final List<CommandNode> children = new ArrayList<>();
+    @Getter private final List<CommandNode> children = new ArrayList<>();
     private final String key;
     private List<String> aliases = new ArrayList<>();
     private CommandCall call;
@@ -39,6 +41,7 @@ public final class CommandNode {
     private String arguments; // compiling help
     private Component description; // compiling help
     @Getter private boolean hidden;
+    private NetworkServer remoteServer;
 
     /**
      * Constructor for a child node. Internal use only.
@@ -275,6 +278,11 @@ public final class CommandNode {
         return this;
     }
 
+    public CommandNode remoteServer(NetworkServer networkServer) {
+        this.remoteServer = networkServer;
+        return this;
+    }
+
     /**
      * Call this node as if it was entered in the command line, maybe
      * with additional arguments which will be handled here.
@@ -286,6 +294,11 @@ public final class CommandNode {
      * @param args the remaining command line arguments
      */
     public boolean call(CommandContext context, String[] args) {
+        if (remoteServer != null && context.isPlayer()) {
+            String cmd = context.label + " " + String.join(" " + context.args);
+            Connect.get().dispatchRemoteCommand(context.player, cmd, remoteServer.registeredName);
+            return true;
+        }
         if (args.length > 0 && !children.isEmpty()) {
             CommandNode child = findChildCommand(args[0]);
             if (child != null && child.hasPermission(context.sender)) {

@@ -2,7 +2,9 @@ package com.cavetale.core.connect;
 
 import com.cavetale.core.CorePlugin;
 import com.cavetale.core.command.RemotePlayer;
+import com.cavetale.core.event.connect.ConnectMessageEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +21,17 @@ final class DefaultConnect implements Connect {
     @Override
     public String getServerName() {
         return "unknown";
+    }
+
+    @Override
+    public void sendMessage(String targetServer, String channel, String payload) { }
+
+    @Override
+    public void broadcastMessage(String channel, String payload) { }
+
+    @Override
+    public void broadcastMessageToAll(String channel, String payload) {
+        new ConnectMessageEvent(channel, payload, getServerName(), getServerName(), new Date()).callEvent();
     }
 
     @Override
@@ -40,5 +53,13 @@ final class DefaultConnect implements Connect {
             result.add(RemotePlayer.wrap(player));
         }
         return result;
+    }
+
+    @Override
+    public RemotePlayer getRemotePlayer(UUID uuid) {
+        Player player = Bukkit.getPlayer(uuid);
+        return player != null
+            ? RemotePlayer.wrap(player)
+            : null;
     }
 }
