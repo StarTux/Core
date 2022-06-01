@@ -295,7 +295,7 @@ public final class CommandNode {
      */
     public boolean call(CommandContext context, String[] args) {
         if (remoteServer != null && context.isPlayer()) {
-            String cmd = context.label + " " + String.join(" " + context.args);
+            String cmd = context.label + " " + String.join(" ", context.args);
             Connect.get().dispatchRemoteCommand(context.player, cmd, remoteServer.registeredName);
             return true;
         }
