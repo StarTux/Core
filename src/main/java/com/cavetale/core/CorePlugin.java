@@ -1,5 +1,6 @@
 package com.cavetale.core;
 
+import com.cavetale.core.bungee.Bungee;
 import com.cavetale.core.command.CommandNode;
 import com.cavetale.core.event.block.PlayerBlockAbilityQuery;
 import com.cavetale.core.event.block.PlayerBreakBlockEvent;
@@ -30,6 +31,7 @@ public final class CorePlugin extends JavaPlugin {
         Bukkit.getScheduler().runTask(this, () -> {
                 getLogger().info(Emoji.count() + " emoji loaded");
             });
+        Bungee.enable();
         coreCommand = new CommandNode("core");
         coreCommand.addChild("save")
             .denyTabCompletion()
