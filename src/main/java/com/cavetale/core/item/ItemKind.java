@@ -34,6 +34,16 @@ public interface ItemKind extends Keyed {
         return text.hoverEvent(item.asHoverEvent());
     }
 
+    default Component chatDescription(ItemStack item, int amount) {
+        Component text = amount > 1
+            ? join(noSeparators(),
+                   text(amount, YELLOW),
+                   text("\u00D7", GRAY),
+                   icon(item), displayName(item))
+            : join(noSeparators(), icon(item), displayName(item));
+        return text.hoverEvent(item.asHoverEvent());
+    }
+
     static ItemKind of(ItemStack item) {
         return ItemFinder.get().findItem(item);
     }
