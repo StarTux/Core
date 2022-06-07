@@ -4,7 +4,6 @@ import com.cavetale.core.connect.Connect;
 import com.cavetale.core.connect.NetworkServer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -114,6 +113,7 @@ public final class CommandNode {
             callback.accept(ctx.sender);
             return true;
         };
+        denyTabCompletion();
         return this;
     }
 
@@ -138,6 +138,7 @@ public final class CommandNode {
             callback.accept(ctx.requirePlayer());
             return true;
         };
+        denyTabCompletion();
         return this;
     }
 
@@ -152,6 +153,7 @@ public final class CommandNode {
             callback.accept(ctx.requireRemotePlayer());
             return true;
         };
+        denyTabCompletion();
         return this;
     }
 
@@ -164,27 +166,31 @@ public final class CommandNode {
         return this;
     }
 
-    public CommandNode completers(final CommandArgCompleter... newCompleters) {
-        if (newCompleters.length == 0) {
+    public CommandNode completers(final List<CommandArgCompleter> newCompleters) {
+        if (newCompleters.size() == 0) {
             this.completer = CommandCompleter.EMPTY;
             return this;
         }
-        final boolean doRepeat = newCompleters[newCompleters.length - 1] == CommandArgCompleter.REPEAT;
-        final CommandArgCompleter[] array = doRepeat
-            ? Arrays.copyOfRange(newCompleters, 0, newCompleters.length - 1)
+        final boolean doRepeat = newCompleters.get(newCompleters.size() - 1) == CommandArgCompleter.REPEAT;
+        final List<CommandArgCompleter> list = doRepeat
+            ? newCompleters.subList(0, newCompleters.size() - 1)
             : newCompleters;
-        if (array.length == 0) throw new IllegalArgumentException("completers=[REPEAT]");
+        if (list.size() == 0) throw new IllegalArgumentException("completers=[REPEAT]");
         this.completer = (context, node, args) -> {
             int argc = args.length;
             if (argc < 1) return null;
-            if (argc > array.length) {
+            if (argc > list.size()) {
                 return doRepeat
-                    ? array[array.length - 1].complete(context, node, args[argc - 1])
-                    : Collections.emptyList();
+                    ? list.get(list.size() - 1).complete(context, node, args[argc - 1])
+                    : List.of();
             }
-            return array[argc - 1].complete(context, node, args[argc - 1]);
+            return list.get(argc - 1).complete(context, node, args[argc - 1]);
         };
         return this;
+    }
+
+    public CommandNode completers(final CommandArgCompleter... newCompleters) {
+        return completers(List.of(newCompleters));
     }
 
     /**
@@ -195,7 +201,7 @@ public final class CommandNode {
      */
     public CommandNode completableList(List<String> list) {
         this.completer = (ctx, nod, args) -> {
-            if (args.length != 1) return Collections.emptyList();
+            if (args.length != 1) return List.of();
             String arg = args[0].toLowerCase();
             return list.stream()
             .filter(i -> i.toLowerCase().startsWith(arg))
@@ -258,11 +264,13 @@ public final class CommandNode {
     /**
      * Add one or more aliases.
      */
-    public CommandNode alias(String... newAliases) {
-        for (String newAlias : newAliases) {
-            aliases.add(newAlias);
-        }
+    public CommandNode alias(List<String> newAliases) {
+        aliases.addAll(newAliases);
         return this;
+    }
+
+    public CommandNode alias(String... newAliases) {
+        return alias(List.of(newAliases));
     }
 
     /**
@@ -281,6 +289,40 @@ public final class CommandNode {
     public CommandNode remoteServer(NetworkServer networkServer) {
         this.remoteServer = networkServer;
         return this;
+    }
+
+    /**
+     * Copy all properties of another node recursively, except for the
+     * key and aliases.
+     * @return this node
+     */
+    public CommandNode copy(CommandNode other) {
+        if (this == other) {
+            throw new IllegalArgumentException("Cannot copy myself");
+        }
+        this.call = other.call;
+        this.completer = other.completer;
+        this.permission = other.permission;
+        this.arguments = other.arguments;
+        this.description = other.description;
+        this.hidden = other.hidden;
+        this.remoteServer = other.remoteServer;
+        for (CommandNode child : other.children) {
+            if (child == this) {
+                throw new IllegalArgumentException("Copy loop");
+            }
+            copyChild(child);
+        }
+        return this;
+    }
+
+    /**
+     * Copy another child recursively.
+     */
+    public CommandNode copyChild(CommandNode other) {
+        CommandNode child = addChild(other.key);
+        child.aliases.addAll(other.aliases);
+        return child.copy(other);
     }
 
     /**
@@ -331,7 +373,7 @@ public final class CommandNode {
         if (completer != null) {
             return completer.complete(context, this, args);
         }
-        return args.length == 1 ? completeChildren(context, args[0]) : Collections.emptyList();
+        return args.length == 1 ? completeChildren(context, args[0]) : List.of();
     }
 
     public List<String> complete(CommandSender sender, Command command, String label, String[] args) {
@@ -496,7 +538,7 @@ public final class CommandNode {
         try {
             res = supplier.get();
         } catch (CommandWarn warn) {
-            sender.sendMessage(text(warn.getMessage(), RED));
+            warn.send(sender);
             return true;
         }
         return res ? res : sendHelp(sender);
@@ -510,7 +552,7 @@ public final class CommandNode {
         try {
             runnable.run();
         } catch (CommandWarn warn) {
-            sender.sendMessage(text(warn.getMessage(), RED));
+            warn.send(sender);
         }
     }
 }
