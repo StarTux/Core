@@ -18,6 +18,12 @@ public interface ItemKind extends Keyed {
 
     ItemStack create(String tag);
 
+    default Component iconDisplayName(ItemStack item) {
+        return join(noSeparators(),
+                    icon(item),
+                    displayName(item));
+    }
+
     default Component chatDescription(ItemStack item) {
         Component text = item.getAmount() > 1
             ? join(noSeparators(),
