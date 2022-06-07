@@ -6,6 +6,7 @@ import java.util.Map;
 import lombok.Getter;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -16,7 +17,7 @@ import org.bukkit.Material;
  * Unicode character codes start at 0xE400.
  */
 @Getter
-public enum VanillaItems implements Font {
+public enum VanillaItems implements Font, ComponentLike {
     ACACIA_BOAT(Material.ACACIA_BOAT, "minecraft:item/acacia_boat", 8, 8, 1, '\uE400'),
     ACACIA_DOOR(Material.ACACIA_DOOR, "minecraft:item/acacia_door", 8, 8, 1, '\uE401'),
     ACACIA_LEAVES(Material.ACACIA_LEAVES, "minecraft:block/acacia_leaves", 8, 8, 1, '\uE402'),
@@ -1017,5 +1018,10 @@ public enum VanillaItems implements Font {
     public static Component componentOf(Material material) {
         VanillaItems glyph = VanillaItems.of(material);
         return glyph != null ? glyph.component : Component.empty();
+    }
+
+    @Override
+    public Component asComponent() {
+        return component;
     }
 }

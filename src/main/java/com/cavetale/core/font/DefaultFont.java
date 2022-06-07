@@ -3,6 +3,7 @@ package com.cavetale.core.font;
 import lombok.Getter;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
@@ -15,7 +16,7 @@ import static com.cavetale.core.font.Globals.*;
  * Due to superstition, the XX00 codes have been omitted.
  */
 @Getter
-public enum DefaultFont implements Font {
+public enum DefaultFont implements Font, ComponentLike {
     /** Inventory title to left edge. */
     BACKSPACE_10("mytems:item/space", -32768, -10, '\uE001', GlyphPolicy.HIDDEN),
     /** Inventory right edge to title. */
@@ -218,5 +219,10 @@ public enum DefaultFont implements Font {
         } catch (IllegalArgumentException iae) {
             return null;
         }
+    }
+
+    @Override
+    public Component asComponent() {
+        return component;
     }
 }

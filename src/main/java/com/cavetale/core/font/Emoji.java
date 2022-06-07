@@ -18,9 +18,12 @@ import net.kyori.adventure.text.PatternReplacementResult;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.event.HoverEvent;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
+import static com.cavetale.core.util.CamelCase.toCamelCase;
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.Component.translatable;
+import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
  * A global cache of avilable emoji. Methods to replace chat tags with
@@ -70,20 +73,19 @@ public final class Emoji {
             .match(":[0-9a-z_]+:")
             .condition(Emoji::shouldReplace);
         for (DefaultFont defaultFont : DefaultFont.values()) {
-            String name = defaultFont.name().toLowerCase();
-            Component tooltip = Component.text(camelCase(defaultFont.name()), NamedTextColor.WHITE);
+            final String name = defaultFont.name().toLowerCase();
+            final Component tooltip = text(toCamelCase(" ", defaultFont));
             addEmoji(name, defaultFont.component, tooltip, defaultFont.policy, defaultFont);
         }
         for (VanillaItems vanillaItems : VanillaItems.values()) {
-            String itemName = vanillaItems.material.isItem()
-                ? new ItemStack(vanillaItems.material).getI18NDisplayName()
-                : camelCase(vanillaItems.name());
             String name = vanillaItems.name().toLowerCase();
-            Component tooltip = Component.text(itemName, NamedTextColor.WHITE);
+            final Component tooltip = vanillaItems.material.isItem()
+                ? translatable(new ItemStack(vanillaItems.material))
+                : text(toCamelCase(" ", vanillaItems));
             addEmoji(name, vanillaItems.component, tooltip, vanillaItems.getPolicy(), vanillaItems);
         }
         for (Unicode unicode : Unicode.values()) {
-            addEmoji("u" + unicode.key, Component.text(unicode.character), GlyphPolicy.PUBLIC, unicode);
+            addEmoji("u" + unicode.key, text(unicode.character), GlyphPolicy.PUBLIC, unicode);
         }
     }
 
@@ -125,7 +127,7 @@ public final class Emoji {
      * @return The component. Never null.
      */
     public static ComponentLike replaceText(String in, GlyphPolicy glyphPolicy, boolean withTooltip) {
-        if (!in.contains(":")) return Component.text(in);
+        if (!in.contains(":")) return text(in);
         List<Component> list = new ArrayList<>();
         String head = "";
         String tail = in;
@@ -144,17 +146,17 @@ public final class Emoji {
             }
             head = head + tail.substring(0, index);
             if (!head.isEmpty()) {
-                list.add(Component.text(head));
+                list.add(text(head));
                 head = "";
             }
             list.add(withTooltip ? emoji.componentWithTooltip : emoji.component);
             tail = tail2.substring(index2 + 1);
         } while (!tail.isEmpty());
-        if (list.isEmpty()) return Component.text(in);
+        if (list.isEmpty()) return text(in);
         if (!head.isEmpty() || !tail.isEmpty()) {
-            list.add(Component.text(head + tail));
+            list.add(text(head + tail));
         }
-        return Component.text().append(list);
+        return text().append(list);
     }
 
     public static List<String> tabComplete(String arg, GlyphPolicy glyphPolicy) {
@@ -206,17 +208,7 @@ public final class Emoji {
             ? (withTooltip
                ? emoji.componentWithTooltip
                : emoji.component)
-            : Component.text(group);
-    }
-
-    private static String camelCase(String msg) {
-        StringBuilder sb = new StringBuilder();
-        for (String tok : msg.split("_")) {
-            if (sb.length() > 0) sb.append(" ");
-            sb.append(tok.substring(0, 1).toUpperCase());
-            sb.append(tok.substring(1).toLowerCase());
-        }
-        return sb.toString();
+            : text(group);
     }
 
     // Nullable!
@@ -268,7 +260,7 @@ public final class Emoji {
         List<Emoji> all = Emoji.all();
         Collections.sort(all, (a, b) -> String.CASE_INSENSITIVE_ORDER.compare(a.name, b.name));
         List<Component> allc = new ArrayList<>(all.size());
-        TextComponent.Builder cb = Component.text();
+        TextComponent.Builder cb = text();
         for (Emoji emoji : all) {
             cb.append(Component.space());
             if (!emoji.isHidden()) cb.append(emoji.componentWithTooltip);

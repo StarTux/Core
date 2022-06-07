@@ -7,6 +7,7 @@ import com.cavetale.core.event.block.PlayerBreakBlockEvent;
 import com.cavetale.core.event.entity.PlayerEntityAbilityQuery;
 import com.cavetale.core.font.Emoji;
 import com.cavetale.core.font.Unicode;
+import com.cavetale.core.item.ItemKinds;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -80,6 +81,15 @@ public final class CorePlugin extends JavaPlugin {
                     sender.sendMessage("networkServer=" + com.cavetale.core.connect.NetworkServer.current());
                     sender.sendMessage("serverCategory=" + com.cavetale.core.connect.ServerCategory.current());
                     return true;
+                });
+        coreCommand.addChild("spawnitem")
+            .playerCaller((player, args) -> {
+                    player.getInventory().addItem(ItemKinds.create(String.join(" ", args)));
+                    return true;
+                });
+        coreCommand.addChild("showitem")
+            .playerCaller(player -> {
+                    player.sendMessage(ItemKinds.chatDescription(player.getInventory().getItemInMainHand()));
                 });
     }
 
