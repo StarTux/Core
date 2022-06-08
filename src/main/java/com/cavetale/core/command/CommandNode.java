@@ -204,7 +204,7 @@ public final class CommandNode {
             if (args.length != 1) return List.of();
             String arg = args[0].toLowerCase();
             return list.stream()
-            .filter(i -> i.toLowerCase().startsWith(arg))
+            .filter(i -> i.toLowerCase().contains(arg))
             .collect(Collectors.toList());
         };
         return this;
@@ -219,7 +219,7 @@ public final class CommandNode {
             if (args.length == 0) return null;
             String arg = args[args.length - 1].toLowerCase();
             return func.apply(ctx).stream()
-            .filter(i -> i.toLowerCase().startsWith(arg))
+            .filter(i -> i.toLowerCase().contains(arg))
             .collect(Collectors.toList());
         };
         return this;
@@ -402,11 +402,11 @@ public final class CommandNode {
      * Test if the label or any of the aliases begin with the given
      * argument. (Helper function)
      */
-    public boolean labelStartsWith(String arg) {
+    public boolean labelContains(String arg) {
         String argl = arg.toLowerCase();
-        if (key.toLowerCase().startsWith(argl)) return true;
+        if (key.toLowerCase().contains(argl)) return true;
         for (String alias : aliases) {
-            if (alias.toLowerCase().startsWith(argl)) return true;
+            if (alias.toLowerCase().contains(argl)) return true;
         }
         return false;
     }
@@ -427,7 +427,7 @@ public final class CommandNode {
         return children.stream()
             .filter(child -> !child.hidden)
             .filter(child -> child.hasPermission(context.sender))
-            .filter(child -> child.labelStartsWith(arg))
+            .filter(child -> child.labelContains(arg))
             .flatMap(CommandNode::getLabelStream)
             .collect(Collectors.toCollection(ArrayList::new));
     }
