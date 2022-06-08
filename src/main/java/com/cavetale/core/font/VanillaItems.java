@@ -861,7 +861,7 @@ public enum VanillaItems implements Font, ComponentLike {
             .style(Style.style()
                    .font(Key.key("cavetale:default"))
                    .color(color));
-        this.category = material.isItem() ? "Item" : "Block";
+        this.category = material.isBlock() ? "Block" : "Item";
     }
 
     static {
