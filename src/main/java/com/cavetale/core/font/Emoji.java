@@ -17,13 +17,15 @@ import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.PatternReplacementResult;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
-import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.command.CommandSender;
 import static com.cavetale.core.util.CamelCase.toCamelCase;
+import static net.kyori.adventure.text.Component.empty;
 import static net.kyori.adventure.text.Component.join;
 import static net.kyori.adventure.text.Component.newline;
+import static net.kyori.adventure.text.Component.space;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.JoinConfiguration.separator;
+import static net.kyori.adventure.text.event.HoverEvent.showText;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 import static net.kyori.adventure.text.format.TextDecoration.*;
 
@@ -42,9 +44,10 @@ public final class Emoji {
     private static TextReplacementConfig.Builder textReplacementConfigBuilder;
     public final String name;
     public final Component component;
-    public final GlyphPolicy glyphPolicy;
     public final Component componentWithTooltip;
+    public final GlyphPolicy glyphPolicy;
     public final Enum enume;
+    public final String category;
 
     public static final CommandArgCompleter PUBLIC_COMPLETER = new CommandArgCompleter() {
             @Override
@@ -60,14 +63,16 @@ public final class Emoji {
             }
         };
 
-    private Emoji(final String name, final Component component, final Component tooltip, final GlyphPolicy glyphPolicy, final Enum enume) {
+    private Emoji(final String name, final Component component, final Component displayName,
+                  final GlyphPolicy glyphPolicy, final Enum enume, final String category) {
         this.name = name;
         this.component = component;
+        this.componentWithTooltip = component.hoverEvent(showText(join(separator(newline()),
+                                                                       displayName,
+                                                                       text(category, DARK_GRAY, ITALIC))));
         this.glyphPolicy = glyphPolicy;
-        this.componentWithTooltip = !Objects.equals(tooltip, Component.empty())
-            ? component.hoverEvent(HoverEvent.showText(tooltip))
-            : component;
         this.enume = enume;
+        this.category = category;
     }
 
     public static void init() {
@@ -79,35 +84,30 @@ public final class Emoji {
         init(DefaultFont.class);
         init(VanillaItems.class);
         for (Unicode unicode : Unicode.values()) {
-            Component tooltip = join(separator(newline()),
-                                     text(unicode.character),
-                                     text(toCamelCase(" ", unicode.category), DARK_GRAY, ITALIC));
-            addEmoji("u" + unicode.key, tooltip, GlyphPolicy.PUBLIC, unicode);
+            addEmoji("u" + unicode.key, text(unicode.character), GlyphPolicy.PUBLIC, unicode, toCamelCase(" ", unicode.category));
         }
     }
 
     private static <E extends Enum<E> & Font> void init(Class<E> clazz) {
         for (E font : clazz.getEnumConstants()) {
-            final Component tooltip = join(separator(newline()),
-                                           font.getDisplayName(),
-                                           text(font.getCategory(), DARK_GRAY, ITALIC));
-            addEmoji(font.getEmojiName(), font.getComponent(), tooltip, font.getPolicy(), font);
+            addEmoji(font.getEmojiName(), font.getComponent(), font.getDisplayName(), font.getPolicy(), font, font.getCategory());
         }
     }
 
-    public static void addEmoji(String name, Component component, Component tooltip, GlyphPolicy policy, Enum enume) {
+    public static void addEmoji(String name, Component component, Component displayName, GlyphPolicy policy, Enum enume, String category) {
         if (EMOJI_MAP.containsKey(Objects.requireNonNull(name, "name=null"))) {
             CorePlugin.getInstance().getLogger().warning("Emoji: Duplicate " + name);
         }
         EMOJI_MAP.put(name, new Emoji(name,
                                       Objects.requireNonNull(component, "component=null"),
-                                      Objects.requireNonNull(tooltip, "tooltip=null"),
+                                      Objects.requireNonNull(displayName, "displayName=null"),
                                       Objects.requireNonNull(policy, "policy=null"),
-                                      enume));
+                                      enume,
+                                      category));
     }
 
-    public static void addEmoji(String name, Component component, GlyphPolicy policy, Enum enume) {
-        addEmoji(name, component, Component.empty(), policy, enume);
+    public static void addEmoji(String name, Component component, GlyphPolicy policy, Enum enume, String category) {
+        addEmoji(name, component, text(name), policy, enume, category);
     }
 
     public static Component replaceText(Component in, GlyphPolicy glyphPolicy, boolean withTooltip) {
@@ -227,7 +227,7 @@ public final class Emoji {
         Emoji emoji = EMOJI_MAP.get(name);
         return emoji != null && glyphPolicy.entails(emoji.glyphPolicy)
             ? emoji.component
-            : Component.empty();
+            : empty();
     }
 
     public static Component getComponent(String name) {
@@ -263,14 +263,25 @@ public final class Emoji {
     }
 
     public static void dump(CommandSender sender) {
-        List<Emoji> all = Emoji.all();
-        Collections.sort(all, (a, b) -> String.CASE_INSENSITIVE_ORDER.compare(a.name, b.name));
-        List<Component> allc = new ArrayList<>(all.size());
-        TextComponent.Builder cb = text();
-        for (Emoji emoji : all) {
-            cb.append(Component.space());
-            if (!emoji.isHidden()) cb.append(emoji.componentWithTooltip);
+        Map<String, List<Emoji>> all = new HashMap<>();
+        for (Emoji emoji : all()) {
+            if (emoji.isHidden()) continue;
+            all.computeIfAbsent(emoji.category, c -> new ArrayList<>()).add(emoji);
         }
-        sender.sendMessage(cb.build());
+        List<String> cats = new ArrayList<>(all.keySet());
+        cats.sort(String.CASE_INSENSITIVE_ORDER);
+        for (String category : cats) {
+            List<Emoji> list = all.get(category);
+            Collections.sort(list, (a, b) -> {
+                    int v = String.CASE_INSENSITIVE_ORDER.compare(a.category, b.category);
+                    if (v != 0) return v;
+                    return String.CASE_INSENSITIVE_ORDER.compare(a.name, b.name);
+                });
+            List<Component> allc = new ArrayList<>(list.size());
+            for (Emoji e : list) {
+                allc.add(e.componentWithTooltip);
+            }
+            sender.sendMessage(join(separator(space()), allc));
+        }
     }
 }

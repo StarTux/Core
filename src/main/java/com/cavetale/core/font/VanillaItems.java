@@ -826,7 +826,6 @@ public enum VanillaItems implements Font, ComponentLike {
     public final int rows;
     public final char character;
     public final Component component;
-    private Component displayName;
     public final String category;
     private static final Map<Material, VanillaItems> MATERIAL_MAP = new EnumMap<>(Material.class);
 
@@ -1036,11 +1035,8 @@ public enum VanillaItems implements Font, ComponentLike {
 
     @Override
     public Component getDisplayName() {
-        if (displayName == null) {
-            displayName = material.isItem()
-                ? translatable(new ItemStack(material))
-                : text(toCamelCase(" ", this));
-        }
-        return displayName;
+        return material.isItem()
+            ? translatable(new ItemStack(material))
+            : text(toCamelCase(" ", this));
     }
 }
