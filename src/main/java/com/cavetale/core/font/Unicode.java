@@ -1,11 +1,15 @@
 package com.cavetale.core.font;
 
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.function.Function;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
 
-public enum Unicode {
+/**
+ * Unicode does not implement Font because it has several differences.
+ * It does not reference an image file and does not have a made up
+ * character.  As such, it is of no interest to the resource pack.
+ */
+public enum Unicode implements ComponentLike {
     CENT((char) 0x00A2), // ¢
     COPYRIGHT((char) 0x00A9), // ©
     SUPER_2((char) 0x00B2), // ²
@@ -218,11 +222,11 @@ public enum Unicode {
     public final Category category;
 
     /**
-     *Categories exist to maintain the ordering of groups with
-     *non-sequential hex codes.  Specifically, this was added for the
-     *small letters, which are gathered from various Unicode tables.
+     * Categories exist to maintain the ordering of groups with
+     * non-sequential hex codes.  Specifically, this was added for the
+     * small letters, which are gathered from various Unicode tables.
      */
-    private enum Category {
+    public enum Category {
         DEFAULT,
         ALPHABET;
     }
@@ -332,41 +336,8 @@ public enum Unicode {
         return translateOrKeep(in, Unicode::charToTinyFont);
     }
 
-    /**
-     * Sort this enum and print it to stdout. Throw if there's a
-     * duplicate.
-     */
-    public static void main(String[] args) {
-        Unicode[] array = Unicode.values();
-        java.util.Arrays.sort(array, (a, b) -> {
-                if (a.category != b.category) {
-                    return Integer.compare(a.category.ordinal(), b.category.ordinal());
-                }
-                switch (a.category) {
-                case ALPHABET:
-                    return a.name().compareTo(b.name());
-                default:
-                    return Integer.compare((int) a.character, (int) b.character);
-                }
-            });
-        Set<Character> charSet = new TreeSet<>();
-        for (int i = 0; i < array.length; i += 1) {
-            Unicode u = array[i];
-            String show = Integer.toHexString((int) u.character).toUpperCase();
-            // Duplicate detection
-            if (charSet.contains(u.character)) {
-                throw new IllegalStateException("Duplicate: 0x" + show);
-            }
-            charSet.add(u.character);
-            // Print
-            while (show.length() < 4) show = "0" + show;
-            System.out.print(u.name() + "((char) 0x" + show + "'");
-            System.out.print(u.category != Category.DEFAULT
-                             ? "Category." + u.category
-                             : "");
-            System.out.print(")");
-            System.out.print(i < array.length - 1 ? "," : ";");
-            System.out.println(" // " + u.character);
-        }
+    @Override
+    public Component asComponent() {
+        return component;
     }
 }

@@ -19,11 +19,13 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.command.CommandSender;
-import org.bukkit.inventory.ItemStack;
 import static com.cavetale.core.util.CamelCase.toCamelCase;
+import static net.kyori.adventure.text.Component.join;
+import static net.kyori.adventure.text.Component.newline;
 import static net.kyori.adventure.text.Component.text;
-import static net.kyori.adventure.text.Component.translatable;
+import static net.kyori.adventure.text.JoinConfiguration.separator;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
+import static net.kyori.adventure.text.format.TextDecoration.*;
 
 /**
  * A global cache of avilable emoji. Methods to replace chat tags with
@@ -72,20 +74,24 @@ public final class Emoji {
         textReplacementConfigBuilder = TextReplacementConfig.builder()
             .match(":[0-9a-z_]+:")
             .condition(Emoji::shouldReplace);
-        for (DefaultFont defaultFont : DefaultFont.values()) {
-            final String name = defaultFont.name().toLowerCase();
-            final Component tooltip = text(toCamelCase(" ", defaultFont));
-            addEmoji(name, defaultFont.component, tooltip, defaultFont.policy, defaultFont);
-        }
-        for (VanillaItems vanillaItems : VanillaItems.values()) {
-            String name = vanillaItems.name().toLowerCase();
-            final Component tooltip = vanillaItems.material.isItem()
-                ? translatable(new ItemStack(vanillaItems.material))
-                : text(toCamelCase(" ", vanillaItems));
-            addEmoji(name, vanillaItems.component, tooltip, vanillaItems.getPolicy(), vanillaItems);
-        }
+        init(VanillaEffects.class);
+        init(VanillaPaintings.class);
+        init(DefaultFont.class);
+        init(VanillaItems.class);
         for (Unicode unicode : Unicode.values()) {
-            addEmoji("u" + unicode.key, text(unicode.character), GlyphPolicy.PUBLIC, unicode);
+            Component tooltip = join(separator(newline()),
+                                     text(unicode.character),
+                                     text(toCamelCase(" ", unicode.category), DARK_GRAY, ITALIC));
+            addEmoji("u" + unicode.key, tooltip, GlyphPolicy.PUBLIC, unicode);
+        }
+    }
+
+    private static <E extends Enum<E> & Font> void init(Class<E> clazz) {
+        for (E font : clazz.getEnumConstants()) {
+            final Component tooltip = join(separator(newline()),
+                                           font.getDisplayName(),
+                                           text(font.getCategory(), DARK_GRAY, ITALIC));
+            addEmoji(font.getEmojiName(), font.getComponent(), tooltip, font.getPolicy(), font);
         }
     }
 
