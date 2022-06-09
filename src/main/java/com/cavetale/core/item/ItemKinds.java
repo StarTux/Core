@@ -34,8 +34,20 @@ public final class ItemKinds {
         return ItemKind.of(key).create(tag);
     }
 
+    public static boolean isSimilar(ItemStack a, ItemStack b) {
+        return ItemKind.of(a).isSimilar(a, b);
+    }
+
+    public static int getMaxStackSize(ItemStack item) {
+        return ItemKind.of(item).getMaxStackSize(item);
+    }
+
     public static Component chatDescription(ItemStack item) {
         return ItemKind.of(item).chatDescription(item);
+    }
+
+    public static Component chatDescription(ItemStack item, int amount) {
+        return ItemKind.of(item).chatDescription(item, amount);
     }
 
     private ItemKinds() { }

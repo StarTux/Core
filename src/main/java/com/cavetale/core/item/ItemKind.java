@@ -18,6 +18,10 @@ public interface ItemKind extends Keyed {
 
     ItemStack create(String tag);
 
+    boolean isSimilar(ItemStack a, ItemStack b);
+
+    int getMaxStackSize(ItemStack item);
+
     default Component iconDisplayName(ItemStack item) {
         return join(noSeparators(),
                     icon(item),

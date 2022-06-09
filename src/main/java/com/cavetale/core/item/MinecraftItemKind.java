@@ -49,4 +49,14 @@ public final class MinecraftItemKind implements ItemKind {
             ? Bukkit.getItemFactory().createItemStack(tag)
             : new ItemStack(material);
     }
+
+    @Override
+    public boolean isSimilar(ItemStack a, ItemStack b) {
+        return a.isSimilar(b);
+    }
+
+    @Override
+    public int getMaxStackSize(ItemStack item) {
+        return item.getType().getMaxStackSize();
+    }
 }
