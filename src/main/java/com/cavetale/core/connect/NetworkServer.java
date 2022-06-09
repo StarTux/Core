@@ -47,4 +47,18 @@ public enum NetworkServer {
     public static NetworkServer current() {
         return of(Connect.get().getServerName());
     }
+
+    public static NetworkServer manager() {
+        switch (current()) {
+        case ALPHA: case BETA: return BETA;
+        default: return CAVETALE;
+        }
+    }
+
+    public static NetworkServer mining() {
+        switch (current()) {
+        case ALPHA: case BETA: return BETA;
+        default: return MINE;
+        }
+    }
 }
