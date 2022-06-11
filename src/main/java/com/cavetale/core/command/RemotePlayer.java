@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import org.bukkit.Location;
 import org.bukkit.command.MessageCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -18,6 +19,8 @@ public interface RemotePlayer extends MessageCommandSender {
     String getOriginServerName();
 
     void bring(Plugin plugin, Location location, Consumer<Player> callback);
+
+    void openBook(ItemStack book);
 
     default boolean isRemote() {
         return true;

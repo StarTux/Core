@@ -9,6 +9,7 @@ import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 
@@ -100,5 +101,10 @@ public final class RemotePlayerWrapper implements RemotePlayer {
     @Override
     public boolean hasPermission(Permission permission) {
         return player.hasPermission(permission);
+    }
+
+    @Override
+    public void openBook(ItemStack book) {
+        player.openBook(book);
     }
 }
