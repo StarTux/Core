@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import static com.cavetale.core.font.Unicode.subscript;
 import static net.kyori.adventure.text.Component.join;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.JoinConfiguration.noSeparators;
@@ -40,6 +41,17 @@ public interface ItemKind extends Keyed {
                    icon(item), displayName(item))
             : join(noSeparators(), icon(item), displayName(item));
         return text.hoverEvent(item.asHoverEvent());
+    }
+
+    default Component iconDescription(ItemStack item) {
+        return iconDescription(item, item.getAmount());
+    }
+
+    default Component iconDescription(ItemStack item, int amount) {
+        return (amount > 1
+                ? join(noSeparators(), icon(item), text(subscript(amount)))
+                : icon(item))
+            .hoverEvent(item.asHoverEvent());
     }
 
     static ItemKind of(ItemStack item) {
