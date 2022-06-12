@@ -4,6 +4,10 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * This utility class has convenience methods replacing
+ * ItemKind.of(item)#xyz().
+ */
 public final class ItemKinds {
     public static NamespacedKey getKey(ItemStack item) {
         return ItemKind.of(item).getKey();
@@ -48,6 +52,14 @@ public final class ItemKinds {
 
     public static Component chatDescription(ItemStack item, int amount) {
         return ItemKind.of(item).chatDescription(item, amount);
+    }
+
+    public static Component iconDescription(ItemStack item) {
+        return ItemKind.of(item).iconDescription(item);
+    }
+
+    public static Component iconDescription(ItemStack item, int amount) {
+        return ItemKind.of(item).iconDescription(item, amount);
     }
 
     private ItemKinds() { }
