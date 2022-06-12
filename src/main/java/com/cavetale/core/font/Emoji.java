@@ -69,7 +69,8 @@ public final class Emoji {
         this.component = component;
         this.componentWithTooltip = component.hoverEvent(showText(join(separator(newline()),
                                                                        displayName,
-                                                                       text(category, DARK_GRAY, ITALIC))));
+                                                                       text(category, DARK_GRAY, ITALIC),
+                                                                       text(":" + name + ":", DARK_GRAY))));
         this.glyphPolicy = glyphPolicy;
         this.enume = enume;
         this.category = category;
@@ -178,10 +179,10 @@ public final class Emoji {
             return Collections.emptyList();
         }
         String prefix = arg.substring(0, lastColonIndex + 1);
-        String key = arg.substring(lastColonIndex + 1);
+        String key = arg.substring(lastColonIndex + 1).toLowerCase();
         List<String> result = new ArrayList<>(EMOJI_MAP.size());
         for (Emoji emoji : EMOJI_MAP.values()) {
-            if (glyphPolicy.entails(emoji.glyphPolicy) && emoji.name.contains(key)) {
+            if (glyphPolicy.entails(emoji.glyphPolicy) && emoji.name.toLowerCase().contains(key)) {
                 result.add(prefix + emoji.name + ":");
             }
         }
