@@ -1,39 +1,44 @@
 package com.cavetale.core.connect;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Enumerate each server connecting within the Cavetale network.
  */
 public enum NetworkServer {
-    CAVETALE(ServerCategory.SURVIVAL),
-    MINE(ServerCategory.SURVIVAL),
-    RAID(ServerCategory.SURVIVAL),
+    CAVETALE(ServerCategory.SURVIVAL, ServerGroup.MAIN),
+    MINE(ServerCategory.SURVIVAL, ServerGroup.MAIN),
+    RAID(ServerCategory.SURVIVAL, ServerGroup.MAIN),
 
-    CREATIVE(ServerCategory.CREATIVE),
+    CREATIVE(ServerCategory.CREATIVE, ServerGroup.MAIN),
 
-    ALPHA(ServerCategory.SURVIVAL_TEST),
-    BETA(ServerCategory.SURVIVAL_TEST),
+    ALPHA(ServerCategory.SURVIVAL_TEST, ServerGroup.TESTING),
+    BETA(ServerCategory.SURVIVAL_TEST, ServerGroup.TESTING),
 
-    HUB(ServerCategory.HUB),
+    HUB(ServerCategory.HUB, ServerGroup.MAIN),
 
-    COLORFALL(ServerCategory.MINIGAME),
-    VERTIGO(ServerCategory.MINIGAME),
-    PVP_ARENA(ServerCategory.MINIGAME),
+    COLORFALL(ServerCategory.MINIGAME, ServerGroup.MAIN),
+    VERTIGO(ServerCategory.MINIGAME, ServerGroup.MAIN),
+    PVP_ARENA(ServerCategory.MINIGAME, ServerGroup.MAIN),
 
-    RACE(ServerCategory.EVENT),
-    SPLEEF(ServerCategory.EVENT),
-    BINGO(ServerCategory.EVENT),
-    ENDERBALL(ServerCategory.EVENT),
-    HIDE_AND_SEEK(ServerCategory.EVENT),
-    SURVIVAL_GAMES(ServerCategory.EVENT),
+    RACE(ServerCategory.EVENT, ServerGroup.MAIN),
+    SPLEEF(ServerCategory.EVENT, ServerGroup.MAIN),
+    BINGO(ServerCategory.EVENT, ServerGroup.MAIN),
+    ENDERBALL(ServerCategory.EVENT, ServerGroup.MAIN),
+    HIDE_AND_SEEK(ServerCategory.EVENT, ServerGroup.MAIN),
+    SURVIVAL_GAMES(ServerCategory.EVENT, ServerGroup.MAIN),
 
-    WORLDGEN(ServerCategory.WORLD_GENERATION),
-    UNKNOWN(ServerCategory.UNKNOWN);
+    WORLDGEN(ServerCategory.WORLD_GENERATION, ServerGroup.NONE),
+    UNKNOWN(ServerCategory.UNKNOWN, ServerGroup.NONE);
 
     public final ServerCategory category;
+    public final ServerGroup group;
     public final String registeredName;
 
-    NetworkServer(final ServerCategory category) {
+    NetworkServer(final ServerCategory category, final ServerGroup group) {
         this.category = category;
+        this.group = group;
         this.registeredName = name().toLowerCase().replace("_", "");
     }
 
@@ -48,17 +53,45 @@ public enum NetworkServer {
         return of(Connect.get().getServerName());
     }
 
-    public static NetworkServer manager() {
-        switch (current()) {
-        case ALPHA: case BETA: return BETA;
-        default: return CAVETALE;
+    public NetworkServer getManager() {
+        switch (this.group) {
+        case TESTING: return BETA;
+        case MAIN: return CAVETALE;
+        default: return UNKNOWN;
         }
     }
 
-    public static NetworkServer mining() {
-        switch (current()) {
-        case ALPHA: case BETA: return BETA;
-        default: return MINE;
+    public NetworkServer getMining() {
+        switch (this.group) {
+        case TESTING: return BETA;
+        case MAIN: return MINE;
+        default: return UNKNOWN;
         }
+    }
+
+    public static List<NetworkServer> of(ServerCategory theCategory) {
+        List<NetworkServer> list = new ArrayList<>();
+        for (NetworkServer it : values()) {
+            if (it.category == theCategory) list.add(it);
+        }
+        return list;
+    }
+
+    public static List<NetworkServer> of(ServerGroup theGroup) {
+        List<NetworkServer> list = new ArrayList<>();
+        for (NetworkServer it : values()) {
+            if (it.group == theGroup) list.add(it);
+        }
+        return list;
+    }
+
+    @Deprecated
+    public static NetworkServer manager() {
+        return current().getManager();
+    }
+
+    @Deprecated
+    public static NetworkServer mining() {
+        return current().getMining();
     }
 }

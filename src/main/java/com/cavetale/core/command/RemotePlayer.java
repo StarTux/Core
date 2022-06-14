@@ -1,5 +1,6 @@
 package com.cavetale.core.command;
 
+import com.cavetale.core.connect.NetworkServer;
 import java.util.UUID;
 import java.util.function.Consumer;
 import org.bukkit.Location;
@@ -36,5 +37,9 @@ public interface RemotePlayer extends MessageCommandSender {
 
     static RemotePlayer wrap(Player player) {
         return new RemotePlayerWrapper(player);
+    }
+
+    default NetworkServer getOriginServer() {
+        return NetworkServer.of(getOriginServerName());
     }
 }

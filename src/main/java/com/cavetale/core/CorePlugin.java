@@ -78,8 +78,9 @@ public final class CorePlugin extends JavaPlugin {
             .senderCaller((sender, args) -> {
                     if (args.length != 0) return false;
                     sender.sendMessage("serverName=" + com.cavetale.core.connect.Connect.get().getServerName());
-                    sender.sendMessage("networkServer=" + com.cavetale.core.connect.NetworkServer.current());
-                    sender.sendMessage("serverCategory=" + com.cavetale.core.connect.ServerCategory.current());
+                    sender.sendMessage("server=" + com.cavetale.core.connect.NetworkServer.current());
+                    sender.sendMessage("category=" + com.cavetale.core.connect.ServerCategory.current());
+                    sender.sendMessage("group=" + com.cavetale.core.connect.ServerGroup.current());
                     return true;
                 });
         coreCommand.addChild("spawnitem")

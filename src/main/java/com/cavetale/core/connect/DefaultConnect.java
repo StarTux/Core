@@ -30,7 +30,15 @@ final class DefaultConnect implements Connect {
     public void broadcastMessage(String channel, String payload) { }
 
     @Override
+    public void broadcastMessage(ServerGroup group, String channel, String payload) { }
+
+    @Override
     public void broadcastMessageToAll(String channel, String payload) {
+        new ConnectMessageEvent(channel, payload, getServerName(), getServerName(), new Date()).callEvent();
+    }
+
+    @Override
+    public void broadcastMessageToAll(ServerGroup group, String channel, String payload) {
         new ConnectMessageEvent(channel, payload, getServerName(), getServerName(), new Date()).callEvent();
     }
 

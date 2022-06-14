@@ -38,11 +38,15 @@ public interface Connect {
      */
     void broadcastMessage(String channel, String payload);
 
+    void broadcastMessage(ServerGroup group, String channel, String payload);
+
     /**
      * Send a message to all servers including this server. They will
      * receive ConnectMessageEvent.
      */
     void broadcastMessageToAll(String channel, String payload);
+
+    void broadcastMessageToAll(ServerGroup group, String channel, String payload);
 
     void dispatchRemoteCommand(Player player, String command, String targetServer);
 
