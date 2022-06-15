@@ -59,16 +59,6 @@ public final class PluginPlayerEvent extends Event {
         return handlerList;
     }
 
-    @Deprecated
-    public static PluginPlayerEvent ultimate(Plugin plugin, Player player, Name name) {
-        return new PluginPlayerEvent(plugin, player, name);
-    }
-
-    @Deprecated
-    public static PluginPlayerEvent cancellable(Plugin plugin, Player player, Name name) {
-        return new PluginPlayerEvent(plugin, player, name);
-    }
-
     public static void call(Plugin plugin, Player player, Name name) {
         make(plugin, player, name).callEvent();
     }
@@ -115,35 +105,6 @@ public final class PluginPlayerEvent extends Event {
 
     public <E> boolean isDetail(@NonNull Detail<E> detail, @NonNull E value) {
         return Objects.equals(details.get(detail), value);
-    }
-
-    @Deprecated
-    public boolean call() {
-        Bukkit.getPluginManager().callEvent(this);
-        return true;
-    }
-
-    @Deprecated
-    public boolean isCancellable() {
-        return false;
-    }
-
-    @Deprecated
-    public boolean isCancelled() {
-        return false;
-    }
-
-    @Deprecated
-    public void setCancelled(boolean isCancelled) {
-        throw new IllegalArgumentException("event is not cancellable!");
-    }
-
-    /**
-     * @deprecated Use getName()
-     */
-    @NonNull @Deprecated
-    public Name parseName() {
-        return name;
     }
 
     public enum Name {
@@ -247,16 +208,6 @@ public final class PluginPlayerEvent extends Event {
         // Generic
         START_FLYING,
         PLAYER_SESSION_LOADED;
-
-        @Deprecated
-        public PluginPlayerEvent ultimate(Plugin thePlugin, Player thePlayer) {
-            return PluginPlayerEvent.ultimate(thePlugin, thePlayer, this);
-        }
-
-        @Deprecated
-        public PluginPlayerEvent cancellable(Plugin thePlugin, Player thePlayer) {
-            return PluginPlayerEvent.cancellable(thePlugin, thePlayer, this);
-        }
 
         public void call(Plugin thePlugin, Player thePlayer) {
             PluginPlayerEvent.call(thePlugin, thePlayer, this);
