@@ -70,4 +70,8 @@ final class DefaultConnect implements Connect {
             ? RemotePlayer.wrap(player)
             : null;
     }
+
+    public Set<String> getOnlineServerNames() {
+        return Set.of();
+    }
 }

@@ -59,6 +59,8 @@ public interface Connect {
     List<RemotePlayer> getRemotePlayers();
 
     RemotePlayer getRemotePlayer(UUID uuid);
+
+    Set<String> getOnlineServerNames();
 }
 
 final class Companion {
