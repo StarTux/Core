@@ -4,7 +4,6 @@ public enum ServerCategory {
     SURVIVAL,
     SURVIVAL_TEST,
     CREATIVE,
-    HUB,
     MINIGAME,
     EVENT,
     WORLD_GENERATION,

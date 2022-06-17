@@ -7,6 +7,7 @@ import java.util.List;
  * Enumerate each server connecting within the Cavetale network.
  */
 public enum NetworkServer {
+    HUB(ServerCategory.SURVIVAL, ServerGroup.MAIN),
     CAVETALE(ServerCategory.SURVIVAL, ServerGroup.MAIN),
     MINE(ServerCategory.SURVIVAL, ServerGroup.MAIN),
     RAID(ServerCategory.SURVIVAL, ServerGroup.MAIN),
@@ -15,8 +16,6 @@ public enum NetworkServer {
 
     ALPHA(ServerCategory.SURVIVAL_TEST, ServerGroup.TESTING),
     BETA(ServerCategory.SURVIVAL_TEST, ServerGroup.TESTING),
-
-    HUB(ServerCategory.HUB, ServerGroup.MAIN),
 
     COLORFALL(ServerCategory.MINIGAME, ServerGroup.MAIN),
     VERTIGO(ServerCategory.MINIGAME, ServerGroup.MAIN),
