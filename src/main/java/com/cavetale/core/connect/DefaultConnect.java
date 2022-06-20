@@ -46,6 +46,11 @@ final class DefaultConnect implements Connect {
     public void dispatchRemoteCommand(Player player, String command, String targetServer) { }
 
     @Override
+    public int getOnlinePlayerCount() {
+        return Bukkit.getOnlinePlayers().size();
+    }
+
+    @Override
     public Set<UUID> getOnlinePlayers() {
         Set<UUID> result = new HashSet<>();
         for (Player player : Bukkit.getOnlinePlayers()) {

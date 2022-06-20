@@ -50,6 +50,8 @@ public interface Connect {
 
     void dispatchRemoteCommand(Player player, String command, String targetServer);
 
+    int getOnlinePlayerCount();
+
     Set<UUID> getOnlinePlayers();
 
     /**
