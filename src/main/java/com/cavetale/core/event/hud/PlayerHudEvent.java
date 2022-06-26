@@ -41,6 +41,10 @@ public final class PlayerHudEvent extends Event {
         bossbar.add(new PlayerBossBarEntry(priority.value, title, color, overlay, flags, progress));
     }
 
+    public void bossbar(PlayerHudPriority priority, Component title, BossBar.Color color, BossBar.Overlay overlay, float progress) {
+        bossbar(priority, title, color, overlay, Set.of(), progress);
+    }
+
     /**
      * Required by Event.
      */
