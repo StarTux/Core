@@ -64,4 +64,18 @@ public final class DefaultPerm implements Perm {
     public boolean replaceGroup(UUID uuid, String oldGroup, String newGroup) {
         return false;
     }
+
+    @Override
+    public int getLevel(UUID uuid) {
+        return 0;
+    }
+
+    @Override
+    public int getLevelProgress(UUID uuid) {
+        return 0;
+    }
+
+    @Override
+    public void addLevelProgress(UUID uuid) {
+    }
 }

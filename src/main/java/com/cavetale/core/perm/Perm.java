@@ -41,6 +41,12 @@ public interface Perm {
     boolean addGroup(UUID uuid, String group);
 
     boolean replaceGroup(UUID uuid, String oldGroup, String newGroup);
+
+    int getLevel(UUID uuid);
+
+    int getLevelProgress(UUID uuid);
+
+    void addLevelProgress(UUID uuid);
 }
 
 final class Companion {
