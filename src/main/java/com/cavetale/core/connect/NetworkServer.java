@@ -8,9 +8,12 @@ import java.util.List;
  */
 public enum NetworkServer {
     HUB(ServerCategory.SURVIVAL, ServerGroup.MAIN),
-    CAVETALE(ServerCategory.SURVIVAL, ServerGroup.MAIN),
+    CAVETALE(ServerCategory.SURVIVAL, ServerGroup.MAIN), // => MUSEUM
     MINE(ServerCategory.SURVIVAL, ServerGroup.MAIN),
     RAID(ServerCategory.SURVIVAL, ServerGroup.MAIN),
+
+    EINS(ServerCategory.SURVIVAL, ServerGroup.MAIN),
+    ZWEI(ServerCategory.SURVIVAL, ServerGroup.MAIN),
 
     CREATIVE(ServerCategory.CREATIVE, ServerGroup.MAIN),
 
