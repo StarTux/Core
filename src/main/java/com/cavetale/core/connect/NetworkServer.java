@@ -58,7 +58,8 @@ public enum NetworkServer {
     public NetworkServer getManager() {
         switch (this.group) {
         case TESTING: return BETA;
-        case MAIN: return CAVETALE;
+        case MAIN: return HUB;
+        case MUSEUM: return CAVETALE;
         default: return UNKNOWN;
         }
     }
@@ -67,6 +68,7 @@ public enum NetworkServer {
         switch (this.group) {
         case TESTING: return BETA;
         case MAIN: return MINE;
+        case MUSEUM: return MINE;
         default: return UNKNOWN;
         }
     }
