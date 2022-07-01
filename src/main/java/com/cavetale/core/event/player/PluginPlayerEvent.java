@@ -207,7 +207,9 @@ public final class PluginPlayerEvent extends Event {
         PLAY_NOTE,
         // Generic
         START_FLYING,
-        PLAYER_SESSION_LOADED;
+        PLAYER_SESSION_LOADED,
+        USE_TIER,
+        ;
 
         public void call(Plugin thePlugin, Player thePlayer) {
             PluginPlayerEvent.call(thePlugin, thePlayer, this);
