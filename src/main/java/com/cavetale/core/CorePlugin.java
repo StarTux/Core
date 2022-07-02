@@ -5,6 +5,7 @@ import com.cavetale.core.command.CommandNode;
 import com.cavetale.core.event.block.PlayerBlockAbilityQuery;
 import com.cavetale.core.event.block.PlayerBreakBlockEvent;
 import com.cavetale.core.event.entity.PlayerEntityAbilityQuery;
+import com.cavetale.core.exploits.PlayerPlacedBlocks;
 import com.cavetale.core.font.Emoji;
 import com.cavetale.core.font.Unicode;
 import com.cavetale.core.item.ItemKinds;
@@ -91,6 +92,10 @@ public final class CorePlugin extends JavaPlugin {
         coreCommand.addChild("showitem")
             .playerCaller(player -> {
                     player.sendMessage(ItemKinds.chatDescription(player.getInventory().getItemInMainHand()));
+                });
+        coreCommand.addChild("exploits")
+            .playerCaller(player -> {
+                    player.sendMessage("" + PlayerPlacedBlocks.isPlayerPlaced(player.getLocation().getBlock()));
                 });
     }
 
