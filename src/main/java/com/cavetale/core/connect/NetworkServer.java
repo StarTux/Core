@@ -89,6 +89,10 @@ public enum NetworkServer {
         return list;
     }
 
+    public boolean isOnline() {
+        return Connect.get().serverIsOnline(registeredName);
+    }
+
     @Deprecated
     public static NetworkServer manager() {
         return current().getManager();

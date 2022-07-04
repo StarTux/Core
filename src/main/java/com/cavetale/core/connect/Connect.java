@@ -63,6 +63,10 @@ public interface Connect {
     RemotePlayer getRemotePlayer(UUID uuid);
 
     Set<String> getOnlineServerNames();
+
+    default boolean serverIsOnline(String name) {
+        return getOnlineServerNames().contains(name);
+    }
 }
 
 final class Companion {
