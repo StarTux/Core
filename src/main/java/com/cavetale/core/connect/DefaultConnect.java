@@ -76,6 +76,14 @@ final class DefaultConnect implements Connect {
             : null;
     }
 
+    @Override
+    public RemotePlayer getRemotePlayer(String name) {
+        Player player = Bukkit.getPlayerExact(name);
+        return player != null
+            ? RemotePlayer.wrap(player)
+            : null;
+    }
+
     public Set<String> getOnlineServerNames() {
         return Set.of();
     }

@@ -62,6 +62,8 @@ public interface Connect {
 
     RemotePlayer getRemotePlayer(UUID uuid);
 
+    RemotePlayer getRemotePlayer(String name);
+
     Set<String> getOnlineServerNames();
 
     default boolean serverIsOnline(String name) {
