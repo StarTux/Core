@@ -1,7 +1,7 @@
 package com.cavetale.core.structure;
 
 import com.cavetale.core.CorePlugin;
-import org.bukkit.StructureType;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 
 public interface Structures {
@@ -18,7 +18,7 @@ public interface Structures {
         return Companion.inst;
     }
 
-    StructureType structureTypeAt(Block block);
+    NamespacedKey structureKeyAt(Block block);
 
     String structurePartNameAt(Block block);
 
@@ -30,7 +30,7 @@ public interface Structures {
 final class Companion {
     static final Structures DEFAULT = new Structures() {
             @Override
-            public StructureType structureTypeAt(Block block) {
+            public NamespacedKey structureKeyAt(Block block) {
                 return null;
             }
 
