@@ -1,5 +1,6 @@
 package com.cavetale.core.command;
 
+import com.cavetale.core.connect.Connect;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoublePredicate;
@@ -19,13 +20,6 @@ public interface CommandArgCompleter {
      * @param args the remaining command line arguments
      */
     List<String> complete(CommandContext context, CommandNode node, String arg);
-
-    CommandArgCompleter NULL = new CommandArgCompleter() {
-            @Override
-            public List<String> complete(CommandContext context, CommandNode node, String arg) {
-                return null;
-            }
-        };
 
     CommandArgCompleter EMPTY = new CommandArgCompleter() {
             @Override
@@ -221,6 +215,24 @@ public interface CommandArgCompleter {
                 return result;
             }
         };
+
+    CommandArgCompleter ONLINE_PLAYERS = new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                final List<RemotePlayer> players = Connect.get().getRemotePlayers();
+                if (players.isEmpty()) return List.of();
+                final String lower = arg.toLowerCase();
+                final List<String> result = new ArrayList<>(players.size());
+                for (RemotePlayer it : players) {
+                    if (it.getName().toLowerCase().contains(lower)) {
+                        result.add(it.getName());
+                    }
+                }
+                return result;
+            }
+        };
+
+    CommandArgCompleter NULL = ONLINE_PLAYERS;
 
     static int requireInt(String arg, IntPredicate validator) {
         final int input;
