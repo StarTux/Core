@@ -16,7 +16,7 @@ final class DefaultPlayerCacheDataSource implements PlayerCacheDataSource {
     @Override
     public PlayerCache forUuid(UUID uuid) {
         OfflinePlayer off = Bukkit.getOfflinePlayer(uuid);
-        return off != null
+        return off != null && off.hasPlayedBefore()
             ? PlayerCache.of(off)
             : null;
     }
@@ -24,7 +24,7 @@ final class DefaultPlayerCacheDataSource implements PlayerCacheDataSource {
     @Override
     public PlayerCache forName(String name) {
         OfflinePlayer off = Bukkit.getOfflinePlayer(name);
-        return off != null
+        return off != null && off.hasPlayedBefore()
             ? PlayerCache.of(off)
             : null;
     }
