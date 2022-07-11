@@ -209,6 +209,10 @@ public final class PluginPlayerEvent extends Event {
         START_FLYING,
         PLAYER_SESSION_LOADED,
         USE_TIER,
+        // Skills
+        SKILLS_LEVELUP,
+        SKILLS_UNLOCK_TALENT,
+        SKILLS_OPEN_TALENT_MENU,
         ;
 
         public void call(Plugin thePlugin, Player thePlayer) {
