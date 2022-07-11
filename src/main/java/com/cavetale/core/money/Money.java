@@ -1,5 +1,6 @@
 package com.cavetale.core.money;
 
+import com.cavetale.core.CorePlugin;
 import java.util.UUID;
 import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
@@ -11,6 +12,7 @@ import org.bukkit.plugin.Plugin;
 public interface Money {
     default void register() {
         Companion.money = this;
+        CorePlugin.getInstance().getLogger().info("Money registered: " + getClass().getName());
     }
 
     default void unregister() {

@@ -1,6 +1,7 @@
 package com.cavetale.core.command;
 
 import com.cavetale.core.connect.Connect;
+import com.cavetale.core.playercache.PlayerCache;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoublePredicate;
@@ -229,6 +230,13 @@ public interface CommandArgCompleter {
                     }
                 }
                 return result;
+            }
+        };
+
+    CommandArgCompleter PLAYER_CACHE = new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                return PlayerCache.completeNames(arg);
             }
         };
 

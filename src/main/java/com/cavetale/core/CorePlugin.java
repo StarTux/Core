@@ -9,6 +9,7 @@ import com.cavetale.core.exploits.PlayerPlacedBlocks;
 import com.cavetale.core.font.Emoji;
 import com.cavetale.core.font.Unicode;
 import com.cavetale.core.item.ItemKinds;
+import com.cavetale.core.playercache.PlayerCache;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -96,6 +97,13 @@ public final class CorePlugin extends JavaPlugin {
         coreCommand.addChild("exploits")
             .playerCaller(player -> {
                     player.sendMessage("" + PlayerPlacedBlocks.isPlayerPlaced(player.getLocation().getBlock()));
+                });
+        coreCommand.addChild("playercache").arguments("<uuid|name>")
+            .senderCaller((sender, args) -> {
+                    if (args.length != 1) return false;
+                    PlayerCache player = PlayerCache.forArg(args[0]);
+                    sender.sendMessage("player=" + player);
+                    return true;
                 });
     }
 
