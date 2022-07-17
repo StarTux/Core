@@ -882,6 +882,7 @@ public enum VanillaItems implements Font, ComponentLike {
         case ACACIA_LEAVES:
         case DARK_OAK_LEAVES:
         case JUNGLE_LEAVES:
+        case MANGROVE_LEAVES:
         case VINE:
         case LILY_PAD:
         case FERN:
