@@ -1,12 +1,17 @@
 package com.cavetale.core.connect;
 
 public enum ServerCategory {
+    // Primary
     SURVIVAL,
     SURVIVAL_TEST,
     CREATIVE,
     MINIGAME,
     EVENT,
     WORLD_GENERATION,
+    // Extra
+    HOME,
+    MINING,
+    // Unknown
     UNKNOWN;
 
     public boolean isSurvival() {
