@@ -56,6 +56,10 @@ public final class Cuboid {
         return contains(v.x, v.y, v.z);
     }
 
+    public boolean contains(Location location) {
+        return contains(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
+
     @Override
     public String toString() {
         return ax + "," + ay + "," + az + "-" + bx + "," + by + "," + bz;
