@@ -4,6 +4,7 @@ import lombok.Value;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 
 @Value
 public final class Vec3i {
@@ -19,6 +20,10 @@ public final class Vec3i {
 
     public static Vec3i of(Block block) {
         return new Vec3i(block.getX(), block.getY(), block.getZ());
+    }
+
+    public static Vec3i of(BlockFace blockFace) {
+        return new Vec3i(blockFace.getModX(), blockFace.getModY(), blockFace.getModZ());
     }
 
     public Block toBlock(World world) {
@@ -39,6 +44,14 @@ public final class Vec3i {
 
     public Vec3i add(int dx, int dy, int dz) {
         return new Vec3i(x + dx, y + dy, z + dz);
+    }
+
+    public Vec3i add(Vec3i b) {
+        return new Vec3i(x + b.x, y + b.y, z + b.z);
+    }
+
+    public Vec3i subtract(Vec3i b) {
+        return new Vec3i(x - b.x, y - b.y, z - b.z);
     }
 
     public Vec3i multiply(int mul) {

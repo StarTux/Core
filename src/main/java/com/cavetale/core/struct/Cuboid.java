@@ -65,6 +65,10 @@ public final class Cuboid {
         return ax + "," + ay + "," + az + "-" + bx + "," + by + "," + bz;
     }
 
+    public Vec3i getSize() {
+        return new Vec3i(getSizeX(), getSizeY(), getSizeZ());
+    }
+
     public int getSizeX() {
         return bx - ax + 1;
     }
