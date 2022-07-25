@@ -10,6 +10,7 @@ import com.cavetale.core.font.Emoji;
 import com.cavetale.core.font.Unicode;
 import com.cavetale.core.item.ItemKinds;
 import com.cavetale.core.playercache.PlayerCache;
+import com.cavetale.core.struct.Cuboid;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -105,6 +106,8 @@ public final class CorePlugin extends JavaPlugin {
                     sender.sendMessage("player=" + player);
                     return true;
                 });
+        coreCommand.addChild("selection").denyTabCompletion()
+            .playerCaller((player) -> player.sendMessage("selection=" + Cuboid.selectionOf(player)));
     }
 
     @Override
