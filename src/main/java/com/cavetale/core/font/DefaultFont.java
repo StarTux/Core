@@ -1,5 +1,6 @@
 package com.cavetale.core.font;
 
+import com.cavetale.core.message.AltTextSupplier;
 import lombok.Getter;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -10,6 +11,8 @@ import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import static com.cavetale.core.font.Globals.*;
 import static com.cavetale.core.util.CamelCase.toCamelCase;
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
  * GUI codes start at 0xE001.
@@ -17,7 +20,7 @@ import static com.cavetale.core.util.CamelCase.toCamelCase;
  * Due to superstition, the XX00 codes have been omitted.
  */
 @Getter
-public enum DefaultFont implements Font, ComponentLike {
+public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     /** Inventory title to left edge. */
     BACKSPACE_10("mytems:item/space", -32768, -10, '\uE001', GlyphPolicy.HIDDEN, "Backspace"),
     /** Inventory right edge to title. */
@@ -125,16 +128,16 @@ public enum DefaultFont implements Font, ComponentLike {
     UKRAINE("mytems:item/ukraine", 7, 8, (char) 0xE166, "Flag"),
     // Ranks
     // Buttons
-    BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E', "Button"),
-    OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F', "Button"),
-    CANCEL_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE120', "Button"),
-    ABORT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE121', "Button"),
-    START_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE122', "Button"),
-    STOP_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE123', "Button"),
-    ACCEPT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE124', "Button"),
-    DECLINE_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE125', "Button"),
-    YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F', "Button"),
-    NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160', "Button"),
+    BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E', "Button", text("[Back]", RED)),
+    OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F', "Button", text("[OK]", BLUE)),
+    CANCEL_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE120', "Button", text("[Cancel]", RED)),
+    ABORT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE121', "Button", text("[Abort]", RED)),
+    START_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE122', "Button", text("[Start]", BLUE)),
+    STOP_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE123', "Button", text("[Stop]", RED)),
+    ACCEPT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE124', "Button", text("[Accept]", BLUE)),
+    DECLINE_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE125', "Button", text("[Decline]", RED)),
+    YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F', "Button", text("[Yes]", BLUE)),
+    NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160', "Button", text("[No]", RED)),
     // Ranks
     ADMIN(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE10A, "Player Rank"),
     MODERATOR(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE117, "Player Rank"),
@@ -161,8 +164,11 @@ public enum DefaultFont implements Font, ComponentLike {
     public final Component component;
     public final Component displayName;
     public final String category;
+    public final Component altText;
 
-    DefaultFont(final String filename, final int ascent, final int height, final char character, final GlyphPolicy policy, final String category) {
+    DefaultFont(final String filename, final int ascent, final int height, final char character,
+                final GlyphPolicy policy, final String category,
+                final Component altText) {
         this.emojiName = name().toLowerCase();
         this.filename = filename;
         this.ascent = ascent;
@@ -176,10 +182,21 @@ public enum DefaultFont implements Font, ComponentLike {
                    .color(TextColor.color(0xFFFFFF)));
         this.displayName = Component.text(toCamelCase(" ", this));
         this.category = category;
+        this.altText = altText;
+    }
+
+    DefaultFont(final String filename, final int ascent, final int height, final char character,
+                final GlyphPolicy policy, final String category) {
+        this(filename, ascent, height, character, policy, category, null);
+    }
+
+    DefaultFont(final String filename, final int ascent, final int height, final char character, final String category,
+                final Component altText) {
+        this(filename, ascent, height, character, GlyphPolicy.PUBLIC, category, altText);
     }
 
     DefaultFont(final String filename, final int ascent, final int height, final char character, final String category) {
-        this(filename, ascent, height, character, GlyphPolicy.PUBLIC, category);
+        this(filename, ascent, height, character, GlyphPolicy.PUBLIC, category, null);
     }
 
     public static Component guiOverlay(DefaultFont glyph, TextColor color) {
@@ -233,5 +250,10 @@ public enum DefaultFont implements Font, ComponentLike {
     @Override
     public Component asComponent() {
         return component;
+    }
+
+    @Override
+    public Component getAltText() {
+        return altText != null ? altText : component;
     }
 }
