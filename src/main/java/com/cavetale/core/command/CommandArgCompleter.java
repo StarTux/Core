@@ -11,6 +11,8 @@ import java.util.function.LongPredicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 @FunctionalInterface
 public interface CommandArgCompleter {
@@ -313,5 +315,23 @@ public interface CommandArgCompleter {
         } catch (IllegalArgumentException iae) {
             throw new CommandWarn(enumClass.getSimpleName() + " expected: " + arg);
         }
+    }
+
+    static Player requirePlayer(String arg) {
+        Player player = Bukkit.getPlayerExact(arg);
+        if (player == null) throw new CommandWarn("Player not found: " + arg);
+        return player;
+    }
+
+    static PlayerCache requirePlayerCache(String arg) {
+        PlayerCache player = PlayerCache.forName(arg);
+        if (player == null) throw new CommandWarn("Player not found: " + arg);
+        return player;
+    }
+
+    static RemotePlayer requireRemotePlayer(String arg) {
+        RemotePlayer player = Connect.get().getRemotePlayer(arg);
+        if (player == null) throw new CommandWarn("Player not found: " + arg);
+        return player;
     }
 }
