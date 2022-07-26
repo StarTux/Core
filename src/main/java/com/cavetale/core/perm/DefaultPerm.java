@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import org.bukkit.plugin.Plugin;
 
-public final class DefaultPerm implements Perm {
+final class DefaultPerm implements Perm {
     protected static final DefaultPerm INSTANCE = new DefaultPerm();
 
     @Override
