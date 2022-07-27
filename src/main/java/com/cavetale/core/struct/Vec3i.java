@@ -66,6 +66,21 @@ public final class Vec3i {
         return new Vec3i(-x, -y, -z);
     }
 
+    public int maxDistance(Vec3i other) {
+        return Math.max(Math.abs(other.x - x),
+                        Math.max(Math.abs(other.y - y),
+                                 Math.abs(other.z - z)));
+    }
+
+    public int maxHorizontalDistance(Vec3i other) {
+        return Math.max(Math.abs(other.x - x),
+                        Math.abs(other.z - z));
+    }
+
+    public Vec2i blockToChunk() {
+        return new Vec2i(x >> 4, z >> 4);
+    }
+
     @Override
     public String toString() {
         return "" + x + "," + y + "," + z;

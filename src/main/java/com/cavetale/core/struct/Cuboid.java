@@ -60,6 +60,12 @@ public final class Cuboid {
         return contains(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
+    public boolean contains(Cuboid other) {
+        return ax <= other.ax && bx >= other.bx
+            && ay <= other.ay && by >= other.by
+            && az <= other.az && bz >= other.bz;
+    }
+
     @Override
     public String toString() {
         return ax + "," + ay + "," + az + "-" + bx + "," + by + "," + bz;
