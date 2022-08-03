@@ -97,6 +97,7 @@ public final class PlayerReceiveItemsEvent extends Event {
         for (ItemStack itemStack : items) {
             if (itemStack == null || itemStack.getType().isAir()) continue;
             for (ItemStack drop : player.getInventory().addItem(itemStack).values()) {
+                if (drop == null || drop.getType().isAir()) continue;
                 Item item = player.getWorld().dropItem(player.getLocation(), drop);
                 item.setOwner(player.getUniqueId());
                 item.setCanMobPickup(false);
