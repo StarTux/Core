@@ -81,6 +81,17 @@ public final class Vec3i {
         return new Vec2i(x >> 4, z >> 4);
     }
 
+    public boolean contains(Location loc) {
+        return x == loc.getBlockX() && y == loc.getBlockY() && z == loc.getBlockZ();
+    }
+
+    public int distanceSquared(Vec3i other) {
+        int dx = other.x - x;
+        int dy = other.y - y;
+        int dz = other.z - z;
+        return dx * dx + dy * dy + dz * dz;
+    }
+
     @Override
     public String toString() {
         return "" + x + "," + y + "," + z;
