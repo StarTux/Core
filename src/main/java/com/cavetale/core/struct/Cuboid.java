@@ -225,4 +225,8 @@ public final class Cuboid {
         return new Cuboid(ax >> 4, ay >> 4, az >> 4,
                           bx >> 4, by >> 4, bz >> 4);
     }
+
+    public Vec3i getCenter() {
+        return new Vec3i((ax + bx) / 2, (ay + by) / 2, (az + bz) / 2);
+    }
 }
