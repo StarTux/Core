@@ -39,6 +39,10 @@ public enum VanillaPaintings implements Font, ComponentLike {
     WANDERER(Art.WANDERER, 0xE19D),
     WASTELAND(Art.WASTELAND, 0xE19E),
     WITHER(Art.WITHER, 0xE19F),
+    EARTH(Art.EARTH, 0xE1A0),
+    WIND(Art.WIND, 0xE1A1),
+    WATER(Art.WATER, 0xE1A2),
+    FIRE(Art.FIRE, 0xE1A3),
     ;
 
     public final Art art;
