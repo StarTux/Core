@@ -126,7 +126,6 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     AUSTRALIA("mytems:item/australia", 7, 8, (char) 0xE164, "Flag"),
     NETHERLANDS("mytems:item/netherlands", 7, 8, (char) 0xE165, "Flag"),
     UKRAINE("mytems:item/ukraine", 7, 8, (char) 0xE166, "Flag"),
-    // Ranks
     // Buttons
     BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E', GlyphPolicy.HIDDEN, "Button", text("[Back]", RED)),
     OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F', GlyphPolicy.HIDDEN, "Button", text("[OK]", BLUE)),
@@ -149,8 +148,10 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C, "Player Rank"),
     MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D, "Player Rank"),
     SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E, "Player Rank"),
+    // Logo
+    CAVETALE("mytems:item/cavetale", 8, 8, (char) 0xE1A4, GlyphPolicy.PUBLIC, "Logo", text("[Cavetale]", GREEN)),
     ;
-    // Next title unicode character: (char) 0xE1A0
+    // Next title unicode character: (char) 0xE1A5
     // ^ shared with VanillaEffects, VanillaPaintings
 
     public final String emojiName;
