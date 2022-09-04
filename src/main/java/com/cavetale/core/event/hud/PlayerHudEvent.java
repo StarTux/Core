@@ -45,6 +45,10 @@ public final class PlayerHudEvent extends Event {
         bossbar(priority, title, color, overlay, Set.of(), progress);
     }
 
+    public void bossbar(PlayerHudPriority priority, BossBar copy) {
+        bossbar(priority, copy.name(), copy.color(), copy.overlay(), copy.flags(), copy.progress());
+    }
+
     /**
      * Required by Event.
      */
