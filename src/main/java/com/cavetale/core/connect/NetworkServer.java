@@ -20,6 +20,7 @@ public enum NetworkServer {
     CAVETALE(SURVIVAL, MUSEUM),
     MINE(SURVIVAL, MAIN, Set.of(MINING)),
     RAID(SURVIVAL, MAIN),
+    MOB_ARENA(SURVIVAL, MAIN),
 
     EINS(SURVIVAL, MAIN, Set.of(HOME)),
     ZWEI(SURVIVAL, MAIN, Set.of(HOME)),
