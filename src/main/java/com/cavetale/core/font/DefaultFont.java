@@ -5,13 +5,14 @@ import lombok.Getter;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
-import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import static com.cavetale.core.font.Globals.*;
 import static com.cavetale.core.util.CamelCase.toCamelCase;
+import static net.kyori.adventure.text.Component.join;
 import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.JoinConfiguration.noSeparators;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
@@ -32,6 +33,8 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     BACKSPACE_174("mytems:item/space", -32768, -174, '\uE005', GlyphPolicy.HIDDEN, "Backspace"),
     /** Top Bar right edge to title. */
     BACKSPACE_166("mytems:item/space", -32768, -166, '\uE006', GlyphPolicy.HIDDEN, "Backspace"),
+    BOOK_MARKER("mytems:item/black", 8, 9, '\uE007', GlyphPolicy.HIDDEN, "Backspace"), // 112 wide
+    BACKSPACE_MARKER("mytems:item/space", -32768, -114, '\uE008', GlyphPolicy.HIDDEN, "Backspace"), // MARKER width + 2
     GUI_RAID_REWARD("mytems:item/gui_raid_reward", 130, 256, '\uE101', GlyphPolicy.HIDDEN, "GUI"),
     // Blank
     GUI_BLANK_9("mytems:item/gui_blank_9", 130, 256, '\uE011', GlyphPolicy.HIDDEN, "GUI"),
@@ -233,9 +236,9 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     }
 
     public static Component guiBlankOverlay(int guiSize, TextColor color, Component title) {
-        return Component.join(JoinConfiguration.noSeparators(),
-                              guiBlankOverlay(guiSize, color),
-                              title);
+        return join(noSeparators(),
+                    guiBlankOverlay(guiSize, color),
+                    title);
     }
 
     public static Component guiBlankOverlay(int guiSize) {
@@ -258,5 +261,16 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     @Override
     public Component getAltText() {
         return altText != null ? altText : component;
+    }
+
+    public static Component bookmarked(TextColor bg, ComponentLike text) {
+        return join(noSeparators(),
+                    BOOK_MARKER.component.color(bg),
+                    BACKSPACE_MARKER.component,
+                    text.asComponent());
+    }
+
+    public static Component bookmarked(ComponentLike text) {
+        return bookmarked(BLACK, text);
     }
 }
