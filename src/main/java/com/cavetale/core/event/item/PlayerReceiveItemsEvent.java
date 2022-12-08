@@ -119,6 +119,13 @@ public final class PlayerReceiveItemsEvent extends Event {
         return items;
     }
 
+    public boolean isEmpty() {
+        for (ItemStack item : items) {
+            if (item != null && !item.getType().isAir() && item.getAmount() > 0) return false;
+        }
+        return true;
+    }
+
     /**
      * Required by Event.
      */
