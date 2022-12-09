@@ -33,6 +33,9 @@ public final class FontTest {
             sortedCharacters.add(value);
             if (value < min) min = value;
             if (value > max) max = value;
+            if (font.getClass() == DefaultFont.class && !testSize(font.getHeight())) {
+                System.err.println("" + font + ": Bad size: " + font.getHeight());
+            }
         }
         Collections.sort(sortedCharacters);
         for (int i = 1; i < sortedCharacters.size(); i += 1) {
@@ -48,6 +51,22 @@ public final class FontTest {
         System.out.println(hex(min) + "..." + hex(max) + "\t" + clazz.getSimpleName());
         totalMin = Math.min(min, totalMin);
         totalMax = Math.max(max, totalMax);
+    }
+
+    private static boolean testSize(int size) {
+        if (size <= 0) return true;
+        switch (size) {
+        case 2:
+        case 4:
+        case 8:
+        case 16:
+        case 32:
+        case 64:
+        case 128:
+        case 256:
+            return true;
+        default: return false;
+        }
     }
 
     private static String hex(int in) {
