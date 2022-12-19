@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BoundingBox;
 
 @Value
 public final class Cuboid {
@@ -228,5 +229,10 @@ public final class Cuboid {
 
     public Vec3i getCenter() {
         return new Vec3i((ax + bx) / 2, (ay + by) / 2, (az + bz) / 2);
+    }
+
+    public BoundingBox toBoundingBox() {
+        return new BoundingBox((double) ax, (double) ay, (double) az,
+                               (double) (bx + 1), (double) (by + 1), (double) (bz + 1));
     }
 }
