@@ -4,8 +4,6 @@ import com.cavetale.core.connect.Connect;
 import java.util.UUID;
 import java.util.function.Consumer;
 import lombok.Value;
-import net.kyori.adventure.identity.Identified;
-import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -56,16 +54,6 @@ public final class RemotePlayerWrapper implements RemotePlayer {
     @Override
     public void sendMessage(String msg) {
         player.sendMessage(msg);
-    }
-
-    @Override
-    public void sendMessage(Identity identity, Component component) {
-        player.sendMessage(identity, component);
-    }
-
-    @Override
-    public void sendMessage(Identified identified, Component component) {
-        player.sendMessage(identified, component);
     }
 
     @Override
