@@ -10,12 +10,17 @@ import static com.cavetale.core.connect.ServerCategory.MINIGAME;
 import static com.cavetale.core.connect.ServerCategory.MINING;
 import static com.cavetale.core.connect.ServerCategory.SURVIVAL;
 import static com.cavetale.core.connect.ServerCategory.SURVIVAL_TEST;
-import static com.cavetale.core.connect.ServerGroup.*;
+import static com.cavetale.core.connect.ServerCategory.TECHNICAL;
+import static com.cavetale.core.connect.ServerGroup.MAIN;
+import static com.cavetale.core.connect.ServerGroup.MUSEUM;
+import static com.cavetale.core.connect.ServerGroup.NONE;
+import static com.cavetale.core.connect.ServerGroup.TESTING;
 
 /**
  * Enumerate each server connecting within the Cavetale network.
  */
 public enum NetworkServer {
+    VOID(TECHNICAL, MAIN),
     HUB(SURVIVAL, MAIN),
     CAVETALE(SURVIVAL, MUSEUM),
     MINE(SURVIVAL, MAIN, Set.of(MINING)),
@@ -42,6 +47,7 @@ public enum NetworkServer {
     ENDERBALL(EVENT, MAIN),
     HIDE_AND_SEEK(EVENT, MAIN),
     SURVIVAL_GAMES(EVENT, MAIN),
+    RED_GREEN_LIGHT(EVENT, MAIN),
 
     WORLDGEN(ServerCategory.WORLD_GENERATION, NONE),
     UNKNOWN(ServerCategory.UNKNOWN, NONE);

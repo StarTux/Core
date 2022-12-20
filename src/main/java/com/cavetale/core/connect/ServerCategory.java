@@ -2,6 +2,7 @@ package com.cavetale.core.connect;
 
 public enum ServerCategory {
     // Primary
+    TECHNICAL,
     SURVIVAL,
     SURVIVAL_TEST,
     CREATIVE,
