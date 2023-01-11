@@ -119,7 +119,8 @@ public enum NetworkServer {
     }
 
     public boolean isSurvival() {
-        return categories.contains(ServerCategory.SURVIVAL);
+        return categories.contains(ServerCategory.SURVIVAL)
+            || categories.contains(ServerCategory.SURVIVAL_TEST);
     }
 
     public boolean isHome() {
