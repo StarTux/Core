@@ -47,7 +47,7 @@ public final class MobArenaWaveCompleteEvent extends Event {
             .filter(Objects::nonNull)
             .toList();
     }
-    
+
     /**
      * Required by Event.
      */
