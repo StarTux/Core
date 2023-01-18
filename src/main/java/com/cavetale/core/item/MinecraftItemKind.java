@@ -27,15 +27,19 @@ public final class MinecraftItemKind implements ItemKind {
         return plainText().serialize(translatable(item));
     }
 
-    public TextColor getColor(ItemStack item) {
+    public static TextColor getColor(ItemStack item) {
         BlockColor blockColor = BlockColor.of(item.getType());
         if (blockColor != null) return blockColor.textColor;
         return item.getRarity().getColor();
     }
 
+    public static Component coloredDisplayName(ItemStack item) {
+        return Component.translatable(item, getColor(item));
+    }
+
     @Override
     public Component displayName(ItemStack item) {
-        return Component.translatable(item, getColor(item));
+        return Component.translatable(item);
     }
 
     @Override
