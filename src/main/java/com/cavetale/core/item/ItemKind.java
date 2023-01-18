@@ -1,14 +1,13 @@
 package com.cavetale.core.item;
 
+import com.cavetale.core.font.Unicode;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import static com.cavetale.core.font.Unicode.subscript;
-import static net.kyori.adventure.text.Component.join;
 import static net.kyori.adventure.text.Component.text;
-import static net.kyori.adventure.text.JoinConfiguration.noSeparators;
-import static net.kyori.adventure.text.format.NamedTextColor.*;
+import static net.kyori.adventure.text.Component.textOfChildren;
 
 public interface ItemKind extends Keyed {
     String name(ItemStack item);
@@ -24,9 +23,7 @@ public interface ItemKind extends Keyed {
     int getMaxStackSize(ItemStack item);
 
     default Component iconDisplayName(ItemStack item) {
-        return join(noSeparators(),
-                    icon(item),
-                    displayName(item));
+        return textOfChildren(icon(item), displayName(item));
     }
 
     default Component chatDescription(ItemStack item) {
@@ -35,11 +32,10 @@ public interface ItemKind extends Keyed {
 
     default Component chatDescription(ItemStack item, int amount) {
         Component text = amount > 1
-            ? join(noSeparators(),
-                   text(amount),
-                   text("\u00D7", GRAY),
-                   icon(item), displayName(item))
-            : join(noSeparators(), icon(item), displayName(item));
+            ? textOfChildren(text(amount),
+                             text(Unicode.MULTIPLICATION.string),
+                             icon(item), displayName(item))
+            : textOfChildren(icon(item), displayName(item));
         return text.hoverEvent(item.asHoverEvent());
     }
 
@@ -49,7 +45,7 @@ public interface ItemKind extends Keyed {
 
     default Component iconDescription(ItemStack item, int amount) {
         return (amount > 1
-                ? join(noSeparators(), icon(item), text(subscript(amount)))
+                ? textOfChildren(icon(item), text(subscript(amount)))
                 : icon(item))
             .hoverEvent(item.asHoverEvent());
     }
