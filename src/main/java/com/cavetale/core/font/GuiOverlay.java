@@ -32,6 +32,16 @@ public enum GuiOverlay {
         },
         DefaultFont.BACKSPACE_174,
         DefaultFont.BACKSPACE_166),
+    TITLE_BAR(new DefaultFont[] {
+            DefaultFont.GUI_TITLE_BAR,
+            DefaultFont.GUI_TITLE_BAR,
+            DefaultFont.GUI_TITLE_BAR,
+            DefaultFont.GUI_TITLE_BAR,
+            DefaultFont.GUI_TITLE_BAR,
+            DefaultFont.GUI_TITLE_BAR,
+        },
+        DefaultFont.BACKSPACE_174,
+        DefaultFont.BACKSPACE_166),
     RAID_REWARD(new DefaultFont[] {
             null,
             null,
@@ -41,7 +51,18 @@ public enum GuiOverlay {
             null,
         },
         DefaultFont.BACKSPACE_179,
-        DefaultFont.BACKSPACE_171);
+        DefaultFont.BACKSPACE_171),
+    HOLES(new DefaultFont[] {
+            DefaultFont.GUI_HOLES_9,
+            DefaultFont.GUI_HOLES_18,
+            DefaultFont.GUI_HOLES_27,
+            DefaultFont.GUI_HOLES_36,
+            DefaultFont.GUI_HOLES_45,
+            DefaultFont.GUI_HOLES_54,
+        },
+        DefaultFont.BACKSPACE_179,
+        DefaultFont.BACKSPACE_171),
+    ;
 
     public final DefaultFont[] scales;
     public final DefaultFont backToLeftEdge;

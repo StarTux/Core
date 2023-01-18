@@ -50,6 +50,14 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     GUI_TOP_BAR_36("mytems:item/gui_top_bar_36", 130, 256, '\uE01A', GlyphPolicy.HIDDEN, "GUI"),
     GUI_TOP_BAR_45("mytems:item/gui_top_bar_45", 130, 256, '\uE01B', GlyphPolicy.HIDDEN, "GUI"),
     GUI_TOP_BAR_54("mytems:item/gui_top_bar_54", 130, 256, '\uE01C', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TITLE_BAR("mytems:item/gui_title_bar", 130, 256, '\uE01D', GlyphPolicy.HIDDEN, "GUI"),
+    // Holes
+    GUI_HOLES_9("mytems:item/gui_holes_9", 130, 256, '\uE01E', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_HOLES_18("mytems:item/gui_holes_18", 130, 256, '\uE01F', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_HOLES_27("mytems:item/gui_holes_27", 130, 256, '\uE020', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_HOLES_36("mytems:item/gui_holes_36", 130, 256, '\uE021', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_HOLES_45("mytems:item/gui_holes_45", 130, 256, '\uE022', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_HOLES_54("mytems:item/gui_holes_54", 130, 256, '\uE023', GlyphPolicy.HIDDEN, "GUI"),
     // Highlight Gui Slot
     GUI_HIGHLIGHT_SLOT_0("mytems:item/gui_highlight_slot_0", 130, 256, '\uE126', GlyphPolicy.HIDDEN, "GUI"),
     GUI_HIGHLIGHT_SLOT_1("mytems:item/gui_highlight_slot_1", 130, 256, '\uE127', GlyphPolicy.HIDDEN, "GUI"),
