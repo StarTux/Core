@@ -62,6 +62,10 @@ public enum GuiOverlay {
         },
         DefaultFont.BACKSPACE_179,
         DefaultFont.BACKSPACE_171),
+    DAILY_GAME_RED(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DAILY_GAME_RED},
+                   DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
+    DECOR_WINTER(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DECOR_WINTER},
+                 DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
     ;
 
     public final DefaultFont[] scales;
