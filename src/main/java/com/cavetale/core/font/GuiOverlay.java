@@ -64,7 +64,15 @@ public enum GuiOverlay {
         DefaultFont.BACKSPACE_171),
     DAILY_GAME_RED(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DAILY_GAME_RED},
                    DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
+    DAILY_GAME_LUDO(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DAILY_GAME_LUDO},
+                    DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
+    DAILY_GAME_SPIRAL(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DAILY_GAME_SPIRAL},
+                      DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
     DECOR_WINTER(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DECOR_WINTER},
+                 DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
+    DECOR_SUMMER(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DECOR_SUMMER},
+                 DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
+    DECOR_TETRIS(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DECOR_TETRIS},
                  DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
     ;
 

@@ -61,6 +61,10 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     //
     GUI_DAILY_GAME_RED("mytems:item/gui_daily_game_red", 130, 256, '\uE024', GlyphPolicy.HIDDEN, "GUI"),
     GUI_DECOR_WINTER("mytems:item/gui_decor_winter", 130, 256, '\uE025', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_DAILY_GAME_LUDO("mytems:item/gui_daily_game_ludo", 130, 256, '\uE026', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_DECOR_SUMMER("mytems:item/gui_decor_summer", 130, 256, '\uE027', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_DECOR_TETRIS("mytems:item/gui_decor_tetris", 130, 256, '\uE028', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_DAILY_GAME_SPIRAL("mytems:item/gui_daily_game_spiral", 130, 256, '\uE029', GlyphPolicy.HIDDEN, "GUI"),
     // Highlight Gui Slot
     GUI_HIGHLIGHT_SLOT_0("mytems:item/gui_highlight_slot_0", 130, 256, '\uE126', GlyphPolicy.HIDDEN, "GUI"),
     GUI_HIGHLIGHT_SLOT_1("mytems:item/gui_highlight_slot_1", 130, 256, '\uE127', GlyphPolicy.HIDDEN, "GUI"),
