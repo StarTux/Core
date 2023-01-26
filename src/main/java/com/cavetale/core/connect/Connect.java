@@ -32,6 +32,10 @@ public interface Connect {
      */
     void sendMessage(String targetServer, String channel, String payload);
 
+    default void sendMessage(NetworkServer target, String channel, String payload) {
+        sendMessage(target.registeredName, channel, payload);
+    }
+
     /**
      * Send a message to all servers. They will receive
      * ConnectMessageEvent.
@@ -49,6 +53,10 @@ public interface Connect {
     void broadcastMessageToAll(ServerGroup group, String channel, String payload);
 
     void dispatchRemoteCommand(Player player, String command, String targetServer);
+
+    default void dispatchRemoteCommand(Player player, String command, NetworkServer target) {
+        dispatchRemoteCommand(player, command, target.registeredName);
+    }
 
     int getOnlinePlayerCount();
 
