@@ -172,6 +172,7 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E, "Player Rank"),
     // Logo
     CAVETALE("mytems:item/cavetale", 8, 8, (char) 0xE1A4, GlyphPolicy.PUBLIC, "Logo", text("[Cavetale]", GREEN)),
+    STORE_BANNER("mytems:item/store_banner", 40, 64, (char) 0xE1A9, GlyphPolicy.HIDDEN, "Logo", text("[store.cavetale.com]", BLUE)),
     ;
     // Next title unicode character: (char) 0xE1A9
     // ^ shared with VanillaEffects, VanillaPaintings
