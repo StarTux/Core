@@ -140,4 +140,8 @@ public enum NetworkServer {
     public static NetworkServer mining() {
         return current().getMining();
     }
+
+    public boolean isThisServer() {
+        return current() == this;
+    }
 }
