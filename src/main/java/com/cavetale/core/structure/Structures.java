@@ -1,7 +1,10 @@
 package com.cavetale.core.structure;
 
 import com.cavetale.core.CorePlugin;
+import com.cavetale.core.struct.Cuboid;
+import java.util.List;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
 public interface Structures {
@@ -25,6 +28,10 @@ public interface Structures {
     boolean structureAt(Block block);
 
     boolean structurePartAt(Block block);
+
+    Structure getStructureAt(Block block);
+
+    List<Structure> getStructuresWithin(World world, Cuboid cuboid);
 }
 
 final class Companion {
@@ -47,6 +54,16 @@ final class Companion {
             @Override
             public boolean structurePartAt(Block block) {
                 return false;
+            }
+
+            @Override
+            public Structure getStructureAt(Block block) {
+                return null;
+            }
+
+            @Override
+            public List<Structure> getStructuresWithin(World world, Cuboid cuboid) {
+                return List.of();
             }
         };
     static Structures inst = DEFAULT;
