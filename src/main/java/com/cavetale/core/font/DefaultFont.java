@@ -43,6 +43,13 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     GUI_BLANK_36("mytems:item/gui_blank_36", 130, 256, '\uE014', GlyphPolicy.HIDDEN, "GUI"),
     GUI_BLANK_45("mytems:item/gui_blank_45", 130, 256, '\uE015', GlyphPolicy.HIDDEN, "GUI"),
     GUI_BLANK_54("mytems:item/gui_blank_54", 130, 256, '\uE016', GlyphPolicy.HIDDEN, "GUI"),
+    // White
+    GUI_WHITE_9("mytems:item/gui_white_9", 130, 256, '\uE02A', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_WHITE_18("mytems:item/gui_white_18", 130, 256, '\uE02B', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_WHITE_27("mytems:item/gui_white_27", 130, 256, '\uE02C', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_WHITE_36("mytems:item/gui_white_36", 130, 256, '\uE02D', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_WHITE_45("mytems:item/gui_white_45", 130, 256, '\uE02E', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_WHITE_54("mytems:item/gui_white_54", 130, 256, '\uE02F', GlyphPolicy.HIDDEN, "GUI"),
     // Top Bar
     GUI_TOP_BAR_9("mytems:item/gui_top_bar_9", 130, 256, '\uE017', GlyphPolicy.HIDDEN, "GUI"),
     GUI_TOP_BAR_18("mytems:item/gui_top_bar_18", 130, 256, '\uE018', GlyphPolicy.HIDDEN, "GUI"),
@@ -59,6 +66,7 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     GUI_HOLES_45("mytems:item/gui_holes_45", 130, 256, '\uE022', GlyphPolicy.HIDDEN, "GUI"),
     GUI_HOLES_54("mytems:item/gui_holes_54", 130, 256, '\uE023', GlyphPolicy.HIDDEN, "GUI"),
     //
+    GUI_ITEM_COLLECTION("mytems:item/gui_item_collection", 130, 256, '\uE030', GlyphPolicy.HIDDEN, "GUI"),
     GUI_DAILY_GAME_RED("mytems:item/gui_daily_game_red", 130, 256, '\uE024', GlyphPolicy.HIDDEN, "GUI"),
     GUI_DECOR_WINTER("mytems:item/gui_decor_winter", 130, 256, '\uE025', GlyphPolicy.HIDDEN, "GUI"),
     GUI_DAILY_GAME_LUDO("mytems:item/gui_daily_game_ludo", 130, 256, '\uE026', GlyphPolicy.HIDDEN, "GUI"),
