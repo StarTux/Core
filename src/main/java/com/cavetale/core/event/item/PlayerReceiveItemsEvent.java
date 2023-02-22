@@ -54,6 +54,8 @@ public final class PlayerReceiveItemsEvent extends Event {
      */
     public static void receiveItems(Player player, List<ItemStack> items) {
         PlayerReceiveItemsEvent event = new PlayerReceiveItemsEvent(player, items);
+        event.giveItems();
+        if (event.isEmpty()) return;
         event.callEvent();
         event.dropItems();
     }
@@ -64,6 +66,8 @@ public final class PlayerReceiveItemsEvent extends Event {
      */
     public static void receiveInventory(Player player, Inventory inventory) {
         PlayerReceiveItemsEvent event = new PlayerReceiveItemsEvent(player, inventory);
+        event.giveItems();
+        if (event.isEmpty()) return;
         event.callEvent();
         event.dropItems();
     }
