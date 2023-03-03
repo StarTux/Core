@@ -58,6 +58,17 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     GUI_TOP_BAR_45("mytems:item/gui_top_bar_45", 130, 256, '\uE01B', GlyphPolicy.HIDDEN, "GUI"),
     GUI_TOP_BAR_54("mytems:item/gui_top_bar_54", 130, 256, '\uE01C', GlyphPolicy.HIDDEN, "GUI"),
     GUI_TITLE_BAR("mytems:item/gui_title_bar", 130, 256, '\uE01D', GlyphPolicy.HIDDEN, "GUI"),
+    // Tabs
+    GUI_TAB_0("mytems:item/gui_tab_0", 130, 256, '\uE1AA', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_1("mytems:item/gui_tab_1", 130, 256, '\uE1AB', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_2("mytems:item/gui_tab_2", 130, 256, '\uE1AC', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_3("mytems:item/gui_tab_3", 130, 256, '\uE1AD', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_4("mytems:item/gui_tab_4", 130, 256, '\uE1AE', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_5("mytems:item/gui_tab_5", 130, 256, '\uE1AF', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_6("mytems:item/gui_tab_6", 130, 256, '\uE1B0', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_7("mytems:item/gui_tab_7", 130, 256, '\uE1B1', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_8("mytems:item/gui_tab_8", 130, 256, '\uE1B2', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_TAB_BG("mytems:item/gui_tab_bg", 130, 256, '\uE1B3', GlyphPolicy.HIDDEN, "GUI"),
     // Holes
     GUI_HOLES_9("mytems:item/gui_holes_9", 130, 256, '\uE01E', GlyphPolicy.HIDDEN, "GUI"),
     GUI_HOLES_18("mytems:item/gui_holes_18", 130, 256, '\uE01F', GlyphPolicy.HIDDEN, "GUI"),
@@ -182,7 +193,7 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     CAVETALE("mytems:item/cavetale", 8, 8, (char) 0xE1A4, GlyphPolicy.PUBLIC, "Logo", text("[Cavetale]", GREEN)),
     STORE_BANNER("mytems:item/store_banner", 40, 64, (char) 0xE1A9, GlyphPolicy.HIDDEN, "Logo", text("[store.cavetale.com]", BLUE)),
     ;
-    // Next title unicode character: (char) 0xE1A9
+    // Next title unicode character: (char) 0xE1B4
     // ^ shared with VanillaEffects, VanillaPaintings
 
     public final String emojiName;

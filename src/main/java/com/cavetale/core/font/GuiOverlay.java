@@ -52,6 +52,16 @@ public enum GuiOverlay {
         },
         DefaultFont.BACKSPACE_174,
         DefaultFont.BACKSPACE_166),
+    TAB_BG(DefaultFont.GUI_TAB_BG),
+    TAB_0(DefaultFont.GUI_TAB_0),
+    TAB_1(DefaultFont.GUI_TAB_1),
+    TAB_2(DefaultFont.GUI_TAB_2),
+    TAB_3(DefaultFont.GUI_TAB_3),
+    TAB_4(DefaultFont.GUI_TAB_4),
+    TAB_5(DefaultFont.GUI_TAB_5),
+    TAB_6(DefaultFont.GUI_TAB_6),
+    TAB_7(DefaultFont.GUI_TAB_7),
+    TAB_8(DefaultFont.GUI_TAB_8),
     RAID_REWARD(new DefaultFont[] {
             null,
             null,
@@ -92,6 +102,10 @@ public enum GuiOverlay {
     public final DefaultFont backToLeftEdge;
     public final DefaultFont backToTitle;
 
+    GuiOverlay(final DefaultFont f) {
+        this(new DefaultFont[] {f, f, f, f, f, f}, DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171);
+    }
+
     public DefaultFont getScale(int guiSize) {
         int index = guiSize / 9 - 1;
         if (index < 0 || index >= scales.length) {
@@ -111,6 +125,21 @@ public enum GuiOverlay {
             .color(color)
             .content(DefaultFont.BACKSPACE_10.string + glyph.string + backToTitle.string);
         return Component.join(JoinConfiguration.noSeparators(), overlay, title);
+    }
+
+    public static GuiOverlay tab(int tab) {
+        return switch (tab) {
+        case 0 -> TAB_0;
+        case 1 -> TAB_1;
+        case 2 -> TAB_2;
+        case 3 -> TAB_3;
+        case 4 -> TAB_4;
+        case 5 -> TAB_5;
+        case 6 -> TAB_6;
+        case 7 -> TAB_7;
+        case 8 -> TAB_8;
+        default -> throw new IllegalArgumentException("tab=" + tab);
+        };
     }
 
     public Builder builder(final int guiSize, final TextColor color) {
@@ -143,6 +172,11 @@ public enum GuiOverlay {
 
         public Builder highlightSlot(int x, int y, TextColor color) {
             return highlightSlot(x + y * 9, color);
+        }
+
+        public Builder tab(int tab, TextColor fg, TextColor bg) {
+            return layer(GuiOverlay.TAB_BG, bg)
+                .layer(GuiOverlay.tab(tab), fg);
         }
 
         public Builder title(Component text) {
