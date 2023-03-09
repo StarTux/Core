@@ -888,6 +888,7 @@ public enum VanillaItems implements Font, ComponentLike {
         case FERN:
         case TALL_GRASS:
         case LARGE_FERN:
+        case MELON_STEM:
         case PUMPKIN_STEM:
             color = TextColor.color(0x00FF00);
             break;
