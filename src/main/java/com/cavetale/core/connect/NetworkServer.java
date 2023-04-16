@@ -48,6 +48,9 @@ public enum NetworkServer {
     HIDE_AND_SEEK(EVENT, MAIN),
     SURVIVAL_GAMES(EVENT, MAIN),
     RED_GREEN_LIGHT(EVENT, MAIN),
+    TETRIS(EVENT, MAIN),
+    OVERBOARD(EVENT, MAIN),
+    WINDICATOR(EVENT, MAIN),
 
     WORLDGEN(ServerCategory.WORLD_GENERATION, NONE),
     UNKNOWN(ServerCategory.UNKNOWN, NONE);
@@ -85,7 +88,7 @@ public enum NetworkServer {
         case TESTING: return BETA;
         case MAIN: return HUB;
         case MUSEUM: return CAVETALE;
-        default: return UNKNOWN;
+        default: return HUB;
         }
     }
 
