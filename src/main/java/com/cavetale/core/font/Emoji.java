@@ -285,4 +285,9 @@ public final class Emoji {
             sender.sendMessage(join(separator(space()), allc));
         }
     }
+
+    @Override
+    public String toString() {
+        return "Emoji(" + name + ")";
+    }
 }

@@ -11,6 +11,7 @@ import com.cavetale.core.font.Unicode;
 import com.cavetale.core.item.ItemKinds;
 import com.cavetale.core.playercache.PlayerCache;
 import com.cavetale.core.struct.Cuboid;
+import com.cavetale.core.text.LineWrap;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -108,6 +109,13 @@ public final class CorePlugin extends JavaPlugin {
                 });
         coreCommand.addChild("selection").denyTabCompletion()
             .playerCaller((player) -> player.sendMessage("selection=" + Cuboid.selectionOf(player)));
+        coreCommand.addChild("linewrap")
+            .senderCaller((sender, args) -> {
+                    for (var c : new LineWrap().wrap(String.join(" ", args))) {
+                        sender.sendMessage(c);
+                    }
+                    return true;
+                });
     }
 
     @Override
