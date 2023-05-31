@@ -24,6 +24,7 @@ public final class LineWrap {
     private int maxLineLength = 26;
     private Function<String, Component> componentMaker = Component::text;
     private boolean tooltip = false;
+    private boolean emoji = true;
     private GlyphPolicy glyphPolicy = GlyphPolicy.HIDDEN;
     public static final int CHAR_WIDTH = 10;
 
@@ -40,7 +41,7 @@ public final class LineWrap {
                 List<Object> words = new ArrayList<>();
                 for (String word : line.split("\\s+")) {
                     // Parse emoji in each word
-                    words.add(parseEmojis(word));
+                    words.add(emoji ? parseEmojis(word) : word);
                 }
                 if (words.size() == 0) {
                     lines.add(List.of());
@@ -91,6 +92,20 @@ public final class LineWrap {
     }
 
     /**
+     * Format without any line wrapping.
+     */
+    public Component format(String in) {
+        if (emoji) {
+            List<Object> list = new ArrayList<>();
+            list.add(parseEmojis(in));
+            reduceLine(list);
+            return formatLine(list);
+        } else {
+            return formatLineMember(in);
+        }
+    }
+
+    /**
      * Simplify a list of line components so that consecutive Strings
      * are combined into one and compounds replaced by their contents.
      */
@@ -135,10 +150,10 @@ public final class LineWrap {
     private Component formatLineMember(Object o) {
         if (o instanceof String string) {
             return componentMaker.apply(string);
-        } else if (o instanceof Emoji emoji) {
+        } else if (o instanceof Emoji theEmoji) {
             return tooltip
-                ? emoji.getComponentWithTooltip()
-                : emoji.getComponent();
+                ? theEmoji.getComponentWithTooltip()
+                : theEmoji.getComponent();
         } else {
             return empty();
         }
@@ -208,9 +223,9 @@ public final class LineWrap {
                         }
                         pxLength += pxStrlen(list.get(0));
                     }
-                } else if (right.get(0) instanceof Emoji emoji) {
-                    pxLength += emoji.getPixelWidth();
-                    left.add(emoji);
+                } else if (right.get(0) instanceof Emoji theEmoji) {
+                    pxLength += theEmoji.getPixelWidth();
+                    left.add(theEmoji);
                     right.remove(0);
                 }
             }
@@ -274,8 +289,8 @@ public final class LineWrap {
             int index2 = tail2.indexOf(":");
             if (index2 < 0) break;
             String key = tail2.substring(0, index2);
-            Emoji emoji = Emoji.getEmoji(key);
-            if (emoji == null || !glyphPolicy.entails(emoji.glyphPolicy)) {
+            Emoji theEmoji = Emoji.getEmoji(key);
+            if (theEmoji == null || !glyphPolicy.entails(theEmoji.glyphPolicy)) {
                 head = head + tail.substring(0, index) + ":" + key;
                 tail = tail2.substring(index2);
                 continue;
@@ -286,8 +301,8 @@ public final class LineWrap {
                 list.add(head);
                 head = "";
             }
-            length += emoji.getPixelWidth();
-            list.add(emoji);
+            length += theEmoji.getPixelWidth();
+            list.add(theEmoji);
             tail = tail2.substring(index2 + 1);
         } while (!tail.isEmpty());
         if (!head.isEmpty() || !tail.isEmpty()) {
