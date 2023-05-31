@@ -48,6 +48,7 @@ public final class Emoji {
     public final GlyphPolicy glyphPolicy;
     public final Enum enume;
     public final String category;
+    public final int pixelWidth;
 
     public static final CommandArgCompleter PUBLIC_COMPLETER = new CommandArgCompleter() {
             @Override
@@ -64,7 +65,7 @@ public final class Emoji {
         };
 
     private Emoji(final String name, final Component component, final Component displayName,
-                  final GlyphPolicy glyphPolicy, final Enum enume, final String category) {
+                  final GlyphPolicy glyphPolicy, final Enum enume, final String category, final int pixelWidth) {
         this.name = name;
         this.component = component;
         this.componentWithTooltip = component.hoverEvent(showText(join(separator(newline()),
@@ -74,6 +75,7 @@ public final class Emoji {
         this.glyphPolicy = glyphPolicy;
         this.enume = enume;
         this.category = category;
+        this.pixelWidth = pixelWidth;
     }
 
     public static void init() {
@@ -91,11 +93,11 @@ public final class Emoji {
 
     private static <E extends Enum<E> & Font> void init(Class<E> clazz) {
         for (E font : clazz.getEnumConstants()) {
-            addEmoji(font.getEmojiName(), font.getComponent(), font.getDisplayName(), font.getPolicy(), font, font.getCategory());
+            addEmoji(font.getEmojiName(), font.getComponent(), font.getDisplayName(), font.getPolicy(), font, font.getCategory(), font.getPixelWidth());
         }
     }
 
-    public static void addEmoji(String name, Component component, Component displayName, GlyphPolicy policy, Enum enume, String category) {
+    public static void addEmoji(String name, Component component, Component displayName, GlyphPolicy policy, Enum enume, String category, int pixelWidth) {
         if (EMOJI_MAP.containsKey(Objects.requireNonNull(name, "name=null"))) {
             CorePlugin.getInstance().getLogger().warning("Emoji: Duplicate " + name);
         }
@@ -104,7 +106,12 @@ public final class Emoji {
                                       Objects.requireNonNull(displayName, "displayName=null"),
                                       Objects.requireNonNull(policy, "policy=null"),
                                       enume,
-                                      category));
+                                      category,
+                                      pixelWidth));
+    }
+
+    public static void addEmoji(String name, Component component, Component displayName, GlyphPolicy policy, Enum enume, String category) {
+        addEmoji(name, component, displayName, policy, enume, category, 16);
     }
 
     public static void addEmoji(String name, Component component, GlyphPolicy policy, Enum enume, String category) {

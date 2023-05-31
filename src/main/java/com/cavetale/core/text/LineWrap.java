@@ -17,7 +17,7 @@ import static net.kyori.adventure.text.JoinConfiguration.noSeparators;
 
 /**
  * Line wrapping utility which can handle Emoji.
- * Wart: All characters and emoji are assumed to have the same width.
+ * Wart: Gaps between letters are not considered.
  */
 @Accessors(fluent = true, chain = true) @Getter @Setter
 public final class LineWrap {
@@ -25,8 +25,10 @@ public final class LineWrap {
     private Function<String, Component> componentMaker = Component::text;
     private boolean tooltip = false;
     private GlyphPolicy glyphPolicy = GlyphPolicy.HIDDEN;
+    public static final int CHAR_WIDTH = 10;
 
     public List<Component> wrap(String input) {
+        final int pxMaxLineLength = maxLineLength * CHAR_WIDTH;
         List<List<Object>> lines = new ArrayList<>();
         // Respect paragraphs
         for (String paragraph : input.split("\n\n+")) {
@@ -44,37 +46,37 @@ public final class LineWrap {
                     lines.add(List.of());
                     continue;
                 }
-                int lineLength = 0;
+                int pxLineLength = 0;
                 List<Object> lineBuilder = new ArrayList<>();
                 for (int i = 0; i < words.size(); ++i) {
                     Object item = words.get(i);
-                    int wordLength = length(item);
+                    int pxWordLength = pxLength(item);
                     if (lineBuilder.isEmpty()) {
                         // Special case for first word
-                        if (wordLength > maxLineLength) {
+                        if (pxWordLength > pxMaxLineLength) {
                             List<Object> splits = split(item);
                             Object firstSplit = splits.get(0);
                             lineBuilder.add(firstSplit);
-                            lineLength += length(firstSplit);
+                            pxLineLength += pxLength(firstSplit);
                             words.set(i, firstSplit);
                             for (int j = 1; j < splits.size(); j += 1) {
                                 words.add(i + j, splits.get(j));
                             }
                         } else {
                             lineBuilder.add(item);
-                            lineLength += wordLength;
+                            pxLineLength += pxWordLength;
                         }
-                    } else if (lineLength + wordLength + 1 > maxLineLength) {
+                    } else if (pxLineLength + pxWordLength + pxStrlen(" ") > pxMaxLineLength) {
                         // Line length has been exceeded
                         lines.add(lineBuilder);
                         lineBuilder = new ArrayList<>();
-                        lineLength = 0;
+                        pxLineLength = 0;
                         i -= 1;
                     } else {
                         // Add a word and move on
                         lineBuilder.add(" ");
                         lineBuilder.add(item);
-                        lineLength += wordLength + 1;
+                        pxLineLength += pxWordLength + pxStrlen(" ");
                     }
                 }
                 if (!lineBuilder.isEmpty()) lines.add(lineBuilder);
@@ -142,17 +144,35 @@ public final class LineWrap {
         }
     }
 
-    private static int length(Object o) {
+    private static int pxLength(Object o) {
         if (o instanceof String string) {
-            return string.length();
+            return pxStrlen(string);
         } else if (o instanceof Emoji emoji) {
-            // FIXME emoji length
-            return 1;
+            return emoji.getPixelWidth();
         } else if (o instanceof Compound compound) {
             return compound.length;
         } else {
             return 0;
         }
+    }
+
+    private static int pxStrlen(String in) {
+        int result = 0;
+        for (int i = 0; i < in.length(); i += 1) {
+            result += 2 * pxCharLen(in.charAt(i));
+        }
+        return result;
+    }
+
+    private static int pxCharLen(char in) {
+        return switch (in) {
+        case 'i', '!', '\'', ':', ';', '|' -> 1;
+        case 'l', '`' -> 2;
+        case 'I', 't', '"', '[', ']' -> 3;
+        case 'f', ' ' -> 4;
+        case '~' -> 6;
+        default -> 5;
+        };
     }
 
     /**
@@ -162,29 +182,34 @@ public final class LineWrap {
      * exceeds maxLineLength.
      */
     private List<Object> split(Object o) {
+        final int pxMaxLineLength = maxLineLength * CHAR_WIDTH;
         if (o instanceof String string) {
-            if (string.length() <= maxLineLength) return List.of(string);
-            return List.of(string.substring(0, maxLineLength),
-                           string.substring(maxLineLength, string.length()));
+            if (pxStrlen(string) <= pxMaxLineLength) return List.of(string);
+            return new ArrayList<Object>(pxSplitString(string, pxMaxLineLength));
         } else if (o instanceof Compound compound) {
             List<Object> left = new ArrayList<>();
             List<Object> right = compound.members;
-            int length = 0;
-            while (length < maxLineLength && !right.isEmpty()) {
-                int remain = maxLineLength - length;
+            int pxLength = 0;
+            while (pxLength < pxMaxLineLength && !right.isEmpty()) {
+                int pxRemain = pxMaxLineLength - pxLength;
                 if (right.get(0) instanceof String string) {
-                    if (string.length() < remain) {
+                    final int pxStrlen = pxStrlen(string);
+                    if (pxStrlen <= pxRemain) {
                         left.add(string);
                         right.remove(0);
-                        length += string.length();
+                        pxLength += pxStrlen;
                     } else {
-                        left.add(string.substring(0, remain));
-                        right.set(0, string.substring(remain, string.length()));
-                        length += remain;
+                        List<String> list = pxSplitString(string, pxRemain);
+                        left.add(list.get(0));
+                        if (list.size() > 1) {
+                            right.set(0, list.get(1));
+                        } else {
+                            right.remove(0);
+                        }
+                        pxLength += pxStrlen(list.get(0));
                     }
                 } else if (right.get(0) instanceof Emoji emoji) {
-                    // FIXME emoji length
-                    length += 1;
+                    pxLength += emoji.getPixelWidth();
                     left.add(emoji);
                     right.remove(0);
                 }
@@ -192,14 +217,30 @@ public final class LineWrap {
             List<Object> result = new ArrayList<>(2);
             result.add(left.size() == 1
                        ? left.get(0)
-                       : new Compound(length, left));
+                       : new Compound(pxLength, left));
             if (!right.isEmpty()) {
-                result.add(new Compound(compound.length - length, right));
+                result.add(new Compound(compound.length - pxLength, right));
             }
             return result;
         } else {
             return List.of(o);
         }
+    }
+
+    /**
+     * Split a string so that the first element is pxLength long or
+     * less (in pixels).
+     */
+    private static List<String> pxSplitString(String string, int pxLength) {
+        String left = "";
+        int index = 1;
+        for (; index < string.length(); index += 1) {
+            String string2 = string.substring(0, index + 1);
+            if (pxStrlen(string2) > pxLength) break;
+        }
+        if (index >= string.length()) return List.of(string);
+        return List.of(string.substring(0, index),
+                       string.substring(index, string.length()));
     }
 
     /**
@@ -241,18 +282,17 @@ public final class LineWrap {
             }
             head = head + tail.substring(0, index);
             if (!head.isEmpty()) {
-                length += head.length();
+                length += pxStrlen(head);
                 list.add(head);
                 head = "";
             }
-            // FIXME emoji length
-            length += 1;
+            length += emoji.getPixelWidth();
             list.add(emoji);
             tail = tail2.substring(index2 + 1);
         } while (!tail.isEmpty());
         if (!head.isEmpty() || !tail.isEmpty()) {
             String remain = head + tail;
-            length += remain.length();
+            length += pxStrlen(remain);
             list.add(remain);
         }
         if (list.size() == 1) return list.get(0);

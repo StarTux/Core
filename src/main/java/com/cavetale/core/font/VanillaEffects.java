@@ -127,4 +127,9 @@ public enum VanillaEffects implements Font, ComponentLike {
     public String getCategory() {
         return "Potion Effect";
     }
+
+    @Override
+    public int getPixelWidth() {
+        return 18;
+    }
 }

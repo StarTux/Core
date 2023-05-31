@@ -1078,4 +1078,9 @@ public enum VanillaItems implements Font, ComponentLike {
             ? translatable(new ItemStack(material))
             : text(toCamelCase(" ", this));
     }
+
+    @Override
+    public int getPixelWidth() {
+        return 16;
+    }
 }

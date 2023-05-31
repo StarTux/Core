@@ -15,4 +15,5 @@ public interface Font {
     int getRows();
     char getCharacter();
     GlyphPolicy getPolicy();
+    int getPixelWidth();
 }

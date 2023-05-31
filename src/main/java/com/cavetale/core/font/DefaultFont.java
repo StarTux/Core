@@ -140,30 +140,30 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     GUI_HIGHLIGHT_SLOT_52("mytems:item/gui_highlight_slot_52", 130, 256, '\uE15A', GlyphPolicy.HIDDEN, "GUI"),
     GUI_HIGHLIGHT_SLOT_53("mytems:item/gui_highlight_slot_53", 130, 256, '\uE15B', GlyphPolicy.HIDDEN, "GUI"),
     // Buttons
-    BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E', GlyphPolicy.HIDDEN, "Button", text("[Back]", RED)),
-    OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F', GlyphPolicy.HIDDEN, "Button", text("[OK]", BLUE)),
-    CANCEL_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE120', GlyphPolicy.HIDDEN, "Button", text("[Cancel]", RED)),
-    ABORT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE121', GlyphPolicy.HIDDEN, "Button", text("[Abort]", RED)),
-    START_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE122', GlyphPolicy.HIDDEN, "Button", text("[Start]", BLUE)),
-    STOP_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE123', GlyphPolicy.HIDDEN, "Button", text("[Stop]", RED)),
-    ACCEPT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE124', GlyphPolicy.HIDDEN, "Button", text("[Accept]", BLUE)),
-    DECLINE_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE125', GlyphPolicy.HIDDEN, "Button", text("[Decline]", RED)),
-    YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F', GlyphPolicy.HIDDEN, "Button", text("[Yes]", BLUE)),
-    NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160', GlyphPolicy.HIDDEN, "Button", text("[No]", RED)),
+    BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E', GlyphPolicy.HIDDEN, "Button", text("[Back]", RED), 82),
+    OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F', GlyphPolicy.HIDDEN, "Button", text("[OK]", BLUE), 82),
+    CANCEL_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE120', GlyphPolicy.HIDDEN, "Button", text("[Cancel]", RED), 82),
+    ABORT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE121', GlyphPolicy.HIDDEN, "Button", text("[Abort]", RED), 82),
+    START_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE122', GlyphPolicy.HIDDEN, "Button", text("[Start]", BLUE), 82),
+    STOP_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE123', GlyphPolicy.HIDDEN, "Button", text("[Stop]", RED), 82),
+    ACCEPT_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE124', GlyphPolicy.HIDDEN, "Button", text("[Accept]", BLUE), 82),
+    DECLINE_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE125', GlyphPolicy.HIDDEN, "Button", text("[Decline]", RED), 82),
+    YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F', GlyphPolicy.HIDDEN, "Button", text("[Yes]", BLUE), 82),
+    NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160', GlyphPolicy.HIDDEN, "Button", text("[No]", RED), 82),
     // Ranks
-    ADMIN(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE10A, "Player Rank", text("[Admin]", AQUA)),
-    MODERATOR(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE117, "Player Rank", text("[Moderator]", BLUE)),
-    TRUSTED(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE118, "Player Rank", text("[Trusted]", GREEN)),
-    BUILDER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE11C, "Player Rank", text("[Builder]", LIGHT_PURPLE)),
-    GOAT(MYTEMS_ITEM_RANKS, 6, 8, (char) 0xE11D, "Player Rank", text("[GOAT]", GOLD)),
-    CELESTIAL(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE161, "Player Rank", text("[Celestial]", AQUA)),
-    YOUTUBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE162, "Player Rank", text("[Youtuber]", RED)),
-    FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C, "Player Rank"),
-    MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D, "Player Rank"),
-    SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E, "Player Rank"),
+    ADMIN(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE10A, GlyphPolicy.PUBLIC, "Player Rank", text("[Admin]", AQUA), 45),
+    MODERATOR(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE117, GlyphPolicy.PUBLIC, "Player Rank", text("[Moderator]", BLUE), 45),
+    TRUSTED(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE118, GlyphPolicy.PUBLIC, "Player Rank", text("[Trusted]", GREEN), 45),
+    BUILDER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE11C, GlyphPolicy.PUBLIC, "Player Rank", text("[Builder]", LIGHT_PURPLE), 45),
+    GOAT(MYTEMS_ITEM_RANKS, 6, 8, (char) 0xE11D, GlyphPolicy.PUBLIC, "Player Rank", text("[GOAT]", GOLD), 45),
+    CELESTIAL(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE161, GlyphPolicy.PUBLIC, "Player Rank", text("[Celestial]", AQUA), 45),
+    YOUTUBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE162, GlyphPolicy.PUBLIC, "Player Rank", text("[Youtuber]", RED), 45),
+    FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C, GlyphPolicy.PUBLIC, "Player Rank", text("[Friendly]", DARK_GRAY), 45),
+    MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D, GlyphPolicy.PUBLIC, "Player Rank", text("[Member]", GRAY), 45),
+    SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E, GlyphPolicy.PUBLIC, "Player Rank", text("[Speleologist]", YELLOW), 45),
     // Logo
-    CAVETALE("mytems:item/cavetale", 8, 8, (char) 0xE1A4, GlyphPolicy.PUBLIC, "Logo", text("[Cavetale]", GREEN)),
-    STORE_BANNER("mytems:item/store_banner", 40, 64, (char) 0xE1A9, GlyphPolicy.HIDDEN, "Logo", text("[store.cavetale.com]", BLUE)),
+    CAVETALE("mytems:item/cavetale", 8, 8, (char) 0xE1A4, GlyphPolicy.PUBLIC, "Logo", text("[Cavetale]", GREEN), 162),
+    STORE_BANNER("mytems:item/store_banner", 40, 64, (char) 0xE1A9, GlyphPolicy.HIDDEN, "Logo", text("[store.cavetale.com]", BLUE), 256),
     ;
     // Next title unicode character: (char) 0xE1B4
     // ^ shared with VanillaEffects, VanillaPaintings
@@ -180,10 +180,10 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     public final Component displayName;
     public final String category;
     public final Component altText;
+    public final int pixelWidth;
 
     DefaultFont(final String filename, final int ascent, final int height, final char character,
-                final GlyphPolicy policy, final String category,
-                final Component altText) {
+                final GlyphPolicy policy, final String category, final Component altText, final int pixelWidth) {
         this.emojiName = name().toLowerCase();
         this.filename = filename;
         this.ascent = ascent;
@@ -198,20 +198,21 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
         this.displayName = Component.text(toCamelCase(" ", this));
         this.category = category;
         this.altText = altText;
+        this.pixelWidth = pixelWidth;
     }
 
     DefaultFont(final String filename, final int ascent, final int height, final char character,
                 final GlyphPolicy policy, final String category) {
-        this(filename, ascent, height, character, policy, category, null);
+        this(filename, ascent, height, character, policy, category, null, 16);
     }
 
     DefaultFont(final String filename, final int ascent, final int height, final char character, final String category,
                 final Component altText) {
-        this(filename, ascent, height, character, GlyphPolicy.PUBLIC, category, altText);
+        this(filename, ascent, height, character, GlyphPolicy.PUBLIC, category, altText, 16);
     }
 
     DefaultFont(final String filename, final int ascent, final int height, final char character, final String category) {
-        this(filename, ascent, height, character, GlyphPolicy.PUBLIC, category, null);
+        this(filename, ascent, height, character, GlyphPolicy.PUBLIC, category, null, 16);
     }
 
     public static Component guiOverlay(DefaultFont glyph, TextColor color) {

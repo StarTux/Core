@@ -13,36 +13,36 @@ import static com.cavetale.core.util.CamelCase.toCamelCase;
 
 @Getter
 public enum VanillaPaintings implements Font, ComponentLike {
-    ALBAN(Art.ALBAN, 0xE186),
-    AZTEC2(Art.AZTEC2, 0xE187),
-    AZTEC(Art.AZTEC, 0xE188),
-    BOMB(Art.BOMB, 0xE189),
-    BURNING_SKULL(Art.BURNING_SKULL, 0xE18A),
-    BUST(Art.BUST, 0xE18B),
-    COURBET(Art.COURBET, 0xE18C),
-    CREEBET(Art.CREEBET, 0xE18D),
-    DONKEY_KONG(Art.DONKEY_KONG, 0xE18E),
-    FIGHTERS(Art.FIGHTERS, 0xE18F),
-    GRAHAM(Art.GRAHAM, 0xE190),
-    KEBAB(Art.KEBAB, 0xE191),
-    MATCH(Art.MATCH, 0xE192),
-    PIGSCENE(Art.PIGSCENE, 0xE193),
-    PLANT(Art.PLANT, 0xE194),
-    POINTER(Art.POINTER, 0xE195),
-    POOL(Art.POOL, 0xE196),
-    SEA(Art.SEA, 0xE197),
-    SKELETON(Art.SKELETON, 0xE198),
-    SKULL_AND_ROSES(Art.SKULL_AND_ROSES, 0xE199),
-    STAGE(Art.STAGE, 0xE19A),
-    SUNSET(Art.SUNSET, 0xE19B),
-    VOID(Art.VOID, 0xE19C),
-    WANDERER(Art.WANDERER, 0xE19D),
-    WASTELAND(Art.WASTELAND, 0xE19E),
-    WITHER(Art.WITHER, 0xE19F),
-    EARTH(Art.EARTH, 0xE1A0),
-    WIND(Art.WIND, 0xE1A1),
-    WATER(Art.WATER, 0xE1A2),
-    FIRE(Art.FIRE, 0xE1A3),
+    ALBAN(Art.ALBAN, 0xE186, 16),
+    AZTEC2(Art.AZTEC2, 0xE187, 16),
+    AZTEC(Art.AZTEC, 0xE188, 16),
+    BOMB(Art.BOMB, 0xE189, 16),
+    BURNING_SKULL(Art.BURNING_SKULL, 0xE18A, 16),
+    BUST(Art.BUST, 0xE18B, 16),
+    COURBET(Art.COURBET, 0xE18C, 32),
+    CREEBET(Art.CREEBET, 0xE18D, 32),
+    DONKEY_KONG(Art.DONKEY_KONG, 0xE18E, 21),
+    FIGHTERS(Art.FIGHTERS, 0xE18F, 32),
+    GRAHAM(Art.GRAHAM, 0xE190, 8),
+    KEBAB(Art.KEBAB, 0xE191, 16),
+    MATCH(Art.MATCH, 0xE192, 16),
+    PIGSCENE(Art.PIGSCENE, 0xE193, 16),
+    PLANT(Art.PLANT, 0xE194, 16),
+    POINTER(Art.POINTER, 0xE195, 16),
+    POOL(Art.POOL, 0xE196, 32),
+    SEA(Art.SEA, 0xE197, 32),
+    SKELETON(Art.SKELETON, 0xE198, 21),
+    SKULL_AND_ROSES(Art.SKULL_AND_ROSES, 0xE199, 16),
+    STAGE(Art.STAGE, 0xE19A, 16),
+    SUNSET(Art.SUNSET, 0xE19B, 32),
+    VOID(Art.VOID, 0xE19C, 16),
+    WANDERER(Art.WANDERER, 0xE19D, 8),
+    WASTELAND(Art.WASTELAND, 0xE19E, 16),
+    WITHER(Art.WITHER, 0xE19F, 16),
+    EARTH(Art.EARTH, 0xE1A0, 16),
+    WIND(Art.WIND, 0xE1A1, 16),
+    WATER(Art.WATER, 0xE1A2, 16),
+    FIRE(Art.FIRE, 0xE1A3, 16),
     ;
 
     public final Art art;
@@ -54,8 +54,9 @@ public enum VanillaPaintings implements Font, ComponentLike {
     public final Component component;
     public final Component displayName;
     private static final Map<Art, VanillaPaintings> ART_MAP = new EnumMap<>(Art.class);
+    public final int pixelWidth;
 
-    VanillaPaintings(final Art art, final int character) {
+    VanillaPaintings(final Art art, final int character, final int pixelWidth) {
         this.art = art;
         this.emojiName = name().toLowerCase() + "_painting";
         this.filename = "minecraft:painting/" + name().toLowerCase();
@@ -65,6 +66,7 @@ public enum VanillaPaintings implements Font, ComponentLike {
                    .font(Key.key("cavetale:default"))
                    .color(NamedTextColor.WHITE));
         this.displayName = Component.text(toCamelCase(" ", this));
+        this.pixelWidth = pixelWidth;
     }
 
     static {
