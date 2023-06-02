@@ -170,6 +170,8 @@ public enum Unicode implements ComponentLike {
     SCALES((char) 0x2696), // ⚖
     FLOWER((char) 0x2698), // ⚘
     ATOM((char) 0x269B), // ⚛
+    DOUBLE_FEMALE((char) 0x26A2), // ⚢
+    DOUBLE_MALE((char) 0x26A3), // ⚣
     CHECKERS_WHITE((char) 0x26C0), // ⛀
     CHECKERS_WHITE_KING((char) 0x26C1), // ⛁
     CHECKERS_BLACK((char) 0x26C2), // ⛂
@@ -213,7 +215,8 @@ public enum Unicode implements ComponentLike {
     SMALLW((char) 0x1D21, Category.ALPHABET), // ᴡ
     SMALLX((char) 0x0445, Category.ALPHABET), // х
     SMALLY((char) 0x028F, Category.ALPHABET), // ʏ
-    SMALLZ((char) 0x1D22, Category.ALPHABET); // ᴢ
+    SMALLZ((char) 0x1D22, Category.ALPHABET), // ᴢ
+    ;
 
     public final String key;
     public final char character;

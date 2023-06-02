@@ -31,12 +31,12 @@ public final class UnicodeTest {
             charSet.add(u.character);
             // Print
             while (show.length() < 4) show = "0" + show;
-            System.out.print(u.name() + "((char) 0x" + show + "'");
+            System.out.print(u.name() + "((char) 0x" + show);
             System.out.print(u.category != Unicode.Category.DEFAULT
-                             ? "Category." + u.category
+                             ? ", Category." + u.category
                              : "");
             System.out.print(")");
-            System.out.print(i < array.length - 1 ? "," : ";");
+            System.out.print(",");
             System.out.println(" // " + u.character);
         }
     }
