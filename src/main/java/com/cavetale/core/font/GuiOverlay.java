@@ -9,6 +9,7 @@ import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
+import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 @RequiredArgsConstructor
 public enum GuiOverlay {
@@ -90,12 +91,7 @@ public enum GuiOverlay {
                     DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
     DAILY_GAME_SPIRAL(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DAILY_GAME_SPIRAL},
                       DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
-    DECOR_WINTER(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DECOR_WINTER},
-                 DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
-    DECOR_SUMMER(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DECOR_SUMMER},
-                 DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
-    DECOR_TETRIS(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DECOR_TETRIS},
-                 DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
+    CRAFTING_PARITY(DefaultFont.GUI_CRAFT_PARITY),
     ;
 
     public final DefaultFont[] scales;
