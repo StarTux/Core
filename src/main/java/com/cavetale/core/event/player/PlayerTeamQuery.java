@@ -6,6 +6,7 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -18,10 +19,16 @@ public final class PlayerTeamQuery extends Event {
     private final Map<UUID, Team> playerTeamMap = new HashMap<>();
     private final Map<String, Team> teamMap = new HashMap<>();
 
-    @RequiredArgsConstructor
+    @RequiredArgsConstructor @Getter
     public static final class Team {
         public final String key;
         public final Component displayName;
+        public final TextColor textColor;
+
+        @Deprecated
+        public Team(final String key, final Component displayName) {
+            this(key, displayName, null);
+        }
     }
 
     /**
