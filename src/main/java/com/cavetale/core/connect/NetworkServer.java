@@ -51,6 +51,7 @@ public enum NetworkServer {
     TETRIS(EVENT, MAIN),
     OVERBOARD(EVENT, MAIN),
     WINDICATOR(EVENT, MAIN),
+    CAPTURE_THE_FLAG(EVENT, MAIN),
 
     WORLDGEN(ServerCategory.WORLD_GENERATION, NONE),
     UNKNOWN(ServerCategory.UNKNOWN, NONE);
