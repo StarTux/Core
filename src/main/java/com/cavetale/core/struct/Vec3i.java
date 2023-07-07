@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.util.Vector;
 
 @Value
 public final class Vec3i {
@@ -30,6 +31,10 @@ public final class Vec3i {
         return new Vec3i(blockFace.getModX(), blockFace.getModY(), blockFace.getModZ());
     }
 
+    public static Vec3i of(Vector vector) {
+        return new Vec3i(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ());
+    }
+
     public Block toBlock(World world) {
         return world.getBlockAt(x, y, z);
     }
@@ -44,6 +49,16 @@ public final class Vec3i {
 
     public Location toCenterFloorLocation(World world) {
         return new Location(world, x, y, z).add(0.5, 0.0, 0.5);
+    }
+
+    public Vector toVector() {
+        return new Vector(x, y, z);
+    }
+
+    public boolean equals(final int ox, final int oy, final int oz) {
+        return this.x == ox
+            && this.y == oy
+            && this.z == oz;
     }
 
     public Vec3i add(int dx, int dy, int dz) {
