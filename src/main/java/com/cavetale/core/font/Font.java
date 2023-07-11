@@ -16,4 +16,7 @@ public interface Font {
     char getCharacter();
     GlyphPolicy getPolicy();
     int getPixelWidth();
+    default boolean isEssential() {
+        return false;
+    }
 }

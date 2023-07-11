@@ -1162,4 +1162,31 @@ public enum VanillaItems implements Font, ComponentLike {
     public int getPixelWidth() {
         return 16;
     }
+
+    @Override
+    public boolean isEssential() {
+        switch (name()) {
+        case "LADDER":
+        case "IRON_SWORD":
+        case "GOLDEN_SWORD":
+        case "DIAMOND_SWORD":
+        case "NETHERITE_SWORD":
+        case "ARROW":
+        case "SPECTRAL_ARROW":
+        case "GRASS":
+        case "GRASS_BLOCK":
+        case "AXOLOTL_BUCKET":
+        case "SNOWBALL":
+        case "POWDER_SNOW_BUCKET":
+        case "LAVA_BUCKET":
+        case "TROPICAL_FISH_BUCKET":
+        case "WATER_BUCKET":
+        case "IRON_SHOVEL":
+        case "CARROT":
+        case "GOLDEN_SHOVEL":
+        case "VINE":
+            return true;
+        default: return false;
+        }
+    }
 }

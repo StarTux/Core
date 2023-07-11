@@ -284,4 +284,24 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     public static Component bookmarked(ComponentLike text) {
         return bookmarked(BLACK, text);
     }
+
+    @Override
+    public boolean isEssential() {
+        switch (this) {
+        case ADMIN:
+        case CELESTIAL:
+        case FRIENDLY:
+        case TRUSTED:
+        case MODERATOR:
+        case MEMBER:
+        case YOUTUBER:
+        case BUILDER:
+        case GOAT:
+        case SPELEOLOGIST:
+        case CAVETALE:
+        case STORE_BANNER:
+            return true;
+        default: return false;
+        }
+    }
 }
