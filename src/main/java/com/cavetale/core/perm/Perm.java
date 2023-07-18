@@ -2,6 +2,7 @@ package com.cavetale.core.perm;
 
 import com.cavetale.core.CorePlugin;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.bukkit.plugin.Plugin;
@@ -47,6 +48,8 @@ public interface Perm {
     int getLevelProgress(UUID uuid);
 
     void addLevelProgress(UUID uuid);
+
+    List<String> getGroupNames();
 }
 
 final class Companion {

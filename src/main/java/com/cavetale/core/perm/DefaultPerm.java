@@ -78,4 +78,9 @@ final class DefaultPerm implements Perm {
     @Override
     public void addLevelProgress(UUID uuid) {
     }
+
+    @Override
+    public List<String> getGroupNames() {
+        return List.of();
+    }
 }
