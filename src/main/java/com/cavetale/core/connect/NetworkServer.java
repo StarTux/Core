@@ -26,6 +26,7 @@ public enum NetworkServer {
     MINE(SURVIVAL, MAIN, Set.of(MINING)),
     RAID(SURVIVAL, MAIN),
     MOB_ARENA(SURVIVAL, MAIN),
+    FESTIVAL(SURVIVAL, MAIN),
 
     EINS(SURVIVAL, MAIN, Set.of(HOME)),
     ZWEI(SURVIVAL, MAIN, Set.of(HOME)),
@@ -52,6 +53,7 @@ public enum NetworkServer {
     OVERBOARD(EVENT, MAIN),
     WINDICATOR(EVENT, MAIN),
     CAPTURE_THE_FLAG(EVENT, MAIN),
+    PIT_OF_DOOM(EVENT, MAIN),
 
     WORLDGEN(ServerCategory.WORLD_GENERATION, NONE),
     UNKNOWN(ServerCategory.UNKNOWN, NONE);
