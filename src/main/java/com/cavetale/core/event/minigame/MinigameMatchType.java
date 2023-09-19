@@ -22,6 +22,7 @@ public enum MinigameMatchType {
     SPLEEF(false, "Spleef"),
     SURVIVAL_GAMES(false, "Survival Games"),
     WINDICATOR(false, "Windicator"),
+    CAPTURE_THE_FLAG(false, "Capture the Flag"),
     ;
 
     public final boolean publiclyAvailable;
