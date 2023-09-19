@@ -32,8 +32,11 @@ public final class RemotePlayerWrapper implements RemotePlayer {
 
     @Override
     public void bring(Plugin plugin, Location location, Consumer<Player> callback) {
-        player.teleport(location);
-        callback.accept(player);
+        PlayerTeleportUtil.loadNearbyChunks(location, util -> {
+                player.teleport(location);
+                util.cleanup();
+                callback.accept(player);
+            });
     }
 
     @Override

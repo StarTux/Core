@@ -116,6 +116,9 @@ public final class CorePlugin extends JavaPlugin {
                     }
                     return true;
                 });
+        coreCommand.addChild("debugplayerteleportutil")
+            .description("Debug the player teleport util")
+            .senderCaller(sender -> com.cavetale.core.command.PlayerTeleportUtil.debug(sender));
     }
 
     @Override
@@ -155,5 +158,9 @@ public final class CorePlugin extends JavaPlugin {
         if (denyBuilding) {
             getLogger().info("Deny building enabled!");
         }
+    }
+
+    public static CorePlugin plugin() {
+        return instance;
     }
 }
