@@ -8,21 +8,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MinigameMatchType {
     // Public
-    COLORFALL(true),
-    EXTREME_GRASS_GROWING(true),
-    HIDE_AND_SEEK(true),
-    PVP_ARENA(true),
-    TETRIS(true),
-    VERTIGO(true),
+    COLORFALL(true, "Colorfall"),
+    EXTREME_GRASS_GROWING(true, "Extreme Grass Growing"),
+    HIDE_AND_SEEK(true, "Hide and Seek"),
+    PVP_ARENA(true, "PvP Arena"),
+    TETRIS(true, "Tetris"),
+    VERTIGO(true, "Vertigo"),
     // Not public
-    BINGO(false),
-    ENDERBALL(false),
-    OVERBOARD(false),
-    RACE(false),
-    SPLEEF(false),
-    SURVIVAL_GAMES(false),
-    WINDICATOR(false),
+    BINGO(false, "Bingo"),
+    ENDERBALL(false, "Enderball"),
+    OVERBOARD(false, "Overboard"),
+    RACE(false, "Race"),
+    SPLEEF(false, "Spleef"),
+    SURVIVAL_GAMES(false, "Survival Games"),
+    WINDICATOR(false, "Windicator"),
     ;
 
     public final boolean publiclyAvailable;
+    public final String displayName;
 }
