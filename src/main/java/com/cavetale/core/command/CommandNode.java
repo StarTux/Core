@@ -46,7 +46,6 @@ public final class CommandNode {
      * Constructor for a child node. Internal use only.
      */
     public CommandNode(final CommandNode parent, final String key) {
-        this.remoteServer = parent.remoteServer;
         this.parent = parent;
         this.key = key;
     }
