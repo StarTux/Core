@@ -14,12 +14,12 @@ public enum MinigameMatchType {
     PVP_ARENA(true, "PvP Arena"),
     TETRIS(true, "Tetris"),
     VERTIGO(true, "Vertigo"),
+    SPLEEF(true, "Spleef"),
     // Not public
     BINGO(false, "Bingo"),
     ENDERBALL(false, "Enderball"),
     OVERBOARD(false, "Overboard"),
     RACE(false, "Race"),
-    SPLEEF(false, "Spleef"),
     SURVIVAL_GAMES(false, "Survival Games"),
     WINDICATOR(false, "Windicator"),
     CAPTURE_THE_FLAG(false, "Capture the Flag"),
