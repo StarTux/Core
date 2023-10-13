@@ -55,6 +55,7 @@ public enum NetworkServer {
     CAPTURE_THE_FLAG(EVENT, MAIN),
     PIT_OF_DOOM(EVENT, MAIN),
     SKYBLOCK(EVENT, MAIN),
+    CHALLENGE(EVENT, MAIN),
 
     WORLDGEN(ServerCategory.WORLD_GENERATION, NONE),
     UNKNOWN(ServerCategory.UNKNOWN, NONE);
