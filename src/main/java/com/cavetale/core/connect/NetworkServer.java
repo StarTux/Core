@@ -56,6 +56,7 @@ public enum NetworkServer {
     PIT_OF_DOOM(EVENT, MAIN),
     SKYBLOCK(EVENT, MAIN),
     CHALLENGE(EVENT, MAIN),
+    ADVENTURE(EVENT, MAIN),
 
     WORLDGEN(ServerCategory.WORLD_GENERATION, NONE),
     UNKNOWN(ServerCategory.UNKNOWN, NONE);
