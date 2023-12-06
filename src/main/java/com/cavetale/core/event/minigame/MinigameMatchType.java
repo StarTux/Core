@@ -1,11 +1,12 @@
 package com.cavetale.core.event.minigame;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
  * Minigames with limited scope matches and one or more winners.
  */
-@RequiredArgsConstructor
+@Getter @RequiredArgsConstructor
 public enum MinigameMatchType {
     // Public
     COLORFALL(true, "Colorfall"),
