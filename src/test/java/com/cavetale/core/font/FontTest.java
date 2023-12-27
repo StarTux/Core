@@ -14,7 +14,7 @@ public final class FontTest {
     @Test
     public void test() {
         test(DefaultFont.class);
-        test(VanillaEffects.class);
+        //test(VanillaEffects.class); // Registry requires Bukkit.server!
         test(VanillaPaintings.class);
         test(VanillaItems.class);
         System.out.println(hex(totalMin) + "..." + hex(totalMax) + "\tTotal");

@@ -400,7 +400,7 @@ public enum VanillaItems implements Font, ComponentLike {
     GOLD_NUGGET(Material.GOLD_NUGGET, "minecraft:item/gold_nugget", 8, 8, 1, '\uE508'),
     GOLD_ORE(Material.GOLD_ORE, "minecraft:block/gold_ore", 8, 8, 1, '\uE509'),
     GRANITE(Material.GRANITE, "minecraft:block/granite", 8, 8, 1, '\uE50A'),
-    GRASS(Material.GRASS, "minecraft:block/grass", 8, 8, 1, '\uE50B'),
+    SHORT_GRASS(Material.SHORT_GRASS, "minecraft:block/short_grass", 8, 8, 1, '\uE50B'),
     GRASS_BLOCK(Material.GRASS_BLOCK, "minecraft:block/grass_block_side", 8, 8, 1, '\uE50C'),
     GRAVEL(Material.GRAVEL, "minecraft:block/gravel", 8, 8, 1, '\uE50E'),
     GRAY_CANDLE(Material.GRAY_CANDLE, "minecraft:item/gray_candle", 8, 8, 1, '\uE6BF'),
@@ -954,7 +954,7 @@ public enum VanillaItems implements Font, ComponentLike {
         this.character = character;
         final TextColor color;
         switch (material) {
-        case GRASS:
+        case SHORT_GRASS:
         case OAK_LEAVES:
         case SPRUCE_LEAVES:
         case BIRCH_LEAVES:
@@ -1173,7 +1173,7 @@ public enum VanillaItems implements Font, ComponentLike {
         case "NETHERITE_SWORD":
         case "ARROW":
         case "SPECTRAL_ARROW":
-        case "GRASS":
+        case "SHORT_GRASS":
         case "GRASS_BLOCK":
         case "AXOLOTL_BUCKET":
         case "SNOWBALL":
