@@ -24,6 +24,7 @@ public enum MinigameMatchType {
     SURVIVAL_GAMES(false, "Survival Games"),
     WINDICATOR(false, "Windicator"),
     CAPTURE_THE_FLAG(false, "Capture the Flag"),
+    CAVEPAINT(false, "Cavepaint"),
     ;
 
     public final boolean publiclyAvailable;
