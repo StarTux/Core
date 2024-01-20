@@ -27,8 +27,9 @@ public final class BackLocation {
     private final float pitch;
     private final float yaw;
     private final String description;
+    private final boolean logoutServer;
 
-    public BackLocation(final UUID playerUuid, final NetworkServer server, final Plugin plugin, final Location location, final String description) {
+    public BackLocation(final UUID playerUuid, final NetworkServer server, final Plugin plugin, final Location location, final String description, final boolean logoutServer) {
         this.playerUuid = playerUuid;
         this.server = server;
         this.plugin = plugin.getName();
@@ -39,6 +40,7 @@ public final class BackLocation {
         this.pitch = location.getPitch();
         this.yaw = location.getYaw();
         this.description = description;
+        this.logoutServer = logoutServer;
     }
 
     public boolean isOnThisServer() {

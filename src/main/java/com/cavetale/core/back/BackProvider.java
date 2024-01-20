@@ -57,4 +57,10 @@ public interface BackProvider {
      * If successful, the back location shall be reset.
      */
     void back(UUID playerUuid, Consumer<BackLocation> callback);
+
+    /**
+     * Same as above, but only take action if the back server was also
+     * the logout server.
+     */
+    void backAuto(UUID playerUuid, Consumer<BackLocation> callback);
 }
