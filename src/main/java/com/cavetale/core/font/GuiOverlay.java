@@ -198,6 +198,6 @@ public enum GuiOverlay {
         }
     }
 
-    private static record Layer(DefaultFont glyph, TextColor color,
-                                DefaultFont backToLeftEdge, DefaultFont backToTitle) { }
+    private record Layer(DefaultFont glyph, TextColor color,
+                         DefaultFont backToLeftEdge, DefaultFont backToTitle) { }
 }

@@ -34,7 +34,7 @@ public interface ChatHandler {
         CorePlugin.plugin().getLogger().info("ChatHandler registered: " + getClass().getName());
     }
 
-    class Companion {
+    final class Companion {
         private Companion() { };
 
         protected static ChatHandler chatHandler = ChatHandler.DEFAULT;

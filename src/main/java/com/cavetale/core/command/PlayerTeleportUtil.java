@@ -33,7 +33,7 @@ public final class PlayerTeleportUtil {
     private int lock;
     private final ArrayList<Chunk> chunks = new ArrayList<>();
 
-    private static final record ChunkVector(String world, int x, int z) { }
+    private record ChunkVector(String world, int x, int z) { }
 
     private static final HashMap<ChunkVector, Integer> CHUNK_LOAD_MAP = new HashMap<>();
 
