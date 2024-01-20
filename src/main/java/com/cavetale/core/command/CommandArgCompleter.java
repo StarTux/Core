@@ -196,6 +196,9 @@ public interface CommandArgCompleter {
             public List<String> complete(CommandContext context, CommandNode node, String arg) {
                 try {
                     double input = Double.parseDouble(arg);
+                    if (Double.isNaN(input) || Double.isInfinite(input)) {
+                        return List.of();
+                    }
                     return validator.test(input)
                         ? List.of("" + input)
                         : List.of();
@@ -284,6 +287,9 @@ public interface CommandArgCompleter {
             input = Double.parseDouble(arg);
         } catch (NumberFormatException nfe) {
             throw new CommandWarn("Number expected: " + arg);
+        }
+        if (Double.isNaN(input) || Double.isInfinite(input)) {
+            throw new CommandWarn("Invalid number: " + arg);
         }
         if (!validator.test(input)) {
             throw new CommandWarn("Invalid number: " + arg);
