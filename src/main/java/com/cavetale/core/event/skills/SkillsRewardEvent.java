@@ -30,7 +30,7 @@ public abstract class SkillsRewardEvent extends Event implements Cancellable {
 
     private static int roundFair(double in) {
         final double floor = Math.floor(in);
-        final double remain = in;
+        final double remain = in - floor;
         return ThreadLocalRandom.current().nextDouble() < remain
             ? (int) floor + 1
             : (int) floor;
