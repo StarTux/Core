@@ -68,7 +68,10 @@ public abstract class SkillsRewardEvent extends Event implements Cancellable {
         postMultiplyFactor *= factor;
     }
 
-    public String debugString() {
+    /**
+     * Return a nice debug string.
+     */
+    public final String debugString() {
         return String.format("f:%.2f sp:%d=>%d mon:%.2f=>%.2f xp:%d=>%d",
                              postMultiplyFactor,
                              skillPoints, getFinalSkillPoints(),
