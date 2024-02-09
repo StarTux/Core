@@ -69,7 +69,7 @@ public final class Cuboid {
 
     @Override
     public String toString() {
-        return ax + "," + ay + "," + az + "-" + bx + "," + by + "," + bz;
+        return ax + " " + ay + " " + az + " " + bx + " " + by + " " + bz;
     }
 
     public Vec3i getSize() {
