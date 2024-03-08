@@ -233,7 +233,7 @@ public final class Cuboid {
     }
 
     public Vec3d getCenterExact() {
-        return new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, (double) (az + bz) * 0.5);
+        return new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
     }
 
     public Vec3i getFaceCenter(BlockFace face) {
