@@ -10,6 +10,7 @@ import lombok.Value;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
 
@@ -229,6 +230,34 @@ public final class Cuboid {
 
     public Vec3i getCenter() {
         return new Vec3i((ax + bx) / 2, (ay + by) / 2, (az + bz) / 2);
+    }
+
+    public Vec3d getCenterExact() {
+        return new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, (double) (az + bz) * 0.5);
+    }
+
+    public Vec3i getFaceCenter(BlockFace face) {
+        return switch (face) {
+        case UP -> new Vec3i((ax + bx) / 2, by, (az + bz) / 2);
+        case DOWN -> new Vec3i((ax + bx) / 2, ay, (az + bz) / 2);
+        case WEST -> new Vec3i(ax, (ay + by) / 2, (az + bz) / 2);
+        case EAST -> new Vec3i(bx, (ay + by) / 2, (az + bz) / 2);
+        case NORTH -> new Vec3i((ax + bx) / 2, (ay + by) / 2, az);
+        case SOUTH -> new Vec3i((ax + bx) / 2, (ay + by) / 2, bz);
+        default -> getCenter();
+        };
+    }
+
+    public Vec3d getFaceCenterExact(BlockFace face) {
+        return switch (face) {
+        case UP -> new Vec3d((double) (ax + bx + 1) * 0.5, by, (double) (az + bz + 1) * 0.5);
+        case DOWN -> new Vec3d((double) (ax + bx + 1) * 0.5, ay, (double) (az + bz + 1) * 0.5);
+        case WEST -> new Vec3d(ax, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
+        case EAST -> new Vec3d(bx, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
+        case NORTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, az);
+        case SOUTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, bz);
+        default -> getCenterExact();
+        };
     }
 
     public BoundingBox toBoundingBox() {
