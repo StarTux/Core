@@ -233,7 +233,9 @@ public final class Cuboid {
     }
 
     public Vec3d getCenterExact() {
-        return new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
+        return new Vec3d((double) (ax + bx + 1) * 0.5,
+                         (double) (ay + by + 1) * 0.5,
+                         (double) (az + bz + 1) * 0.5);
     }
 
     public Vec3i getFaceCenter(BlockFace face) {
@@ -250,12 +252,12 @@ public final class Cuboid {
 
     public Vec3d getFaceCenterExact(BlockFace face) {
         return switch (face) {
-        case UP -> new Vec3d((double) (ax + bx + 1) * 0.5, by, (double) (az + bz + 1) * 0.5);
-        case DOWN -> new Vec3d((double) (ax + bx + 1) * 0.5, ay, (double) (az + bz + 1) * 0.5);
-        case WEST -> new Vec3d(ax, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
-        case EAST -> new Vec3d(bx, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
-        case NORTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, az);
-        case SOUTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, bz);
+        case DOWN -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) ay, (double) (az + bz + 1) * 0.5);
+        case UP -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (by + 1), (double) (az + bz + 1) * 0.5);
+        case WEST -> new Vec3d((double) ax, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
+        case EAST -> new Vec3d((double) (bx + 1), (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
+        case NORTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, (double) az);
+        case SOUTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, (double) (bz + 1));
         default -> getCenterExact();
         };
     }
