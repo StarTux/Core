@@ -327,6 +327,10 @@ public enum Unicode implements ComponentLike {
         return translate("" + number, Unicode::charToSuperscript);
     }
 
+    public static String superscript(String in) {
+        return translate(in, Unicode::charToSuperscript);
+    }
+
     public static String subscript(int number) {
         return translate("" + number, Unicode::charToSubscript);
     }
