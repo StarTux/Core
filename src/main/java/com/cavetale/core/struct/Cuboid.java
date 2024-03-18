@@ -256,8 +256,8 @@ public final class Cuboid {
         case UP -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (by + 1), (double) (az + bz + 1) * 0.5);
         case WEST -> new Vec3d((double) ax, (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
         case EAST -> new Vec3d((double) (bx + 1), (double) (ay + by + 1) * 0.5, (double) (az + bz + 1) * 0.5);
-        case NORTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, (double) az);
-        case SOUTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by) * 0.5, (double) (bz + 1));
+        case NORTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by + 1) * 0.5, (double) az);
+        case SOUTH -> new Vec3d((double) (ax + bx + 1) * 0.5, (double) (ay + by + 1) * 0.5, (double) (bz + 1));
         default -> getCenterExact();
         };
     }
