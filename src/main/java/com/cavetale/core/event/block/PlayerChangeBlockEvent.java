@@ -7,6 +7,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Called when a block is changed on behalf of a player.  This action
@@ -21,6 +22,7 @@ public final class PlayerChangeBlockEvent extends Event {
     private final Block block;
     private BlockData newBlockData;
     private BlockState newBlockState;
+    private final ItemStack itemStack;
 
     /**
      * Required by Event.
@@ -34,18 +36,28 @@ public final class PlayerChangeBlockEvent extends Event {
         return handlerList;
     }
 
-    public PlayerChangeBlockEvent(final Player player, final Block block, final BlockData newBlockData) {
+    public PlayerChangeBlockEvent(final Player player, final Block block, final BlockData newBlockData, final ItemStack itemStack) {
         this.player = player;
         this.block = block;
         this.newBlockData = newBlockData;
         this.newBlockState = null;
+        this.itemStack = itemStack;
     }
 
-    public PlayerChangeBlockEvent(final Player player, final Block block, final BlockState newBlockState) {
+    public PlayerChangeBlockEvent(final Player player, final Block block, final BlockData newBlockData) {
+        this(player, block, newBlockData, null);
+    }
+
+    public PlayerChangeBlockEvent(final Player player, final Block block, final BlockState newBlockState, final ItemStack itemStack) {
         this.player = player;
         this.block = block;
         this.newBlockData = null;
         this.newBlockState = newBlockState;
+        this.itemStack = itemStack;
+    }
+
+    public PlayerChangeBlockEvent(final Player player, final Block block, final BlockState newBlockState) {
+        this(player, block, newBlockState, null);
     }
 
     public BlockData getOldBlockData() {
@@ -67,5 +79,9 @@ public final class PlayerChangeBlockEvent extends Event {
         BlockState result = block.getState(true);
         result.setBlockData(newBlockData);
         return result;
+    }
+
+    public boolean hasItem() {
+        return itemStack != null;
     }
 }
