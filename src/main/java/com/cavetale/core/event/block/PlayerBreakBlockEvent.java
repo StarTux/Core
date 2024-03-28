@@ -58,6 +58,7 @@ public final class PlayerBreakBlockEvent extends Event implements Cancellable {
      * @param block the block
      * @return false if the event was cancelled, true otherwise.
      */
+    @Deprecated
     public static boolean call(Player player, Block block) {
         if (denyBuilding && !player.isOp()) return false;
         PlayerBreakBlockEvent event = new PlayerBreakBlockEvent(player, block);
