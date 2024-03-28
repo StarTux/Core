@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * A plugin generated event to notifiy other plugins that a block was
@@ -20,6 +21,7 @@ import org.bukkit.event.HandlerList;
 public final class PlayerBreakBlockEvent extends Event implements Cancellable {
     private final Player player;
     private final Block block;
+    private final ItemStack itemStack;
     @Setter private boolean cancelled;
     @Setter private static boolean denyBuilding = false;
 
@@ -35,10 +37,19 @@ public final class PlayerBreakBlockEvent extends Event implements Cancellable {
         return handlerList;
     }
 
-    public PlayerBreakBlockEvent(final Player player, final Block block) {
+    public PlayerBreakBlockEvent(final Player player, final Block block, final ItemStack itemStack) {
         this.player = player;
         this.block = block;
+        this.itemStack = itemStack;
         if (denyBuilding && !player.isOp()) cancelled = true;
+    }
+
+    public PlayerBreakBlockEvent(final Player player, final Block block) {
+        this(player, block, null);
+    }
+
+    public boolean hasItem() {
+        return itemStack != null;
     }
 
     /**
