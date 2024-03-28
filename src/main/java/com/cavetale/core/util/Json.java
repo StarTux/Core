@@ -24,11 +24,14 @@ public final class Json {
             return dfl.get();
         }
         try (FileReader fr = new FileReader(file)) {
-            return GSON.fromJson(fr, type);
+            final T result = GSON.fromJson(fr, type);
+            return result != null ? result : dfl.get();
         } catch (FileNotFoundException fnfr) {
             return dfl.get();
         } catch (IOException ioe) {
-            throw new IllegalStateException("Loading " + file, ioe);
+            System.err.println("File: " + file);
+            ioe.printStackTrace();
+            return dfl.get();
         }
     }
 
@@ -64,8 +67,10 @@ public final class Json {
     public static <T> T deserialize(String json, Class<T> type, Supplier<T> dfl) {
         if (json == null) return dfl.get();
         try {
-            T t = GSON.fromJson(json, type);
-            return t != null ? t : dfl.get();
+            final T result = GSON.fromJson(json, type);
+            return result != null
+                ? result
+                : dfl.get();
         } catch (Exception e) {
             System.err.println("Input: " + json);
             e.printStackTrace();
