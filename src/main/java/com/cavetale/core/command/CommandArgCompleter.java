@@ -11,8 +11,10 @@ import java.util.function.LongPredicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import static net.kyori.adventure.text.serializer.gson.GsonComponentSerializer.gson;
 
 @FunctionalInterface
 public interface CommandArgCompleter {
@@ -339,5 +341,13 @@ public interface CommandArgCompleter {
         RemotePlayer player = Connect.get().getRemotePlayer(arg);
         if (player == null) throw new CommandWarn("Player not found: " + arg);
         return player;
+    }
+
+    static Component requireComponent(String arg) {
+        try {
+            return gson().deserialize(arg);
+        } catch (Exception e) {
+            throw new CommandWarn("Component expected: " + arg);
+        }
     }
 }

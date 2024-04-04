@@ -1,6 +1,7 @@
 package com.cavetale.core;
 
 import com.cavetale.core.bungee.Bungee;
+import com.cavetale.core.command.CommandArgCompleter;
 import com.cavetale.core.command.CommandNode;
 import com.cavetale.core.event.block.PlayerBlockAbilityQuery;
 import com.cavetale.core.event.block.PlayerBreakBlockEvent;
@@ -12,11 +13,13 @@ import com.cavetale.core.item.ItemKinds;
 import com.cavetale.core.playercache.PlayerCache;
 import com.cavetale.core.struct.Cuboid;
 import com.cavetale.core.text.LineWrap;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import static net.kyori.adventure.text.Component.text;
 
@@ -119,6 +122,24 @@ public final class CorePlugin extends JavaPlugin {
         coreCommand.addChild("debugplayerteleportutil")
             .description("Debug the player teleport util")
             .senderCaller(sender -> com.cavetale.core.command.PlayerTeleportUtil.debug(sender));
+        coreCommand.addChild("kick").arguments("<player> <message>")
+            .description("Bungee kick")
+            .senderCaller((sender, args) -> {
+                    if (args.length < 2) return false;
+                    final Player target = CommandArgCompleter.requirePlayer(args[0]);
+                    final String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+                    Bungee.kick(target, message);
+                    return true;
+                });
+        coreCommand.addChild("kickraw").arguments("<player> <component>")
+            .description("Bungee kick")
+            .senderCaller((sender, args) -> {
+                    if (args.length < 2) return false;
+                    final Player target = CommandArgCompleter.requirePlayer(args[0]);
+                    final var message = CommandArgCompleter.requireComponent(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+                    Bungee.kickRaw(target, message);
+                    return true;
+                });
     }
 
     @Override
