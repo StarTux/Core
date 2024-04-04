@@ -3,6 +3,7 @@ package com.cavetale.core.struct;
 import com.cavetale.core.command.CommandWarn;
 import com.cavetale.core.selection.SelectionProvider;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -15,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
 
 @Value
-public final class Cuboid {
+public final class Cuboid implements Iterable<Vec3i> {
     public static final Cuboid ZERO = new Cuboid(0, 0, 0, 0, 0, 0);
     public final int ax;
     public final int ay;
@@ -166,6 +167,32 @@ public final class Cuboid {
             }
         }
         return result;
+    }
+
+    public Iterator<Vec3i> iterator() {
+        return new Iterator<Vec3i>() {
+            private int x = ax;
+            private int y = ay;
+            private int z = az;
+
+            @Override public boolean hasNext() {
+                return x <= bx && y <= by && z <= bz;
+            }
+
+            @Override public Vec3i next() {
+                final var result = new Vec3i(x, y, z);
+                y += 1;
+                if (y > by) {
+                    y = ay;
+                    z += 1;
+                    if (z > bz) {
+                        z = az;
+                        x += 1;
+                    }
+                }
+                return result;
+            }
+        };
     }
 
     public boolean overlaps(Cuboid other) {
