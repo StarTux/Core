@@ -1,6 +1,7 @@
 package com.cavetale.core.chat;
 
 import com.cavetale.core.CorePlugin;
+import java.util.UUID;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +19,11 @@ public interface ChatHandler {
             }
 
             @Override
+            public boolean doesIgnore(UUID ignorer, UUID ignoree) {
+                return false;
+            }
+
+            @Override
             public JavaPlugin getPlugin() {
                 return CorePlugin.plugin();
             }
@@ -26,6 +32,8 @@ public interface ChatHandler {
     void sendAndLog(Player player, Component message);
 
     void sendNoLog(Player player, Component message);
+
+    boolean doesIgnore(UUID ignorer, UUID ignoree);
 
     JavaPlugin getPlugin();
 
