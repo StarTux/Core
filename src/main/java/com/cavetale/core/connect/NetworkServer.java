@@ -21,6 +21,8 @@ import static com.cavetale.core.connect.ServerGroup.TESTING;
  */
 public enum NetworkServer {
     VOID(TECHNICAL, MAIN),
+    WEB(TECHNICAL, MAIN),
+
     HUB(SURVIVAL, MAIN),
     CAVETALE(SURVIVAL, MUSEUM),
     MINE(SURVIVAL, MAIN, Set.of(MINING)),
