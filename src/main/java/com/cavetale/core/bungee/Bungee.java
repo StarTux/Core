@@ -5,9 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import net.kyori.adventure.text.Component;
-import static net.kyori.adventure.text.serializer.gson.GsonComponentSerializer.gson;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import static net.kyori.adventure.text.serializer.gson.GsonComponentSerializer.gson;
 
 public final class Bungee {
     public static void enable() {
