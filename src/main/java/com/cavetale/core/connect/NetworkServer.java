@@ -4,80 +4,90 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import static com.cavetale.core.connect.ServerCategory.EVENT;
-import static com.cavetale.core.connect.ServerCategory.HOME;
-import static com.cavetale.core.connect.ServerCategory.MINIGAME;
-import static com.cavetale.core.connect.ServerCategory.MINING;
-import static com.cavetale.core.connect.ServerCategory.SURVIVAL;
-import static com.cavetale.core.connect.ServerCategory.SURVIVAL_TEST;
-import static com.cavetale.core.connect.ServerCategory.TECHNICAL;
-import static com.cavetale.core.connect.ServerGroup.MAIN;
-import static com.cavetale.core.connect.ServerGroup.MUSEUM;
-import static com.cavetale.core.connect.ServerGroup.NONE;
-import static com.cavetale.core.connect.ServerGroup.TESTING;
+import lombok.Getter;
 
 /**
  * Enumerate each server connecting within the Cavetale network.
  */
+@Getter
 public enum NetworkServer {
-    VOID(TECHNICAL, MAIN),
-    WEB(TECHNICAL, MAIN),
+    // Technical servers
+    VOID(ServerCategory.TECHNICAL, ServerGroup.MAIN, FolderLocation.BASE),
+    WEB(ServerCategory.TECHNICAL, ServerGroup.MAIN, FolderLocation.BASE),
 
-    HUB(SURVIVAL, MAIN),
-    CAVETALE(SURVIVAL, MUSEUM),
-    MINE(SURVIVAL, MAIN, Set.of(MINING)),
-    RAID(SURVIVAL, MAIN),
-    MOB_ARENA(SURVIVAL, MAIN),
-    FESTIVAL(SURVIVAL, MAIN),
+    // Additional survival servers
+    HUB(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.BASE),
+    CAVETALE(ServerCategory.SURVIVAL, ServerGroup.MUSEUM, FolderLocation.BASE),
+    MINE(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.BASE, Set.of(ServerCategory.MINING)),
+    RAID(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.MINI),
+    MOB_ARENA(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.MINI, Set.of(ServerCategory.MINIGAME)),
 
-    EINS(SURVIVAL, MAIN, Set.of(HOME)),
-    ZWEI(SURVIVAL, MAIN, Set.of(HOME)),
-    DREI(SURVIVAL, MAIN, Set.of(HOME)),
-    VIER(SURVIVAL, MAIN, Set.of(HOME)),
+    // The two multi purpose servers
+    FESTIVAL(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.BASE),
+    CHALLENGE(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.BASE),
 
-    CREATIVE(ServerCategory.CREATIVE, MAIN),
+    // The main survival servers
+    EINS(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.BASE, Set.of(ServerCategory.HOME)),
+    ZWEI(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.BASE, Set.of(ServerCategory.HOME)),
+    DREI(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.BASE, Set.of(ServerCategory.HOME)),
+    VIER(ServerCategory.SURVIVAL, ServerGroup.MAIN, FolderLocation.BASE, Set.of(ServerCategory.HOME)),
 
-    ALPHA(SURVIVAL_TEST, TESTING),
-    BETA(SURVIVAL_TEST, TESTING),
+    // Creative
+    CREATIVE(ServerCategory.CREATIVE, ServerGroup.MAIN, FolderLocation.BASE),
 
-    COLORFALL(MINIGAME, MAIN),
-    VERTIGO(MINIGAME, MAIN),
-    PVP_ARENA(MINIGAME, MAIN),
+    // Testing servers
+    ALPHA(ServerCategory.SURVIVAL_TEST, ServerGroup.TESTING, FolderLocation.BASE),
+    BETA(ServerCategory.SURVIVAL_TEST, ServerGroup.TESTING, FolderLocation.BASE),
 
-    RACE(EVENT, MAIN),
-    SPLEEF(EVENT, MAIN),
-    BINGO(EVENT, MAIN),
-    ENDERBALL(EVENT, MAIN),
-    HIDE_AND_SEEK(EVENT, MAIN),
-    SURVIVAL_GAMES(EVENT, MAIN),
-    RED_GREEN_LIGHT(EVENT, MAIN),
-    TETRIS(EVENT, MAIN),
-    OVERBOARD(EVENT, MAIN),
-    WINDICATOR(EVENT, MAIN),
-    CAPTURE_THE_FLAG(EVENT, MAIN),
-    PIT_OF_DOOM(EVENT, MAIN),
-    SKYBLOCK(EVENT, MAIN),
-    CHALLENGE(EVENT, MAIN),
-    ADVENTURE(EVENT, MAIN),
+    // Minigames, joinable any time
+    BINGO(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    COLORFALL(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    HIDE_AND_SEEK(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    PVP_ARENA(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    RED_GREEN_LIGHT(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    SKYBLOCK(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    SPLEEF(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    SURVIVAL_GAMES(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    TETRIS(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    VERTIGO(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
 
-    WORLDGEN(ServerCategory.WORLD_GENERATION, NONE),
-    UNKNOWN(ServerCategory.UNKNOWN, NONE);
+    // Event games, only open during events
+    ADVENTURE(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+    CAPTURE_THE_FLAG(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+    ENDERBALL(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+    OVERBOARD(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+    PIT_OF_DOOM(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+    RACE(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+    WINDICATOR(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+
+    // Hard to categorize and literally uncategorized
+    WORLDGEN(ServerCategory.WORLD_GENERATION, ServerGroup.NONE, FolderLocation.BASE),
+    UNKNOWN(ServerCategory.UNKNOWN, ServerGroup.NONE, FolderLocation.NONE),
+    ;
+
+    public enum FolderLocation {
+        NONE,
+        BASE,
+        MINI;
+    }
 
     public final ServerCategory category;
+    private final FolderLocation folderLocation;
     public final ServerGroup group;
     public final String registeredName;
     private final Set<ServerCategory> categories;
 
-    NetworkServer(final ServerCategory category, final ServerGroup group, final Set<ServerCategory> extraCategories) {
+    NetworkServer(final ServerCategory category, final ServerGroup group, final FolderLocation folderLocation, final Set<ServerCategory> extraCategories) {
         this.category = category;
+        this.folderLocation = folderLocation;
         this.group = group;
         this.registeredName = name().toLowerCase().replace("_", "");
         categories = EnumSet.of(category);
         categories.addAll(extraCategories);
     }
 
-    NetworkServer(final ServerCategory category, final ServerGroup group) {
-        this(category, group, Set.of());
+    NetworkServer(final ServerCategory category, final ServerGroup group, final FolderLocation folderLocation) {
+        this(category, group, folderLocation, Set.of());
     }
 
     public static NetworkServer of(String name) {
@@ -140,6 +150,14 @@ public enum NetworkServer {
 
     public boolean isMining() {
         return categories.contains(ServerCategory.MINING);
+    }
+
+    public boolean isMinigame() {
+        return categories.contains(ServerCategory.MINIGAME);
+    }
+
+    public boolean isEvent() {
+        return categories.contains(ServerCategory.EVENT);
     }
 
     @Deprecated
