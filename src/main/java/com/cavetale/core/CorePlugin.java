@@ -140,6 +140,12 @@ public final class CorePlugin extends JavaPlugin {
                     Bungee.kickRaw(target, message);
                     return true;
                 });
+        coreCommand.addChild("skin").denyTabCompletion()
+            .playerCaller(player -> {
+                    final var playerSkin = com.cavetale.core.skin.PlayerSkin.getPlayerSkin(player.getUniqueId());
+                    player.sendMessage("texture=" + playerSkin.getTextureBase64());
+                    player.sendMessage("face=" + playerSkin.getFaceBase64());
+                });
     }
 
     @Override
