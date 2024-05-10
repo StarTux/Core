@@ -3,6 +3,7 @@ package com.cavetale.core;
 import com.cavetale.core.bungee.Bungee;
 import com.cavetale.core.command.CommandArgCompleter;
 import com.cavetale.core.command.CommandNode;
+import com.cavetale.core.command.CommandWarn;
 import com.cavetale.core.event.block.PlayerBlockAbilityQuery;
 import com.cavetale.core.event.block.PlayerBreakBlockEvent;
 import com.cavetale.core.event.entity.PlayerEntityAbilityQuery;
@@ -140,11 +141,17 @@ public final class CorePlugin extends JavaPlugin {
                     Bungee.kickRaw(target, message);
                     return true;
                 });
-        coreCommand.addChild("skin").denyTabCompletion()
-            .playerCaller(player -> {
-                    final var playerSkin = com.cavetale.core.skin.PlayerSkin.getPlayerSkin(player.getUniqueId());
-                    player.sendMessage("texture=" + playerSkin.getTextureBase64());
-                    player.sendMessage("face=" + playerSkin.getFaceBase64());
+        coreCommand.addChild("skin").arguments("<player>")
+            .senderCaller((sender, args) -> {
+                    if (args.length != 1) return false;
+                    final var target = PlayerCache.require(args[0]);
+                    final var playerSkin = com.cavetale.core.skin.PlayerSkin.getPlayerSkin(target.uuid);
+                    if (playerSkin == null) {
+                        throw new CommandWarn("Skin not found: " + target);
+                    }
+                    sender.sendMessage("texture=" + playerSkin.getTextureBase64());
+                    sender.sendMessage("face=" + playerSkin.getFaceBase64());
+                    return true;
                 });
     }
 
