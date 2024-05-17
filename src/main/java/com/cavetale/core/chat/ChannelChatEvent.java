@@ -1,6 +1,7 @@
 package com.cavetale.core.chat;
 
 import com.cavetale.core.connect.NetworkServer;
+import java.time.Instant;
 import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
@@ -15,8 +16,9 @@ import org.bukkit.event.HandlerList;
 @EqualsAndHashCode(callSuper = true)
 public final class ChannelChatEvent extends Event {
     private static final HandlerList HANDLER_LIST = new HandlerList();
+    private final Instant time;
     private final UUID sender;
-    private final UUID recipient;
+    private final String target;
     private final NetworkServer server;
     private final String channelName;
     private final String rawMessage;
