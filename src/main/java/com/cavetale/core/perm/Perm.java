@@ -31,6 +31,8 @@ public interface Perm {
 
     boolean isInGroup(UUID uuid, String groupName);
 
+    boolean isInAssignedGroup(UUID uuid, String groupName);
+
     Collection<String> getGroups(UUID uuid);
 
     Collection<String> getAllGroups(UUID uuid);

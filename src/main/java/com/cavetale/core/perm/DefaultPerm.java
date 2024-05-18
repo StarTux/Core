@@ -36,6 +36,11 @@ final class DefaultPerm implements Perm {
     }
 
     @Override
+    public boolean isInAssignedGroup(UUID uuid, String groupName) {
+        return false;
+    }
+
+    @Override
     public Collection<String> getGroups(UUID uuid) {
         return List.of();
     }
