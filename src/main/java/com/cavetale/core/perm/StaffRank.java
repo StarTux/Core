@@ -25,7 +25,7 @@ public enum StaffRank implements Rank {
     public final AltTextSupplier altText;
 
     StaffRank(final AltTextSupplier altText) {
-        this.key = name().toLowerCase();
+        this.key = name().toLowerCase().replace("_", "-");
         this.altText = altText;
     }
 

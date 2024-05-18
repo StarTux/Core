@@ -19,6 +19,14 @@ import static net.kyori.adventure.text.format.NamedTextColor.*;
 @Getter
 public enum ExtraRank implements Rank {
     BUILDER(DefaultFont.BUILDER),
+    HEAD_BUILDER(new AltTextSupplier() {
+            @Override public Component asComponent() {
+                return text("[HeadBuilder]", LIGHT_PURPLE);
+            }
+            @Override public Component getAltText() {
+                return text("[HeadBuilder]", LIGHT_PURPLE);
+            }
+        }),
     DUTYMODE(new AltTextSupplier() {
             @Override public Component asComponent() {
                 return text("[Dutymode]", YELLOW);
@@ -44,7 +52,7 @@ public enum ExtraRank implements Rank {
     public final AltTextSupplier altText;
 
     ExtraRank(final AltTextSupplier altText) {
-        this.key = name().toLowerCase();
+        this.key = name().toLowerCase().replace("_", "-");
         this.altText = altText;
     }
 
