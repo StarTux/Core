@@ -23,6 +23,7 @@ public final class ChannelChatEvent extends Event {
     private final String channelName;
     private final String rawMessage;
     private final Component message;
+    private final boolean passive;
 
     /**
      * Required by Event.
