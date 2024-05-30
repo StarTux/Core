@@ -11,6 +11,7 @@ import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import static com.cavetale.core.CorePlugin.plugin;
 import static com.cavetale.core.util.CamelCase.toCamelCase;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.translatable;
@@ -767,7 +768,6 @@ public enum VanillaItems implements Font, ComponentLike {
     SCULK_SENSOR(Material.SCULK_SENSOR, "minecraft:block/sculk_sensor_side", 8, 8, 1, '\uE6DE'),
     SCULK_SHRIEKER(Material.SCULK_SHRIEKER, "minecraft:block/sculk_shrieker_side", 8, 8, 1, '\uE737'),
     SCULK_VEIN(Material.SCULK_VEIN, "minecraft:block/sculk_vein", 8, 8, 4, '\uE738'),
-    SCUTE(Material.SCUTE, "minecraft:item/scute", 8, 8, 1, '\uE61C'),
     SEAGRASS(Material.SEAGRASS, "minecraft:item/seagrass", 8, 8, 1, '\uE61D'),
     SEA_LANTERN(Material.SEA_LANTERN, "minecraft:block/sea_lantern", 8, 8, 5, '\uE6F3'),
     SEA_PICKLE(Material.SEA_PICKLE, "minecraft:item/sea_pickle", 8, 8, 1, '\uE61E'),
@@ -875,6 +875,7 @@ public enum VanillaItems implements Font, ComponentLike {
     TUFF(Material.TUFF, "minecraft:block/tuff", 8, 8, 1, '\uE6E5'),
     TURTLE_EGG(Material.TURTLE_EGG, "minecraft:item/turtle_egg", 8, 8, 1, '\uE664'),
     TURTLE_HELMET(Material.TURTLE_HELMET, "minecraft:item/turtle_helmet", 8, 8, 1, '\uE665'),
+    TURTLE_SCUTE(Material.TURTLE_SCUTE, "minecraft:item/turtle_scute", 8, 8, 1, '\uE61C'),
     TWISTING_VINES(Material.TWISTING_VINES, "minecraft:block/twisting_vines", 8, 8, 1, '\uE666'),
     TWISTING_VINES_PLANT(Material.TWISTING_VINES_PLANT, "minecraft:block/twisting_vines_plant", 8, 8, 1, '\uE667'),
     VERDANT_FROGLIGHT(Material.VERDANT_FROGLIGHT, "minecraft:block/verdant_froglight_side", 8, 8, 1, '\uE73C'),
@@ -941,7 +942,7 @@ public enum VanillaItems implements Font, ComponentLike {
     public final int rows;
     public final char character;
     public final Component component;
-    public final String category;
+    private String category;
     private static final Map<Material, VanillaItems> MATERIAL_MAP = new EnumMap<>(Material.class);
 
     VanillaItems(final Material material, final String filename, final int ascent, final int height, final int rows, final char character) {
@@ -979,11 +980,15 @@ public enum VanillaItems implements Font, ComponentLike {
             .style(Style.style()
                    .font(Key.key("cavetale:default"))
                    .color(color));
+    }
+
+    private void init() {
         this.category = material.isBlock() ? "Block" : "Item";
     }
 
-    static {
+    public static void initAll() {
         for (VanillaItems it : VanillaItems.values()) {
+            it.init();
             MATERIAL_MAP.put(it.material, it);
         }
         MATERIAL_MAP.put(Material.HEAVY_WEIGHTED_PRESSURE_PLATE, IRON_BLOCK);
@@ -1187,6 +1192,19 @@ public enum VanillaItems implements Font, ComponentLike {
         case "VINE":
             return true;
         default: return false;
+        }
+    }
+
+    public static void test() {
+        // Find missing VanillaItems (informal)
+        for (Material material : Material.values()) {
+            if (material.isLegacy()) continue;
+            if (!material.isItem()) continue;
+            if (material.isAir()) continue;
+            VanillaItems vanillaItems = VanillaItems.of(material);
+            if (vanillaItems == null) {
+                plugin().getLogger().warning("No VanillaItems: " + material);
+            }
         }
     }
 }

@@ -20,16 +20,6 @@ public final class VanillaItemsTest {
             set.add(it.character);
         }
         System.out.println("Max VanillaItems: " + Integer.toHexString(maxc));
-        // Find missing VanillaItems (informal)
-        for (Material material : Material.values()) {
-            if (material.isLegacy()) continue;
-            if (!material.isItem()) continue;
-            if (material.isAir()) continue;
-            VanillaItems vanillaItems = VanillaItems.of(material);
-            if (vanillaItems == null) {
-                System.err.println("No VanillaItems: " + material);
-            }
-        }
         // All characters must be consecutive!
         ArrayList<Character> list = new ArrayList<>(set);
         Collections.sort(list);

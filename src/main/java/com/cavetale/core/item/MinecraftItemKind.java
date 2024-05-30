@@ -5,11 +5,13 @@ import com.cavetale.core.util.BlockColor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import static net.kyori.adventure.text.Component.translatable;
 import static net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText;
 
@@ -30,7 +32,13 @@ public final class MinecraftItemKind implements ItemKind {
     public static TextColor getColor(ItemStack item) {
         BlockColor blockColor = BlockColor.of(item.getType());
         if (blockColor != null) return blockColor.textColor;
-        return item.getRarity().getColor();
+        if (item.hasItemMeta()) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && meta.hasRarity()) {
+                return meta.getRarity().color();
+            }
+        }
+        return NamedTextColor.WHITE;
     }
 
     public static Component coloredDisplayName(ItemStack item) {
