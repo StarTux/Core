@@ -24,6 +24,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.Component.textOfChildren;
+import static net.kyori.adventure.text.format.NamedTextColor.GRAY;
 
 public final class CorePlugin extends JavaPlugin {
     @Getter private static CorePlugin instance;
@@ -99,9 +101,24 @@ public final class CorePlugin extends JavaPlugin {
                     player.getInventory().addItem(ItemKinds.create(String.join(" ", args)));
                     return true;
                 });
-        coreCommand.addChild("showitem")
+        coreCommand.addChild("itemkind")
             .playerCaller(player -> {
-                    player.sendMessage(ItemKinds.chatDescription(player.getInventory().getItemInMainHand()));
+                    final var item = player.getInventory().getItemInMainHand();
+                    if (item == null || item.isEmpty()) {
+                        throw new CommandWarn("No item in hand");
+                    }
+                    player.sendMessage(textOfChildren(text("Class: ", GRAY),
+                                                      text(ItemKinds.itemKind(item).getClass().getSimpleName())));
+                    player.sendMessage(textOfChildren(text("Name: ", GRAY),
+                                                      text(ItemKinds.name(item))));
+                    player.sendMessage(textOfChildren(text("ChatDescription: ", GRAY),
+                                                      ItemKinds.chatDescription(item)));
+                    player.sendMessage(textOfChildren(text("IconDescription: ", GRAY),
+                                                      ItemKinds.iconDescription(item)));
+                    player.sendMessage(textOfChildren(text("Icon: ", GRAY),
+                                                      ItemKinds.icon(item)));
+                    player.sendMessage(textOfChildren(text("DisplayName: ", GRAY),
+                                                      ItemKinds.displayName(item)));
                 });
         coreCommand.addChild("exploits")
             .playerCaller(player -> {

@@ -13,6 +13,10 @@ public final class ItemKinds {
         return ItemKind.of(item).getKey();
     }
 
+    public static ItemKind itemKind(ItemStack item) {
+        return ItemKind.of(item);
+    }
+
     public static String name(ItemStack item) {
         return ItemKind.of(item).name(item);
     }
