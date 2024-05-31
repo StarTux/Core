@@ -3,7 +3,6 @@ package com.cavetale.core.font;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import org.bukkit.Material;
 import org.junit.Test;
 
 public final class VanillaItemsTest {
