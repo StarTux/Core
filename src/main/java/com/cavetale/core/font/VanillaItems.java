@@ -986,10 +986,15 @@ public enum VanillaItems implements Font, ComponentLike {
         this.category = material.isBlock() ? "Block" : "Item";
     }
 
+    static {
+        for (VanillaItems it : VanillaItems.values()) {
+            MATERIAL_MAP.put(it.material, it);
+        }
+    }
+
     public static void initAll() {
         for (VanillaItems it : VanillaItems.values()) {
             it.init();
-            MATERIAL_MAP.put(it.material, it);
         }
         MATERIAL_MAP.put(Material.HEAVY_WEIGHTED_PRESSURE_PLATE, IRON_BLOCK);
         MATERIAL_MAP.put(Material.LIGHT_WEIGHTED_PRESSURE_PLATE, GOLD_BLOCK);
