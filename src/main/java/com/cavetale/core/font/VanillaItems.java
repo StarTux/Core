@@ -885,6 +885,8 @@ public enum VanillaItems implements Font, ComponentLike {
     SUGAR(Material.SUGAR, "minecraft:item/sugar", 8, 8, 1, '\uE652'),
     SUGAR_CANE(Material.SUGAR_CANE, "minecraft:item/sugar_cane", 8, 8, 1, '\uE653'),
     SUNFLOWER(Material.SUNFLOWER, "minecraft:block/sunflower_front", 8, 8, 1, '\uE710'),
+    SUSPICIOUS_GRAVEL(Material.SUSPICIOUS_GRAVEL, "minecraft:block/suspicious_gravel_3", 8, 8, 1, '\uE7BC'),
+    SUSPICIOUS_SAND(Material.SUSPICIOUS_SAND, "minecraft:block/suspicious_sand_3", 8, 8, 1, '\uE7BD'),
     SUSPICIOUS_STEW(Material.SUSPICIOUS_STEW, "minecraft:item/suspicious_stew", 8, 8, 1, '\uE654'),
     SWEET_BERRIES(Material.SWEET_BERRIES, "minecraft:item/sweet_berries", 8, 8, 1, '\uE655'),
     TADPOLE_BUCKET(Material.TADPOLE_BUCKET, "minecraft:item/tadpole_bucket", 8, 8, 1, '\uE73B'),
@@ -1079,6 +1081,11 @@ public enum VanillaItems implements Font, ComponentLike {
             }
             if (name.endsWith("_SLAB")) {
                 String sub = name.substring(0, name.length() - 5);
+                try { // PURPUR_SLAB => PURPUR_BLOCK
+                    VanillaItems it = VanillaItems.valueOf(sub + "_BLOCK");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
                 try {
                     VanillaItems it = VanillaItems.valueOf(sub);
                     MATERIAL_MAP.put(material, it);
@@ -1086,11 +1093,6 @@ public enum VanillaItems implements Font, ComponentLike {
                 } catch (IllegalArgumentException iae) { }
                 try { // OAK_SLAB => OAK_PLANKS
                     VanillaItems it = VanillaItems.valueOf(sub + "_PLANKS");
-                    MATERIAL_MAP.put(material, it);
-                    continue;
-                } catch (IllegalArgumentException iae) { }
-                try { // PURPUR_SLAB => PURPUR_BLOCK
-                    VanillaItems it = VanillaItems.valueOf(sub + "_BLOCK");
                     MATERIAL_MAP.put(material, it);
                     continue;
                 } catch (IllegalArgumentException iae) { }
@@ -1254,9 +1256,9 @@ public enum VanillaItems implements Font, ComponentLike {
             if (!material.isItem()) continue;
             if (material.isAir()) continue;
             VanillaItems vanillaItems = VanillaItems.of(material);
-            if (vanillaItems == null) {
-                plugin().getLogger().warning("No VanillaItems: " + material);
-            }
+            if (vanillaItems != null) continue;
+            if (material.name().endsWith("_SPAWN_EGG")) continue;
+            plugin().getLogger().warning("No VanillaItems: " + material);
         }
     }
 }
