@@ -22,7 +22,6 @@ public enum MinigameMatchType {
     OVERBOARD(false, "Overboard"),
     RACE(false, "Race"),
     SURVIVAL_GAMES(false, "Survival Games"),
-    WINDICATOR(false, "Windicator"),
     CAPTURE_THE_FLAG(false, "Capture the Flag"),
     CAVEPAINT(false, "Cavepaint"),
     ;
