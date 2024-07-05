@@ -92,6 +92,7 @@ public enum GuiOverlay {
     DAILY_GAME_SPIRAL(new DefaultFont[] {null, null, null, null, null, DefaultFont.GUI_DAILY_GAME_SPIRAL},
                       DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
     CRAFTING_PARITY(DefaultFont.GUI_CRAFT_PARITY),
+    COMBINER(DefaultFont.GUI_COMBINER),
     ;
 
     public final DefaultFont[] scales;
