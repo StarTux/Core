@@ -59,6 +59,7 @@ public enum NetworkServer {
     PIT_OF_DOOM(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
     RACE(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
     WINDICATOR(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
+    KING_OF_THE_LADDER(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
 
     // Hard to categorize and literally uncategorized
     WORLDGEN(ServerCategory.WORLD_GENERATION, ServerGroup.NONE, FolderLocation.BASE),
