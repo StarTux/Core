@@ -2,6 +2,7 @@ package com.cavetale.core.command;
 
 import com.cavetale.core.connect.Connect;
 import com.cavetale.core.playercache.PlayerCache;
+import io.papermc.paper.registry.RegistryKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoublePredicate;
@@ -13,7 +14,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Keyed;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import static io.papermc.paper.registry.RegistryAccess.registryAccess;
 import static net.kyori.adventure.text.serializer.gson.GsonComponentSerializer.gson;
 
 @FunctionalInterface
@@ -96,6 +100,23 @@ public interface CommandArgCompleter {
 
     static <E extends Enum> CommandArgCompleter enumLowerList(final Class<E> clazz) {
         return enumList(clazz, e -> e.name().toLowerCase());
+    }
+
+    static <T extends Keyed> CommandArgCompleter keyedLowerList(RegistryKey<T> registryKey) {
+        return new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                List<String> result = new ArrayList<>();
+                final String lower = arg.toLowerCase();
+                registryAccess().getRegistry(registryKey).stream().forEach(it -> {
+                        final String name = it.getKey().getKey();
+                        if (name.contains(lower)) {
+                            result.add(name);
+                        }
+                    });
+                return result;
+            }
+        };
     }
 
     static CommandArgCompleter supplyStream(final Supplier<Stream<String>> streamSupplier) {
@@ -323,6 +344,15 @@ public interface CommandArgCompleter {
         } catch (IllegalArgumentException iae) {
             throw new CommandWarn(enumClass.getSimpleName() + " expected: " + arg);
         }
+    }
+
+    static <T extends Keyed> T requireKeyed(Class<T> keyedClass, RegistryKey<T> registryKey, String arg) {
+        final NamespacedKey key = NamespacedKey.fromString(arg); // defaults to 'minecraft:arg'
+        final T result = registryAccess().getRegistry(registryKey).get(key);
+        if (result == null) {
+            throw new CommandWarn(keyedClass.getSimpleName() + " expected: " + arg);
+        }
+        return result;
     }
 
     static Player requirePlayer(String arg) {

@@ -1,5 +1,6 @@
 package com.cavetale.core.font;
 
+import io.papermc.paper.registry.RegistryKey;
 import java.util.function.Supplier;
 import lombok.Getter;
 import net.kyori.adventure.key.Key;
@@ -11,6 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import static com.cavetale.core.CorePlugin.plugin;
 import static com.cavetale.core.util.CamelCase.toCamelCase;
+import static io.papermc.paper.registry.RegistryAccess.registryAccess;
 
 @Getter
 public enum VanillaEffects implements Font, ComponentLike {
@@ -141,10 +143,10 @@ public enum VanillaEffects implements Font, ComponentLike {
     }
 
     public static void test() {
-        for (var it : PotionEffectType.values()) {
-            if (of(it) == null) {
-                plugin().getLogger().warning("No VanillaEffects: PotionEffectType." + it.getName());
-            }
-        }
+        registryAccess().getRegistry(RegistryKey.MOB_EFFECT).stream().forEach(it -> {
+                if (of(it) == null) {
+                    plugin().getLogger().warning("No VanillaEffects: " + it.getKey());
+                }
+            });
     }
 }

@@ -20,6 +20,14 @@ public final class CamelCase {
         return String.join(glue, toks);
     }
 
+    public static String snakeToCamelCase(String glue, String snake) {
+        String[] toks = snake.split("_");
+        for (int i = 0; i < toks.length; i += 1) {
+            toks[i] = toks[i].substring(0, 1).toUpperCase() + toks[i].substring(1).toLowerCase();
+        }
+        return String.join(glue, toks);
+    }
+
     /**
      * Split a name in camel case into its component. Examples:
      *
