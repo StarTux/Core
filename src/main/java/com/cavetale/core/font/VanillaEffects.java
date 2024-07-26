@@ -143,10 +143,10 @@ public enum VanillaEffects implements Font, ComponentLike {
     }
 
     public static void test() {
-        registryAccess().getRegistry(RegistryKey.MOB_EFFECT).stream().forEach(it -> {
-                if (of(it) == null) {
-                    plugin().getLogger().warning("No VanillaEffects: " + it.getKey());
-                }
-            });
+        for (PotionEffectType it : registryAccess().getRegistry(RegistryKey.MOB_EFFECT)) {
+            if (of(it) == null) {
+                plugin().getLogger().warning("No VanillaEffects: " + it.getKey());
+            }
+        }
     }
 }

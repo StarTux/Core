@@ -108,12 +108,12 @@ public interface CommandArgCompleter {
             public List<String> complete(CommandContext context, CommandNode node, String arg) {
                 List<String> result = new ArrayList<>();
                 final String lower = arg.toLowerCase();
-                registryAccess().getRegistry(registryKey).stream().forEach(it -> {
-                        final String name = it.getKey().getKey();
-                        if (name.contains(lower)) {
-                            result.add(name);
-                        }
-                    });
+                for (Keyed it : registryAccess().getRegistry(registryKey)) {
+                    final String name = it.getKey().getKey();
+                    if (name.contains(lower)) {
+                        result.add(name);
+                    }
+                }
                 return result;
             }
         };
