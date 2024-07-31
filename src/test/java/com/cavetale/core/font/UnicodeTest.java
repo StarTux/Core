@@ -3,10 +3,11 @@ package com.cavetale.core.font;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
-import org.junit.Test;
 
 public final class UnicodeTest {
-    @Test
+    /**
+     * Print the whole enum.
+     */
     public void test() {
         Unicode[] array = Unicode.values();
         Arrays.sort(array, (a, b) -> {
