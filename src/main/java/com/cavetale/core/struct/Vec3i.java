@@ -62,23 +62,23 @@ public final class Vec3i {
     }
 
     public Vec3i add(int dx, int dy, int dz) {
-        return new Vec3i(x + dx, y + dy, z + dz);
+        return of(x + dx, y + dy, z + dz);
     }
 
     public Vec3i add(Vec3i b) {
-        return new Vec3i(x + b.x, y + b.y, z + b.z);
+        return of(x + b.x, y + b.y, z + b.z);
     }
 
     public Vec3i subtract(Vec3i b) {
-        return new Vec3i(x - b.x, y - b.y, z - b.z);
+        return of(x - b.x, y - b.y, z - b.z);
     }
 
     public Vec3i multiply(int mul) {
-        return new Vec3i(x * mul, y * mul, z * mul);
+        return of(x * mul, y * mul, z * mul);
     }
 
     public Vec3i negate() {
-        return new Vec3i(-x, -y, -z);
+        return of(-x, -y, -z);
     }
 
     public int maxDistance(Vec3i other) {
@@ -101,10 +101,34 @@ public final class Vec3i {
     }
 
     public int distanceSquared(Vec3i other) {
-        int dx = other.x - x;
-        int dy = other.y - y;
-        int dz = other.z - z;
+        final int dx = other.x - x;
+        final int dy = other.y - y;
+        final int dz = other.z - z;
         return dx * dx + dy * dy + dz * dz;
+    }
+
+    public double distance(Vec3i other) {
+        return Math.sqrt(distanceSquared(other));
+    }
+
+    public int roundedDistance(Vec3i other) {
+        return (int) Math.round(distance(other));
+    }
+
+    public int lengthSquared() {
+        return x * x + y * y + z * z;
+    }
+
+    public double length() {
+        return Math.sqrt(lengthSquared());
+    }
+
+    public int roundedLength() {
+        return (int) Math.round(length());
+    }
+
+    public Vec2i toVec2i() {
+        return Vec2i.of(x, z);
     }
 
     @Override

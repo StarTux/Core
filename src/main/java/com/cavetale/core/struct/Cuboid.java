@@ -5,9 +5,12 @@ import com.cavetale.core.selection.SelectionProvider;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import lombok.Value;
+import org.bukkit.Axis;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -75,7 +78,7 @@ public final class Cuboid implements Iterable<Vec3i> {
     }
 
     public Vec3i getSize() {
-        return new Vec3i(getSizeX(), getSizeY(), getSizeZ());
+        return Vec3i.of(getSizeX(), getSizeY(), getSizeZ());
     }
 
     public int getSizeX() {
@@ -150,11 +153,11 @@ public final class Cuboid implements Iterable<Vec3i> {
     }
 
     public Vec3i getMin() {
-        return new Vec3i(ax, ay, az);
+        return Vec3i.of(ax, ay, az);
     }
 
     public Vec3i getMax() {
-        return new Vec3i(bx, by, bz);
+        return Vec3i.of(bx, by, bz);
     }
 
     public List<Vec3i> enumerate() {
@@ -162,7 +165,7 @@ public final class Cuboid implements Iterable<Vec3i> {
         for (int y = ay; y <= by; y += 1) {
             for (int z = az; z <= bz; z += 1) {
                 for (int x = ax; x <= bx; x += 1) {
-                    result.add(new Vec3i(x, y, z));
+                    result.add(Vec3i.of(x, y, z));
                 }
             }
         }
@@ -180,7 +183,7 @@ public final class Cuboid implements Iterable<Vec3i> {
             }
 
             @Override public Vec3i next() {
-                final var result = new Vec3i(x, y, z);
+                final var result = Vec3i.of(x, y, z);
                 y += 1;
                 if (y > by) {
                     y = ay;
@@ -200,6 +203,19 @@ public final class Cuboid implements Iterable<Vec3i> {
         boolean y = other.ay <= this.by && other.by >= this.ay;
         boolean z = other.az <= this.bz && other.bz >= this.az;
         return x && y && z;
+    }
+
+    public boolean overlapsOnAxis(Cuboid other, Axis axis) {
+        return switch (axis) {
+        case X -> other.ax <= this.bx && other.bx >= this.ax;
+        case Y -> other.ay <= this.by && other.by >= this.ay;
+        case Z -> other.az <= this.bz && other.bz >= this.az;
+        };
+    }
+
+    public boolean overlapsHorizontally(Cuboid other) {
+        return overlapsOnAxis(other, Axis.X)
+            && overlapsOnAxis(other, Axis.Z);
     }
 
     /**
@@ -256,7 +272,7 @@ public final class Cuboid implements Iterable<Vec3i> {
     }
 
     public Vec3i getCenter() {
-        return new Vec3i((ax + bx) / 2, (ay + by) / 2, (az + bz) / 2);
+        return Vec3i.of((ax + bx) / 2, (ay + by) / 2, (az + bz) / 2);
     }
 
     public Vec3d getCenterExact() {
@@ -267,14 +283,24 @@ public final class Cuboid implements Iterable<Vec3i> {
 
     public Vec3i getFaceCenter(BlockFace face) {
         return switch (face) {
-        case UP -> new Vec3i((ax + bx) / 2, by, (az + bz) / 2);
-        case DOWN -> new Vec3i((ax + bx) / 2, ay, (az + bz) / 2);
-        case WEST -> new Vec3i(ax, (ay + by) / 2, (az + bz) / 2);
-        case EAST -> new Vec3i(bx, (ay + by) / 2, (az + bz) / 2);
-        case NORTH -> new Vec3i((ax + bx) / 2, (ay + by) / 2, az);
-        case SOUTH -> new Vec3i((ax + bx) / 2, (ay + by) / 2, bz);
+        case UP -> Vec3i.of((ax + bx) / 2, by, (az + bz) / 2);
+        case DOWN -> Vec3i.of((ax + bx) / 2, ay, (az + bz) / 2);
+        case WEST -> Vec3i.of(ax, (ay + by) / 2, (az + bz) / 2);
+        case EAST -> Vec3i.of(bx, (ay + by) / 2, (az + bz) / 2);
+        case NORTH -> Vec3i.of((ax + bx) / 2, (ay + by) / 2, az);
+        case SOUTH -> Vec3i.of((ax + bx) / 2, (ay + by) / 2, bz);
         default -> getCenter();
         };
+    }
+
+    public Vec3i getRandomVector(Random random) {
+        return Vec3i.of(ax + random.nextInt(bx - ax + 1),
+                        ay + random.nextInt(by - ay + 1),
+                        az + random.nextInt(bz - az + 1));
+    }
+
+    public Vec3i getRandomVector() {
+        return getRandomVector(ThreadLocalRandom.current());
     }
 
     public Vec3d getFaceCenterExact(BlockFace face) {
