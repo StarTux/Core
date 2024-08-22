@@ -59,4 +59,9 @@ public final class Vec2i {
     public String toString() {
         return "" + x + "," + z;
     }
+
+    public boolean equals(final int ox, final int oz) {
+        return x == ox
+            && z == oz;
+    }
 }
