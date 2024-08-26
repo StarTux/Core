@@ -16,6 +16,7 @@ public enum MinigameMatchType {
     TETRIS(true, "Tetris"),
     VERTIGO(true, "Vertigo"),
     SPLEEF(true, "Spleef"),
+    CHESS(true, "Chess"),
     // Not public
     BINGO(false, "Bingo"),
     ENDERBALL(false, "Enderball"),
