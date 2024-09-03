@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+@Getter
 public final class PlayerTeamQuery extends Event {
     /**
      * Required by Event.
@@ -59,5 +60,9 @@ public final class PlayerTeamQuery extends Event {
 
     public Team getTeam(String key) {
         return teamMap.get(key);
+    }
+
+    public boolean hasTeams() {
+        return !playerTeamMap.isEmpty();
     }
 }
