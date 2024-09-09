@@ -1,6 +1,7 @@
 package com.cavetale.core.struct;
 
 import lombok.Value;
+import org.bukkit.Axis;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -33,6 +34,11 @@ public final class Vec3i {
 
     public static Vec3i of(Vector vector) {
         return new Vec3i(vector.getBlockX(), vector.getBlockY(), vector.getBlockZ());
+    }
+
+    public static Vec3i of(int[] values) {
+        assert values.length == 3;
+        return of(values[0], values[1], values[2]);
     }
 
     public Block toBlock(World world) {
@@ -129,6 +135,14 @@ public final class Vec3i {
 
     public Vec2i toVec2i() {
         return Vec2i.of(x, z);
+    }
+
+    public int getAxis(Axis axis) {
+        return switch (axis) {
+        case X -> x;
+        case Y -> y;
+        case Z -> z;
+        };
     }
 
     @Override

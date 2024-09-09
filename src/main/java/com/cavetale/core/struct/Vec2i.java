@@ -1,6 +1,7 @@
 package com.cavetale.core.struct;
 
 import lombok.Value;
+import org.bukkit.Axis;
 import org.bukkit.Chunk;
 
 @Value
@@ -53,6 +54,14 @@ public final class Vec2i {
 
     public int roundedDistance(Vec2i other) {
         return (int) Math.round(distance(other));
+    }
+
+    public int getAxis(Axis axis) {
+        return switch (axis) {
+        case X -> x;
+        case Y -> z;
+        case Z -> z;
+        };
     }
 
     @Override
