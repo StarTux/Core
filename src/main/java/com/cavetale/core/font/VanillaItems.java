@@ -1073,6 +1073,11 @@ public enum VanillaItems implements Font, ComponentLike {
             }
             if (name.endsWith("_STAIRS")) {
                 String sub = name.substring(0, name.length() - 7);
+                try { // BAMBOO_STAIRS => BAMBOO_PLANKS
+                    VanillaItems it = VanillaItems.valueOf(sub + "_PLANKS");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
                 try {
                     VanillaItems it = VanillaItems.valueOf(sub);
                     MATERIAL_MAP.put(material, it);
@@ -1081,6 +1086,11 @@ public enum VanillaItems implements Font, ComponentLike {
             }
             if (name.endsWith("_SLAB")) {
                 String sub = name.substring(0, name.length() - 5);
+                try { // BAMBOO_SLAB => BAMBOO_PLANKS
+                    VanillaItems it = VanillaItems.valueOf(sub + "_PLANKS");
+                    MATERIAL_MAP.put(material, it);
+                    continue;
+                } catch (IllegalArgumentException iae) { }
                 try { // PURPUR_SLAB => PURPUR_BLOCK
                     VanillaItems it = VanillaItems.valueOf(sub + "_BLOCK");
                     MATERIAL_MAP.put(material, it);
