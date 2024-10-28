@@ -50,7 +50,7 @@ public final class PlayerReceiveItemsEvent extends Event {
 
     /**
      * All-round carefree convenience method.
-     * Call the event with all the items, then dro the remaining items.
+     * Call the event with all the items, then drop the remaining items.
      */
     public static void receiveItems(Player player, List<ItemStack> items) {
         PlayerReceiveItemsEvent event = new PlayerReceiveItemsEvent(player, items);
@@ -62,7 +62,7 @@ public final class PlayerReceiveItemsEvent extends Event {
 
     /**
      * All-round carefree convenience method.
-     * Call the event with the inventory, then dro the remaining items.
+     * Call the event with the inventory, then drop the remaining items.
      */
     public static void receiveInventory(Player player, Inventory inventory) {
         PlayerReceiveItemsEvent event = new PlayerReceiveItemsEvent(player, inventory);
