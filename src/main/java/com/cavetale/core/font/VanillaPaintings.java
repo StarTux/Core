@@ -21,7 +21,7 @@ public enum VanillaPaintings implements Font, ComponentLike {
     BUST(Art.BUST, 0xE18B, 16),
     COURBET(Art.COURBET, 0xE18C, 32),
     CREEBET(Art.CREEBET, 0xE18D, 32),
-    DONKEY_KONG(Art.DONKEY_KONG, 0xE18E, 21),
+    DONKEY_KONG(Art.DONKEY_KONG, 0xE18E, 21), // Why 21 not 64(x48)?
     FIGHTERS(Art.FIGHTERS, 0xE18F, 32),
     GRAHAM(Art.GRAHAM, 0xE190, 8),
     KEBAB(Art.KEBAB, 0xE191, 16),
@@ -31,7 +31,7 @@ public enum VanillaPaintings implements Font, ComponentLike {
     POINTER(Art.POINTER, 0xE195, 16),
     POOL(Art.POOL, 0xE196, 32),
     SEA(Art.SEA, 0xE197, 32),
-    SKELETON(Art.SKELETON, 0xE198, 21),
+    SKELETON(Art.SKELETON, 0xE198, 21), // Why 21 not 64(x48)?
     SKULL_AND_ROSES(Art.SKULL_AND_ROSES, 0xE199, 16),
     STAGE(Art.STAGE, 0xE19A, 16),
     SUNSET(Art.SUNSET, 0xE19B, 32),
@@ -43,6 +43,27 @@ public enum VanillaPaintings implements Font, ComponentLike {
     WIND(Art.WIND, 0xE1A1, 16),
     WATER(Art.WATER, 0xE1A2, 16),
     FIRE(Art.FIRE, 0xE1A3, 16),
+    // 2024
+    BAROQUE(Art.BAROQUE, 0xe1b4, 21),
+    HUMBLE(Art.HUMBLE, 0xe1b5, 32),
+    MEDITATIVE(Art.MEDITATIVE, 0xe1b6, 16),
+    PRAIRIE_RIDE(Art.PRAIRIE_RIDE, 0xe1b7, 16),
+    UNPACKED(Art.UNPACKED, 0xe1b8, 64),
+    BACKYARD(Art.BACKYARD, 0xe1b9, 48),
+    BOUQUET(Art.BOUQUET, 0xe1ba, 48),
+    CAVEBIRD(Art.CAVEBIRD, 0xe1bb, 48),
+    CHANGING(Art.CHANGING, 0xe1bc, 64),
+    COTAN(Art.COTAN, 0xe1bd, 48),
+    ENDBOSS(Art.ENDBOSS, 0xe1be, 48),
+    FERN(Art.FERN, 0xe1bf, 48),
+    FINDING(Art.FINDING, 0xe1c0, 64),
+    LOWMIST(Art.LOWMIST, 0xe1c1, 64),
+    ORB(Art.ORB, 0xe1c2, 64),
+    OWLEMONS(Art.OWLEMONS, 0xe1c3, 48),
+    PASSAGE(Art.PASSAGE, 0xe1c4, 64),
+    POND(Art.POND, 0xe1c5, 48),
+    SUNFLOWERS(Art.SUNFLOWERS, 0xe1c6, 48),
+    TIDES(Art.TIDES, 0xe1c7, 48),
     ;
 
     public final Art art;
