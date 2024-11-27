@@ -12,6 +12,7 @@ import com.cavetale.core.font.Emoji;
 import com.cavetale.core.font.Unicode;
 import com.cavetale.core.font.VanillaEffects;
 import com.cavetale.core.font.VanillaItems;
+import com.cavetale.core.font.VanillaPaintings;
 import com.cavetale.core.item.ItemKinds;
 import com.cavetale.core.playercache.PlayerCache;
 import com.cavetale.core.struct.Cuboid;
@@ -42,6 +43,7 @@ public final class CorePlugin extends JavaPlugin {
     public void onEnable() {
         VanillaItems.test();
         VanillaEffects.test();
+        VanillaPaintings.test();
         loadConfiguration();
         Emoji.init();
         Bukkit.getScheduler().runTask(this, () -> {
