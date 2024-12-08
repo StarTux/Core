@@ -1,8 +1,5 @@
 package com.cavetale.core.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
