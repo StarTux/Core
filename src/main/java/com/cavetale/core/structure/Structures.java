@@ -31,6 +31,8 @@ public interface Structures {
 
     Structure getStructureAt(Block block);
 
+    List<Structure> getAllStructuresAt(Block block);
+
     List<Structure> getStructuresWithin(World world, Cuboid cuboid);
 }
 
@@ -59,6 +61,11 @@ final class Companion {
             @Override
             public Structure getStructureAt(Block block) {
                 return null;
+            }
+
+            @Override
+            public List<Structure> getAllStructuresAt(Block block) {
+                return List.of();
             }
 
             @Override
