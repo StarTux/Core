@@ -93,6 +93,8 @@ public enum GuiOverlay {
                       DefaultFont.BACKSPACE_179, DefaultFont.BACKSPACE_171),
     CRAFTING_PARITY(DefaultFont.GUI_CRAFT_PARITY),
     COMBINER(DefaultFont.GUI_COMBINER),
+    CHECKERED_8(DefaultFont.GUI_CHECKERED_8),
+    RACE_MAP_MENU(DefaultFont.GUI_RACE_MAP_MENU),
     ;
 
     public final DefaultFont[] scales;

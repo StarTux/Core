@@ -141,6 +141,9 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     GUI_HIGHLIGHT_SLOT_51("mytems:item/gui_highlight_slot_51", 130, 256, '\uE159', GlyphPolicy.HIDDEN, "GUI"),
     GUI_HIGHLIGHT_SLOT_52("mytems:item/gui_highlight_slot_52", 130, 256, '\uE15A', GlyphPolicy.HIDDEN, "GUI"),
     GUI_HIGHLIGHT_SLOT_53("mytems:item/gui_highlight_slot_53", 130, 256, '\uE15B', GlyphPolicy.HIDDEN, "GUI"),
+    //
+    GUI_CHECKERED_8("mytems:item/gui_checkered_8", 130, 256, '\ue031', GlyphPolicy.HIDDEN, "GUI"),
+    GUI_RACE_MAP_MENU("mytems:item/gui_race_map_menu", 130, 256, '\ue032', GlyphPolicy.HIDDEN, "GUI"),
     // Buttons
     BACK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11E', GlyphPolicy.HIDDEN, "Button", text("[Back]", RED), 82),
     OK_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE11F', GlyphPolicy.HIDDEN, "Button", text("[OK]", BLUE), 82),
