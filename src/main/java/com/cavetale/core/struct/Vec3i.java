@@ -1,5 +1,6 @@
 package com.cavetale.core.struct;
 
+import java.util.List;
 import lombok.Value;
 import org.bukkit.Axis;
 import org.bukkit.Location;
@@ -17,6 +18,10 @@ public final class Vec3i {
     public final int z;
 
     public static Vec3i of(int nx, int ny, int nz) {
+        return new Vec3i(nx, ny, nz);
+    }
+
+    public static Vec3i vec3i(int nx, int ny, int nz) {
         return new Vec3i(nx, ny, nz);
     }
 
@@ -39,6 +44,23 @@ public final class Vec3i {
     public static Vec3i of(int[] values) {
         assert values.length == 3;
         return of(values[0], values[1], values[2]);
+    }
+
+    public static Vec3i of(List<Integer> values) {
+        assert values.size() == 3;
+        return of(values.get(0), values.get(1), values.get(2));
+    }
+
+    public int[] toArray() {
+        int[] result = new int[3];
+        result[0] = x;
+        result[1] = y;
+        result[2] = z;
+        return result;
+    }
+
+    public List<Integer> toList() {
+        return List.of(x, y, z);
     }
 
     public Block toBlock(World world) {
