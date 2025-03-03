@@ -1,6 +1,7 @@
 package com.cavetale.core.font;
 
 import java.util.function.Function;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
 
@@ -9,6 +10,7 @@ import net.kyori.adventure.text.ComponentLike;
  * It does not reference an image file and does not have a made up
  * character.  As such, it is of no interest to the resource pack.
  */
+@Getter
 public enum Unicode implements ComponentLike {
     CENT((char) 0x00A2), // ¢
     COPYRIGHT((char) 0x00A9), // ©
