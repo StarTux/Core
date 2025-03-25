@@ -28,6 +28,13 @@ public final class Cuboid implements Iterable<Vec3i> {
     public final int by;
     public final int bz;
 
+    public static Cuboid of(Block block) {
+        final int x = block.getX();
+        final int y = block.getY();
+        final int z = block.getZ();
+        return new Cuboid(x, y, z, x, y, z);
+    }
+
     public static Cuboid selectionOf(Player player) {
         return SelectionProvider.get().getCuboidSelection(player);
     }
