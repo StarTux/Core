@@ -36,7 +36,7 @@ public interface ItemKind extends Keyed {
                              text(Unicode.MULTIPLICATION.string),
                              icon(item), displayName(item))
             : textOfChildren(icon(item), displayName(item));
-        return text.hoverEvent(item.asHoverEvent());
+        return text.hoverEvent(item.asOne().asHoverEvent());
     }
 
     default Component iconDescription(ItemStack item) {
@@ -47,7 +47,7 @@ public interface ItemKind extends Keyed {
         return (amount > 1
                 ? textOfChildren(icon(item), text(subscript(amount)))
                 : icon(item))
-            .hoverEvent(item.asHoverEvent());
+            .hoverEvent(item.asOne().asHoverEvent());
     }
 
     static ItemKind of(ItemStack item) {
