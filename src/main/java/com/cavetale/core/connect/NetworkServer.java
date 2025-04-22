@@ -161,6 +161,10 @@ public enum NetworkServer {
         return categories.contains(ServerCategory.EVENT);
     }
 
+    public boolean isTechnical() {
+        return categories.contains(ServerCategory.TECHNICAL);
+    }
+
     @Deprecated
     public static NetworkServer manager() {
         return current().getManager();
