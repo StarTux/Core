@@ -95,6 +95,7 @@ public enum GuiOverlay {
     COMBINER(DefaultFont.GUI_COMBINER),
     CHECKERED_8(DefaultFont.GUI_CHECKERED_8),
     RACE_MAP_MENU(DefaultFont.GUI_RACE_MAP_MENU),
+    SERVER_MENU(DefaultFont.GUI_SERVER_MENU),
     ;
 
     public final DefaultFont[] scales;
