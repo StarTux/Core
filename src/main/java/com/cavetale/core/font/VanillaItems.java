@@ -677,6 +677,7 @@ public enum VanillaItems implements Font, ComponentLike {
     MUSIC_DISC_CREATOR(Material.MUSIC_DISC_CREATOR, "minecraft:item/music_disc_creator", 8, 8, 1, '\uE7CB'),
     MUSIC_DISC_CREATOR_MUSIC_BOX(Material.MUSIC_DISC_CREATOR_MUSIC_BOX, "minecraft:item/music_disc_creator_music_box", 8, 8, 1, '\uE7CC'),
     MUSIC_DISC_FAR(Material.MUSIC_DISC_FAR, "minecraft:item/music_disc_far", 8, 8, 1, '\uE592'),
+    MUSIC_DISC_LAVA_CHICKEN(Material.MUSIC_DISC_LAVA_CHICKEN, "minecraft:item/music_disc_lava_chicken", 8, 8, 1, '\uE858'),
     MUSIC_DISC_MALL(Material.MUSIC_DISC_MALL, "minecraft:item/music_disc_mall", 8, 8, 1, '\uE593'),
     MUSIC_DISC_MELLOHI(Material.MUSIC_DISC_MELLOHI, "minecraft:item/music_disc_mellohi", 8, 8, 1, '\uE594'),
     MUSIC_DISC_OTHERSIDE(Material.MUSIC_DISC_OTHERSIDE, "minecraft:item/music_disc_otherside", 8, 8, 1, '\uE6F0'),

@@ -63,6 +63,8 @@ public enum VanillaPaintings implements Font, ComponentLike {
     POND(() -> Art.POND, 0xe1c5, 48),
     SUNFLOWERS(() -> Art.SUNFLOWERS, 0xe1c6, 48),
     TIDES(() -> Art.TIDES, 0xe1c7, 48),
+    // 2025
+    DENNIS(() -> Art.DENNIS, 0xe1c8, 48),
     ;
 
     public final Supplier<Art> artSupplier;
