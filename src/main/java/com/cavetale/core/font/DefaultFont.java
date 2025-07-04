@@ -167,6 +167,7 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C, GlyphPolicy.PUBLIC, "Player Rank", text("[Friendly]", DARK_GRAY), 45),
     MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D, GlyphPolicy.PUBLIC, "Player Rank", text("[Member]", GRAY), 45),
     SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E, GlyphPolicy.PUBLIC, "Player Rank", text("[Speleologist]", YELLOW), 45),
+    PROMO("mytems:item/promo", 7, 8, (char) 0xe15ef, GlyphPolicy.PUBLIC, "Player Rank", text("[Promo]", YELLOW), 45),
     // Logo
     CAVETALE("mytems:item/cavetale", 8, 8, (char) 0xE1A4, GlyphPolicy.PUBLIC, "Logo", text("[Cavetale]", GREEN), 162),
     STORE_BANNER("mytems:item/store_banner", 40, 64, (char) 0xE1A9, GlyphPolicy.HIDDEN, "Logo", text("[store.cavetale.com]", BLUE), 256),
