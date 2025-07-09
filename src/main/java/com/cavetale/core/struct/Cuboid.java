@@ -29,10 +29,24 @@ public final class Cuboid implements Iterable<Vec3i> {
     public final int bz;
 
     public static Cuboid of(Block block) {
-        final int x = block.getX();
-        final int y = block.getY();
-        final int z = block.getZ();
+        return of(block.getX(), block.getY(), block.getZ());
+    }
+
+    public static Cuboid of(Vec3i v) {
+        return of(v.x, v.y, v.z);
+    }
+
+    public static Cuboid of(final int x, final int y, final int z) {
         return new Cuboid(x, y, z, x, y, z);
+    }
+
+    public static Cuboid containing(Vec3i a, Vec3i b) {
+        return new Cuboid(Math.min(a.x, b.x),
+                          Math.min(a.y, b.y),
+                          Math.min(a.z, b.z),
+                          Math.max(a.x, b.x),
+                          Math.max(a.y, b.y),
+                          Math.max(a.z, b.z));
     }
 
     public static Cuboid selectionOf(Player player) {
