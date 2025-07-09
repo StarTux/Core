@@ -44,6 +44,7 @@ public enum ExtraRank implements Rank {
                 return text("[Streamer]", BLUE);
             }
         }),
+    PROMO(DefaultFont.PROMO),
     ;
 
     public static final List<String> KEYS;
