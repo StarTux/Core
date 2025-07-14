@@ -8,7 +8,6 @@ import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
-import static com.cavetale.core.font.Globals.*;
 import static com.cavetale.core.util.CamelCase.toCamelCase;
 import static net.kyori.adventure.text.Component.join;
 import static net.kyori.adventure.text.Component.text;
@@ -157,16 +156,16 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     YES_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE15F', GlyphPolicy.HIDDEN, "Button", text("[Yes]", BLUE), 82),
     NO_BUTTON("mytems:item/ui_buttons", 9, 12, '\uE160', GlyphPolicy.HIDDEN, "Button", text("[No]", RED), 82),
     // Ranks
-    ADMIN(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE10A, GlyphPolicy.PUBLIC, "Player Rank", text("[Admin]", AQUA), 45),
-    MODERATOR(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE117, GlyphPolicy.PUBLIC, "Player Rank", text("[Moderator]", BLUE), 45),
-    TRUSTED(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE118, GlyphPolicy.PUBLIC, "Player Rank", text("[Trusted]", GREEN), 45),
-    BUILDER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE11C, GlyphPolicy.PUBLIC, "Player Rank", text("[Builder]", LIGHT_PURPLE), 45),
-    GOAT(MYTEMS_ITEM_RANKS, 6, 8, (char) 0xE11D, GlyphPolicy.PUBLIC, "Player Rank", text("[GOAT]", GOLD), 45),
-    CELESTIAL(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE161, GlyphPolicy.PUBLIC, "Player Rank", text("[Celestial]", AQUA), 45),
-    YOUTUBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE162, GlyphPolicy.PUBLIC, "Player Rank", text("[Youtuber]", RED), 45),
-    FRIENDLY(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15C, GlyphPolicy.PUBLIC, "Player Rank", text("[Friendly]", DARK_GRAY), 45),
-    MEMBER(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15D, GlyphPolicy.PUBLIC, "Player Rank", text("[Member]", GRAY), 45),
-    SPELEOLOGIST(MYTEMS_ITEM_RANKS, 7, 8, (char) 0xE15E, GlyphPolicy.PUBLIC, "Player Rank", text("[Speleologist]", YELLOW), 45),
+    ADMIN("mytems:item/admin", 7, 8, (char) 0xE10A, GlyphPolicy.PUBLIC, "Player Rank", text("[Admin]", AQUA), 45),
+    MODERATOR("mytems:item/moderator", 7, 8, (char) 0xE117, GlyphPolicy.PUBLIC, "Player Rank", text("[Moderator]", BLUE), 45),
+    TRUSTED("mytems:item/trusted", 7, 8, (char) 0xE118, GlyphPolicy.PUBLIC, "Player Rank", text("[Trusted]", GREEN), 45),
+    BUILDER("mytems:item/builder", 7, 8, (char) 0xE11C, GlyphPolicy.PUBLIC, "Player Rank", text("[Builder]", LIGHT_PURPLE), 45),
+    GOAT("mytems:item/goat", 6, 8, (char) 0xE11D, GlyphPolicy.PUBLIC, "Player Rank", text("[GOAT]", GOLD), 45),
+    CELESTIAL("mytems:item/celestial", 7, 8, (char) 0xE161, GlyphPolicy.PUBLIC, "Player Rank", text("[Celestial]", AQUA), 45),
+    YOUTUBER("mytems:item/youtuber", 7, 8, (char) 0xE162, GlyphPolicy.PUBLIC, "Player Rank", text("[Youtuber]", RED), 45),
+    FRIENDLY("mytems:item/friendly", 7, 8, (char) 0xE15C, GlyphPolicy.PUBLIC, "Player Rank", text("[Friendly]", DARK_GRAY), 45),
+    MEMBER("mytems:item/member", 7, 8, (char) 0xE15D, GlyphPolicy.PUBLIC, "Player Rank", text("[Member]", GRAY), 45),
+    SPELEOLOGIST("mytems:item/speleologist", 7, 8, (char) 0xE15E, GlyphPolicy.PUBLIC, "Player Rank", text("[Speleologist]", YELLOW), 45),
     PROMO("mytems:item/promo", 7, 8, (char) 0xe15ef, GlyphPolicy.PUBLIC, "Player Rank", text("[Promo]", YELLOW), 45),
     // Logo
     CAVETALE("mytems:item/cavetale", 8, 8, (char) 0xE1A4, GlyphPolicy.PUBLIC, "Logo", text("[Cavetale]", GREEN), 162),
