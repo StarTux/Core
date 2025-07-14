@@ -193,6 +193,16 @@ public final class Cuboid implements Iterable<Vec3i> {
         return result;
     }
 
+    public List<Vec2i> enumerateHorizontally() {
+        List<Vec2i> result = new ArrayList<>(getSizeX() * getSizeZ());
+        for (int z = az; z <= bz; z += 1) {
+            for (int x = ax; x <= bx; x += 1) {
+                result.add(Vec2i.of(x, z));
+            }
+        }
+        return result;
+    }
+
     public Iterator<Vec3i> iterator() {
         return new Iterator<Vec3i>() {
             private int x = ax;
