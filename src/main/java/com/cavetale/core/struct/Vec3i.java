@@ -83,6 +83,10 @@ public final class Vec3i {
         return new Vector(x, y, z);
     }
 
+    public Vec3d toVec3d() {
+        return Vec3d.of(x, y, z);
+    }
+
     public boolean equals(final int ox, final int oy, final int oz) {
         return this.x == ox
             && this.y == oy

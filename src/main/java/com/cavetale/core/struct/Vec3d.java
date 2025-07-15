@@ -4,6 +4,7 @@ import lombok.Value;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.util.Vector;
 
 @Value
 public final class Vec3d {
@@ -69,6 +70,10 @@ public final class Vec3d {
         double dy = other.y - y;
         double dz = other.z - z;
         return dx * dx + dy * dy + dz * dz;
+    }
+
+    public Vector toVector() {
+        return new Vector(x, y, z);
     }
 
     @Override
