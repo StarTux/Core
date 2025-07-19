@@ -307,6 +307,7 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
         case CAVETALE:
         case STORE_BANNER:
         case PROMO:
+        case EVENT:
             return true;
         default: return false;
         }
