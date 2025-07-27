@@ -18,15 +18,16 @@ public enum MinigameMatchType {
     SPLEEF(true, "Spleef"),
     CHESS(true, "Chess"),
     // Not public
-    BINGO(false, "Bingo"),
+    BINGO(true, "Bingo"),
     ENDERBALL(false, "Enderball"),
     OVERBOARD(false, "Overboard"),
-    RACE(false, "Race"),
-    SURVIVAL_GAMES(false, "Survival Games"),
+    RACE(true, "Race"),
+    SURVIVAL_GAMES(true, "Survival Games"),
     CAPTURE_THE_FLAG(false, "Capture the Flag"),
     CAVEPAINT(false, "Cavepaint"),
-    KING_OF_THE_LADDER(false, "King of the Ladder"),
+    KING_OF_THE_LADDER(true, "King of the Ladder"),
     BUILD_MY_THING(false, "Build my Thing"),
+    ENDERGOLF(false, "Endergolf"),
     ;
 
     public final boolean publiclyAvailable;
