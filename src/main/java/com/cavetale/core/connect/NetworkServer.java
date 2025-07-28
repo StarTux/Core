@@ -52,6 +52,7 @@ public enum NetworkServer {
     VERTIGO(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
     BUILD_MY_THING(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
     ENDERGOLF(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
+    QUIDDITCH(ServerCategory.MINIGAME, ServerGroup.MAIN, FolderLocation.MINI),
 
     // Event games, only open during events
     ADVENTURE(ServerCategory.EVENT, ServerGroup.MAIN, FolderLocation.MINI),
