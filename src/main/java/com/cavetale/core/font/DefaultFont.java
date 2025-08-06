@@ -32,7 +32,7 @@ public enum DefaultFont implements Font, ComponentLike, AltTextSupplier {
     BACKSPACE_174("mytems:item/space", -32768, -174, '\uE005', GlyphPolicy.HIDDEN, "Backspace"),
     /** Top Bar right edge to title. */
     BACKSPACE_166("mytems:item/space", -32768, -166, '\uE006', GlyphPolicy.HIDDEN, "Backspace"),
-    BOOK_MARKER("mytems:item/black", 8, 8, '\uE007', GlyphPolicy.HIDDEN, "Backspace"), // 112 wide
+    BOOK_MARKER("mytems:item/black", 7, 8, '\uE007', GlyphPolicy.HIDDEN, "Backspace"), // 112 wide
     BACKSPACE_MARKER("mytems:item/space", -32768, -114, '\uE008', GlyphPolicy.HIDDEN, "Backspace"), // MARKER width + 2
     GUI_RAID_REWARD("mytems:item/gui_raid_reward", 130, 256, '\uE101', GlyphPolicy.HIDDEN, "GUI"),
     // Blank
