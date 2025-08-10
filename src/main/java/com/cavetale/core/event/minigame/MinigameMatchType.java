@@ -27,7 +27,7 @@ public enum MinigameMatchType {
     CAVEPAINT(false, "Cavepaint"),
     KING_OF_THE_LADDER(true, "King of the Ladder"),
     BUILD_MY_THING(false, "Build my Thing"),
-    ENDERGOLF(false, "Endergolf"),
+    ENDERGOLF(true, "Endergolf"),
     ;
 
     public final boolean publiclyAvailable;
