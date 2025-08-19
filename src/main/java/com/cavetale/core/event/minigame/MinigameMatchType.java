@@ -26,7 +26,7 @@ public enum MinigameMatchType {
     CAPTURE_THE_FLAG(false, "Capture the Flag"),
     CAVEPAINT(false, "Cavepaint"),
     KING_OF_THE_LADDER(true, "King of the Ladder"),
-    BUILD_MY_THING(false, "Build my Thing"),
+    BUILD_MY_THING(true, "Build my Thing"),
     ENDERGOLF(true, "Endergolf"),
     ;
 
