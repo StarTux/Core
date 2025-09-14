@@ -9,25 +9,25 @@ import lombok.RequiredArgsConstructor;
 @Getter @RequiredArgsConstructor
 public enum MinigameMatchType {
     // Public
+    BINGO(true, "Bingo"),
+    BUILD_MY_THING(true, "Build my Thing"),
+    CAPTURE_THE_FLAG(true, "Capture the Flag"),
+    CAVEPAINT(true, "Cavepaint"),
+    CHESS(true, "Chess"),
     COLORFALL(true, "Colorfall"),
+    ENDERGOLF(true, "Endergolf"),
     EXTREME_GRASS_GROWING(true, "Extreme Grass Growing"),
     HIDE_AND_SEEK(true, "Hide and Seek"),
+    KING_OF_THE_LADDER(true, "King of the Ladder"),
     PVP_ARENA(true, "PvP Arena"),
+    RACE(true, "Race"),
+    SPLEEF(true, "Spleef"),
+    SURVIVAL_GAMES(true, "Survival Games"),
     TETRIS(true, "Tetris"),
     VERTIGO(true, "Vertigo"),
-    SPLEEF(true, "Spleef"),
-    CHESS(true, "Chess"),
+    ENDERBALL(true, "Enderball"),
     // Not public
-    BINGO(true, "Bingo"),
-    ENDERBALL(false, "Enderball"),
     OVERBOARD(false, "Overboard"),
-    RACE(true, "Race"),
-    SURVIVAL_GAMES(true, "Survival Games"),
-    CAPTURE_THE_FLAG(false, "Capture the Flag"),
-    CAVEPAINT(false, "Cavepaint"),
-    KING_OF_THE_LADDER(true, "King of the Ladder"),
-    BUILD_MY_THING(true, "Build my Thing"),
-    ENDERGOLF(true, "Endergolf"),
     ;
 
     public final boolean publiclyAvailable;
