@@ -59,6 +59,11 @@ public final class Cuboid implements Iterable<Vec3i> {
         return result;
     }
 
+    public boolean isZero() {
+        return ax == 0 && ay == 0 && az == 0
+            && bx == 0 && by == 0 && bz == 0;
+    }
+
     public List<Integer> toList() {
         return List.of(ax, ay, az, bx, by, bz);
     }
@@ -91,6 +96,10 @@ public final class Cuboid implements Iterable<Vec3i> {
         return ax <= other.ax && bx >= other.bx
             && ay <= other.ay && by >= other.by
             && az <= other.az && bz >= other.bz;
+    }
+
+    public boolean contains(BoundingBox bb) {
+        return toBoundingBox().contains(bb);
     }
 
     @Override
@@ -349,5 +358,15 @@ public final class Cuboid implements Iterable<Vec3i> {
     public BoundingBox toBoundingBox() {
         return new BoundingBox((double) ax, (double) ay, (double) az,
                                (double) (bx + 1), (double) (by + 1), (double) (bz + 1));
+    }
+
+    public Vec3i clamp(Vec3i other) {
+        int x = Math.max(other.x, ax);
+        int y = Math.max(other.y, ay);
+        int z = Math.max(other.z, az);
+        x = Math.min(x, bx);
+        y = Math.min(y, by);
+        z = Math.min(z, bz);
+        return new Vec3i(x, y, z);
     }
 }

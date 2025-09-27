@@ -51,6 +51,10 @@ public final class Vec3i {
         return of(values.get(0), values.get(1), values.get(2));
     }
 
+    public boolean isZero() {
+        return x == 0 && y == 0 && z == 0;
+    }
+
     public int[] toArray() {
         int[] result = new int[3];
         result[0] = x;
@@ -91,6 +95,10 @@ public final class Vec3i {
         return this.x == ox
             && this.y == oy
             && this.z == oz;
+    }
+
+    public boolean isSimilar(Block block) {
+        return equals(block.getX(), block.getY(), block.getZ());
     }
 
     public Vec3i add(int dx, int dy, int dz) {
@@ -169,6 +177,18 @@ public final class Vec3i {
         case Y -> y;
         case Z -> z;
         };
+    }
+
+    public Vec3i withY(int newY) {
+        return new Vec3i(x, newY, z);
+    }
+
+    public Vec3i withX(int newX) {
+        return new Vec3i(newX, y, z);
+    }
+
+    public Vec3i withZ(int newZ) {
+        return new Vec3i(x, y, newZ);
     }
 
     @Override
