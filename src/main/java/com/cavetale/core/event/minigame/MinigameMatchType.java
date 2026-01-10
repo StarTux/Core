@@ -29,6 +29,7 @@ public enum MinigameMatchType {
     // Not public
     OVERBOARD(false, "Overboard"),
     PIT_OF_DOOM(false, "Pit of Doom"),
+    RED_LIGHT_GREEN_LIGHT(false, "Red Light Green Light"),
     ;
 
     public final boolean publiclyAvailable;
