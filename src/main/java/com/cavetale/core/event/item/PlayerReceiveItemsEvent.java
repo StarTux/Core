@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -12,6 +13,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import static com.cavetale.core.CorePlugin.plugin;
 
 /**
  * Called when a player is to receive a number of items.  Clients
@@ -153,21 +155,32 @@ public final class PlayerReceiveItemsEvent extends Event {
     /**
      * Drop all remaining items.  Items will be dropped with
      * ownership, invulerable, not able to be picked up by mobs.
-     * PlayerDropItemEvent.  The latter will ignore its cancellation
-     * state.
+     * PlayerDropItemEvent, which ignores its own cancellation state.
+     *
+     * All dropping happens on the next game ticks in order to avoid
+     * infinite loops in case this event is the result of an item
+     * drop.
      */
     public void dropItems() {
         for (int i = 0; i < items.size(); i += 1) {
             final ItemStack itemStack = items.get(i);
             if (itemStack == null || itemStack.isEmpty()) continue;
-            Item item = player.getWorld().dropItem(player.getLocation(), itemStack.clone());
+            final ItemStack drop = itemStack.clone();
             itemStack.setAmount(0);
-            item.setOwner(player.getUniqueId());
-            item.setCanMobPickup(false);
-            item.setOwner(player.getUniqueId());
-            item.setPickupDelay(0);
-            item.setInvulnerable(true);
-            new PlayerDropItemEvent(player, item).callEvent();
+            Bukkit.getScheduler().runTask(plugin(), () -> {
+                    final Item item = player.getWorld().dropItem(
+                        player.getLocation(),
+                        drop,
+                        it -> {
+                            it.setOwner(player.getUniqueId());
+                            it.setCanMobPickup(false);
+                            it.setOwner(player.getUniqueId());
+                            it.setPickupDelay(0);
+                            it.setInvulnerable(true);
+                        }
+                    );
+                    new PlayerDropItemEvent(player, item).callEvent();
+                });
         }
     }
 
