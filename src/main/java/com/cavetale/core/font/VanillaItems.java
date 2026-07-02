@@ -486,6 +486,7 @@ public enum VanillaItems implements Font, ComponentLike {
     GOLDEN_BOOTS(Material.GOLDEN_BOOTS, "minecraft:item/golden_boots", 8, 8, 1, '\uE4FC'),
     GOLDEN_CARROT(Material.GOLDEN_CARROT, "minecraft:item/golden_carrot", 8, 8, 1, '\uE4FD'),
     GOLDEN_CHESTPLATE(Material.GOLDEN_CHESTPLATE, "minecraft:item/golden_chestplate", 8, 8, 1, '\uE4FE'),
+    GOLDEN_DANDELION(Material.GOLDEN_DANDELION, "minecraft:block/golden_dandelion", 8, 8, 1, '\uE892'),
     GOLDEN_HELMET(Material.GOLDEN_HELMET, "minecraft:item/golden_helmet", 8, 8, 1, '\uE4FF'),
     GOLDEN_HOE(Material.GOLDEN_HOE, "minecraft:item/golden_hoe", 8, 8, 1, '\uE500'),
     GOLDEN_HORSE_ARMOR(Material.GOLDEN_HORSE_ARMOR, "minecraft:item/golden_horse_armor", 8, 8, 1, '\uE501'),
