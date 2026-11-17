@@ -1,5 +1,6 @@
 package com.cavetale.core.command;
 
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
@@ -8,6 +9,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+@Getter
 public final class CommandContext {
     public final CommandSender sender;
     public final Command command;

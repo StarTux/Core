@@ -5,6 +5,7 @@ import com.cavetale.core.playercache.PlayerCache;
 import io.papermc.paper.registry.RegistryKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
@@ -153,6 +154,40 @@ public interface CommandArgCompleter {
                 String lower = arg.toLowerCase();
                 for (String it : listSupplier.get()) {
                     if (lower.isEmpty() || it.toLowerCase().contains(lower)) {
+                        result.add(it);
+                    }
+                }
+                return result;
+            }
+        };
+    }
+
+    static CommandArgCompleter producePlayerList(final BiFunction<Player, String[], List<String>> listFunction) {
+        return new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                if (!context.isPlayer()) return List.of();
+                final String lower = arg.toLowerCase();
+                final List<String> result = new ArrayList<>();
+                for (String it : listFunction.apply(context.getPlayer(), context.getArgs())) {
+                    if (it.toLowerCase().contains(lower)) {
+                        result.add(it);
+                    }
+                }
+                return result;
+            }
+        };
+    }
+
+    static CommandArgCompleter producePlayerList(final Function<Player, List<String>> listFunction) {
+        return new CommandArgCompleter() {
+            @Override
+            public List<String> complete(CommandContext context, CommandNode node, String arg) {
+                if (!context.isPlayer()) return List.of();
+                final String lower = arg.toLowerCase();
+                final List<String> result = new ArrayList<>();
+                for (String it : listFunction.apply(context.getPlayer())) {
+                    if (it.toLowerCase().contains(lower)) {
                         result.add(it);
                     }
                 }
